@@ -7,25 +7,28 @@ function App() {
 
   const horas = Array.from({ length: 24 }, (_, i) => i);
 
-  // const obtenerDiasDelMes = () => {
-  //   const primerDiaDelMes = new Date(mesActual.getFullYear(), mesActual.getMonth(), 1);
-  //   const ultimoDiaDelMes = new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 0);
+  const obtenerDiasDelMes = () => {
+    const primerDiaDelMes = new Date(mesActual.getFullYear(), mesActual.getMonth(), 1);
+    const ultimoDiaDelMes = new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 0);
 
-  //   const dias = [];
-  //   for (let dia = primerDiaDelMes; dia <= ultimoDiaDelMes; dia.setDate(dia.getDate() + 1)) {
-  //     dias.push(new Date(dia));
-  //   }
+    const dias = [];
+    for (let dia = primerDiaDelMes; dia <= ultimoDiaDelMes; dia.setDate(dia.getDate() + 1)) {
+      dias.push(new Date(dia));
+    }
 
-  //   return dias;
-  // };
+    return dias;
+  };
 
-  // const irAlMesSiguiente = () => {
-  //   setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 1));
-  // };
+  const irAlMesSiguiente = () => {
+    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 1));
+  };
+  const irAlMesAnterior = () => {
+    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() -1, 1));
+  };
 
 
 
-  // const diasDelMes = obtenerDiasDelMes();
+  const diasDelMes = obtenerDiasDelMes();
 
   const [selectedHourInicial, setSelectedHourInicial] = useState('');
   const [selectedHourFinal, setSelectedHourFinal] = useState('');
@@ -122,26 +125,33 @@ function App() {
         : ""}
 
       <div className="container  mt-8">
-        {/* <div className="flex justify-between items-center mb-4">
+         <div className="flex pl-4 items-center mb-4">
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className=" text-black font-bold py-2 px-4 rounded pl-2"
+          onClick={irAlMesAnterior}
+        >
+          
+         {"<"}
+        </button>
+        <button
+          className=" text-black font-bold py-2 px-4 rounded pl-2"
           onClick={irAlMesSiguiente}
         >
-          Mes Siguiente
+         {">"}
         </button>
-        <h2 className="text-xl font-bold">
+        <h2 className="text-xl font-bold pl-2">
           {mesActual.toLocaleString('default', { month: 'long', year: 'numeric' })}
         </h2>
       </div>
 
-      <div className="grid grid-cols-8 gap-4">
+      {/* <div className="grid grid-cols-8 gap-4">
         <div className="border p-2"></div>
         {diasDelMes.map((dia, index) => (
           <div key={index} className="border p-2 text-center">
             {dia.getDate()}
           </div>
         ))}
-      </div> */}
+      </div>  */}
 
         <div className="grid grid-rows-8 p-10 ">
           {/* gap-4 */}
