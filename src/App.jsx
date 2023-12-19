@@ -1,9 +1,10 @@
+import ScheduleForm from "./components/ScheduleForm/ScheduleForm"
 
 function App() {
 
   return (
     <>
-      Airplane Rent
+     <ScheduleForm/>
     </>
   )
 }
