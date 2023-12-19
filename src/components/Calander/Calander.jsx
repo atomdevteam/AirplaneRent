@@ -97,8 +97,8 @@ const Calander = () => {
             </button>
           </div>
           <div>
-            <span className="text-lg font-bold text-gray-800 mr-4">{MONTH_NAMES[month]}</span>
-            <span className="text-lg text-gray-600 font-normal">{year}</span>
+            <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
+            <span className="text-lg text-black font-normal">{year}</span>
           </div>
         </div>
       </div>
