@@ -119,10 +119,10 @@ const Calander = () => {
         {[...Array(numberOfDays).keys()].map((date) => (
           <div
             key={date}
-            className=" border-r border-b flex justify-center "
+            className="justify-center border-r border-b flex  "
             style={{ height: "120px" }}
           >
-            <div className='inline-flex w-6 h-6 justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100'>
+            <div className='mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out duration-100'>
               
               {date + 1}
             </div>
