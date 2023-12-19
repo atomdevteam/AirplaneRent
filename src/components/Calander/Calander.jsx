@@ -12,6 +12,7 @@ const Calander = () => {
   const [year, setYear] = useState(0);
   const [numberOfDays, setNumberOfDays] = useState(0);
   const [firstDayOfMonth, setFirstDayOfMonth] = useState(0);
+  const [numberOfDaysPrevMonth, setNumberOfDaysPrevMonth] = useState(0);
 
   useEffect(() => {
     initDate();
@@ -22,6 +23,11 @@ const Calander = () => {
 
     getNoOfDays();
     getFirstDayOfMonth();
+    const prevMonth = month === 0 ? 11 : month - 1; // El mes anterior al actual
+    const prevYear = prevMonth === 11 ? year - 1 : year; // El año del mes anterior
+
+    const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
+    setNumberOfDaysPrevMonth(daysInPrevMonth);
   }, [month, year]);
 
   const initDate = () => {
@@ -43,7 +49,7 @@ const Calander = () => {
   const decreaseMonth = () => {
     if (month === 0) {
       setYear(year - 1);
-      setMonth(11); 
+      setMonth(11);
     } else {
       setMonth(month - 1);
     }
@@ -52,13 +58,13 @@ const Calander = () => {
   const increaseMonth = () => {
     if (month === 11) {
       setYear(year + 1);
-      setMonth(0); 
+      setMonth(0);
     } else {
       setMonth(month + 1);
     }
   };
 
-  
+
 
   return (
     <div>
@@ -112,12 +118,18 @@ const Calander = () => {
             </div>
 
           ))}
+
+
           {[...Array(firstDayOfMonth).keys()].map((_, index) => (
             <div
               key={index}
               className=" border-r border-b flex justify-center "
               style={{ height: "120px" }}
-            ></div>
+            >
+              <div className='text-gray-400 text-sm uppercase tracking-wide  text-center'>
+                {numberOfDaysPrevMonth - firstDayOfMonth + index + 1}
+              </div>
+            </div>
           ))}
           {[...Array(numberOfDays).keys()].map((date) => (
             <div
@@ -131,6 +143,8 @@ const Calander = () => {
               </div>
             </div>
           ))}
+
+
         </div>
       </div>
     </div>
