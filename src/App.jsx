@@ -1,9 +1,10 @@
+import Calander from "./components/Calander/Calander"
 
 function App() {
 
   return (
     <>
-      Airplane Rent
+      <Calander />
     </>
   )
 }
