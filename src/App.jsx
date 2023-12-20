@@ -1,10 +1,9 @@
-import ScheduleForm from "./components/ScheduleForm/ScheduleForm"
-
+import Hours from "./components/Hours/Hours"
 function App() {
 
   return (
     <>
-     <ScheduleForm/>
+      <Hours/>
     </>
   )
 }
