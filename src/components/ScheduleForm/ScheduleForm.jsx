@@ -3,6 +3,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 const ScheduleForm = () => {
     const [showModal, setshowModal] = useState(false)
+    const [name, setname] = useState("")
+    const [fuel, setfuel] = useState("")
     const [selectedTime, setSelectedTime] = useState(null);
     const [TimeEnd, setTimeEnd] = useState(null)
 
@@ -17,12 +19,26 @@ const ScheduleForm = () => {
         const end = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
 
-    if (start && time > selectedTime) {
-      setTimeEnd(time);
-      console.log("End:", end);
-    } else {
-      console.log("End time should be greater than start time");
+        if (start && time > selectedTime) {
+            setTimeEnd(time);
+            console.log("End:", end);
+        } else {
+            console.log("End time should be greater than start time");
+        }
     }
+
+    const handleSave = (e) => {
+        e.preventDefault()
+        const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
+        const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
+        const datos = {
+            name: name,
+            start: start,
+            end: end,
+            fuel:fuel,
+        }
+        console.log("Datos")
+        console.log(datos)
     }
     return (
         <div className='bg-gray-100 p-4 flex items-center justify-center h-screen'>
@@ -52,7 +68,7 @@ const ScheduleForm = () => {
 
                         <div className='mt-6 space-y-4'>
 
-                            <form className='grid gap-y-4'>
+                            <form className='grid gap-y-4' onSubmit={handleSave}>
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-bold ml-1 mb-2 text-black">Name</label>
                                     <div className="relative">
@@ -61,6 +77,7 @@ const ScheduleForm = () => {
                                             id="name"
                                             name="name"
                                             placeholder="Name"
+                                            onChange={(e) => setname(e.target.value)}
                                             className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
 
@@ -68,7 +85,7 @@ const ScheduleForm = () => {
                                 <div>
                                     <div className='flex flex-row '>
                                         <div className='mr-4'>
-                                            <label  className="block text-sm font-bold ml-1 mb-2 text-black">Start</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-black">Start</label>
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={selectedTime}
@@ -81,13 +98,13 @@ const ScheduleForm = () => {
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
-                                             
+
                                             </div>
                                         </div>
                                         <div>
-                                            <label  className="block text-sm font-bold ml-1 mb-2 text-black">End</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-black">End</label>
                                             <div className="relative">
-                                            <DatePicker
+                                                <DatePicker
                                                     selected={TimeEnd}
                                                     onChange={handleTimeEnd}
                                                     showTimeSelect
@@ -98,7 +115,7 @@ const ScheduleForm = () => {
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
-                                             
+
                                             </div>
                                         </div>
                                     </div>
@@ -110,6 +127,7 @@ const ScheduleForm = () => {
                                                 id="fuel"
                                                 name="fuel"
                                                 placeholder="Fuel"
+                                                onChange={(e) => setfuel(e.target.value)}
                                                 className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                         </div>
 
@@ -117,6 +135,7 @@ const ScheduleForm = () => {
 
                                     <div className='my-8'>
                                         <button
+                                            type='submit'
                                             className="middle none center mr-4 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 
                                         >
