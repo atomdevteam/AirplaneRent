@@ -81,15 +81,7 @@ const ScheduleForm = () => {
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
-                                                {/* <input
-                                                    type="time"
-                                                    id="start"
-                                                    name="start"
-                                                    placeholder="Start"
-
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" 
-                                                    step="any"
-                                                /> */}
+                                             
                                             </div>
                                         </div>
                                         <div>
@@ -106,12 +98,7 @@ const ScheduleForm = () => {
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
-                                                {/* <input
-                                                    type="time"
-                                                    id="end"
-                                                    name="end"
-                                                    placeholder="End"
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" /> */}
+                                             
                                             </div>
                                         </div>
                                     </div>
