@@ -207,7 +207,7 @@ function Hours() {
           {horas.filter(hora => hora !== 0).map((hora, index) => (
             <div key={index} className='flex'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
-              {hora >= 13 ? hora + " PM" : hora + " AM"}
+              {hora >= "13:00" ? hora + " PM" : hora + " AM"}
               </span>
               <div onClick={() => setIsOpen(true)} className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500`: ""}`}>
              
