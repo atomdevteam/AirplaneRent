@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from 'react'
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 const ScheduleForm = () => {
     const [showModal, setshowModal] = useState(false)
+    const [selectedTime, setSelectedTime] = useState(null);
+    const [TimeEnd, setTimeEnd] = useState(null)
+
+    const handleTimeChange = (time) => {
+        const start = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        setSelectedTime(time);
+        console.log("Start")
+        console.log(start);
+    };
+
+    const handleTimeEnd = (time) => {
+        const end = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
+
+    if (start && time > selectedTime) {
+      setTimeEnd(time);
+      console.log("End:", end);
+    } else {
+      console.log("End time should be greater than start time");
+    }
+    }
     return (
         <div className='bg-gray-100 p-4 flex items-center justify-center h-screen'>
             <div>
@@ -39,35 +61,57 @@ const ScheduleForm = () => {
                                             id="name"
                                             name="name"
                                             placeholder="Name"
-                                            className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
+                                            className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
 
                                 </div>
                                 <div>
-                                    <div className='flex flex-row justify-between'>
+                                    <div className='flex flex-row '>
                                         <div className='mr-4'>
-                                            <label htmlFor="start" className="block text-sm font-bold ml-1 mb-2 text-black">Start</label>
+                                            <label  className="block text-sm font-bold ml-1 mb-2 text-black">Start</label>
                                             <div className="relative">
-                                                <input
+                                                <DatePicker
+                                                    selected={selectedTime}
+                                                    onChange={handleTimeChange}
+                                                    showTimeSelect
+                                                    showTimeSelectOnly
+                                                    timeIntervals={15}
+                                                    timeCaption="Time"
+                                                    dateFormat="h:mm aa"
+                                                    placeholderText="Select time"
+                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                                />
+                                                {/* <input
                                                     type="time"
                                                     id="start"
                                                     name="start"
                                                     placeholder="Start"
 
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error"
-                                            
-                                                />
+                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" 
+                                                    step="any"
+                                                /> */}
                                             </div>
                                         </div>
                                         <div>
-                                            <label htmlFor="end" className="block text-sm font-bold ml-1 mb-2 text-black">End</label>
+                                            <label  className="block text-sm font-bold ml-1 mb-2 text-black">End</label>
                                             <div className="relative">
-                                                <input
+                                            <DatePicker
+                                                    selected={TimeEnd}
+                                                    onChange={handleTimeEnd}
+                                                    showTimeSelect
+                                                    showTimeSelectOnly
+                                                    timeIntervals={15}
+                                                    timeCaption="Time"
+                                                    dateFormat="h:mm aa"
+                                                    placeholderText="Select time"
+                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                                />
+                                                {/* <input
                                                     type="time"
                                                     id="end"
                                                     name="end"
                                                     placeholder="End"
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
+                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +123,7 @@ const ScheduleForm = () => {
                                                 id="fuel"
                                                 name="fuel"
                                                 placeholder="Fuel"
-                                                className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
+                                                className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                         </div>
 
                                     </div>
