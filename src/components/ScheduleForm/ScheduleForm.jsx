@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-const ScheduleForm = () => {
+const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -31,32 +31,36 @@ const ScheduleForm = () => {
         e.preventDefault()
         const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
         const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
+        // const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : null;
+        // const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : null;
+
         const datos = {
             name: name,
             start: start,
             end: end,
-            fuel:fuel,
+            fuel: fuel,
         }
         console.log("Datos")
         console.log(datos)
+        onSave(datos);
+        setIsOpen(false)
+        setname("")
+        setSelectedTime(null)
+        setTimeEnd(null)
+        setfuel("")
     }
     return (
-        <div className='bg-gray-100 p-4 flex items-center justify-center h-screen'>
-            <div>
-                <button
-                    onClick={() => setshowModal(true)}
-                    className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300'
 
-                > Schedule</button>
-            </div>
+        <div className=''>
 
-            {showModal && (
+
+            {isOpen && (
                 <div className='fixed inset-0 flex items-center justify-center z-50'>
                     <div className='bg-white rounded-lg p-6 w-96 max-w-full shadow-lg transform transition-all duration-300'>
                         <div className='flex justify-between items-center border-b-2 border-gray-200 pb-4'>
                             <h2 className="text-2xl font-semibold">Schedule Form</h2>
                             <button
-                                onClick={() => setshowModal(false)}
+                                onClick={() => setIsOpen(false)}
                                 className='text-gray-500 hover:text-gray-700 focus:outline-none'
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-x">
@@ -92,9 +96,9 @@ const ScheduleForm = () => {
                                                     onChange={handleTimeChange}
                                                     showTimeSelect
                                                     showTimeSelectOnly
-                                                    timeIntervals={15}
+                                                    timeIntervals={60}
                                                     timeCaption="Time"
-                                                    dateFormat="h:mm aa"
+                                                    dateFormat="h aa"
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
@@ -109,9 +113,9 @@ const ScheduleForm = () => {
                                                     onChange={handleTimeEnd}
                                                     showTimeSelect
                                                     showTimeSelectOnly
-                                                    timeIntervals={15}
+                                                    timeIntervals={60}
                                                     timeCaption="Time"
-                                                    dateFormat="h:mm aa"
+                                                    dateFormat="h aa"
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
