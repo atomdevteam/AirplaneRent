@@ -1,11 +1,20 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import ScheduleForm from "../ScheduleForm/ScheduleForm"
 function Hours() {
   const [mesActual, setMesActual] = useState(new Date());
   const [Inicio, setInicio] = useState(0)
   const [Final, setFinal] = useState(0)
 
-  const horas = Array.from({ length: 24 }, (_, i) => i);
+  // const horas = Array.from({ length: 24 }, (_, i) => i);
+  //11:00 a. m.
+  const horas = Array.from({ length: 24 }, (_, i) => {
+    const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
+    // const period = i < 12 || i === 24 ? 'a. m.' : 'p. m.';
+
+    const timeString = new Date().setHours(i, 0, 0);
+    const formattedTime = new Date(timeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${formattedTime}`;
+  });
 
   const obtenerDiasDelMes = () => {
     const primerDiaDelMes = new Date(mesActual.getFullYear(), mesActual.getMonth(), 1);
@@ -53,10 +62,36 @@ function Hours() {
   };
 
 
+  const [Data, setData] = useState(null);
+
+  const handleSaveModalData = (data) => {
+    setData(data);
+    console.log('Datos recibidos en ParentComponent:', data);
+    console.log("Start: " + data.start)
+    console.log("End: " + data.end)
+    setInicio(data.start)
+    setFinal(data.end)
+    setnombre(data.name)
+    setcantidad(data.fuel)
+  };
+
+  useEffect(() => {
+    console.log("UseEffect")
+    console.log("Start: " + Inicio)
+    console.log("End: " + Final)
+    console.log("Name: " + nombre)
+    console.log("Fuel: " + cantidad)
+  }, [Inicio, Final])
+
+
+
+
+
+
 
   return (
     <>
-      {isOpen ?
+      {/* {isOpen ?
         <div className="fixed inset-0 flex items-center justify-center">
           <div className="absolute bg-gray-800 opacity-50 inset-0"></div>
           <div className="bg-white p-8 rounded-lg z-10">
@@ -121,8 +156,8 @@ function Hours() {
             </div>
           </div>
         </div>
-        : ""}
-
+        : ""} */}
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} />
       <div className="container  mt-8">
 
         <div className="flex pl-4 items-center mb-4">
@@ -166,6 +201,8 @@ function Hours() {
 
         <div className="grid grid-rows-8 p-10 ">
           {/* gap-4 */}
+          {/* `bg-${Color}` */}
+          {/*  */}
           <div className="pt-4">Hora</div>
           {horas.filter(hora => hora !== 0).map((hora, index) => (
             <div key={index} className='flex'>
@@ -173,7 +210,7 @@ function Hours() {
                 {hora >= 13 ? hora + " PM" : hora + " AM"}
               </span>
               <div onClick={() => setIsOpen(true)} className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500` : ""}`}>
-                {/* `bg-${Color}` */}
+
                 {Inicio <= hora && Final >= hora ?
                   <>
                     {nombre + " "}
@@ -183,6 +220,22 @@ function Hours() {
               </div>
             </div>
           ))}
+          {/* {horas.map((hora, index) => (
+            <div key={index} className='flex'>
+              <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
+                {hora >= 13 ? hora + ' PM' : hora + ' AM'}
+              </span>
+            
+              <div
+                className={`flex-1 border p-6 ${selectedTime && selectedTime.getHours() === hora
+                    ? 'bg-green-500'
+                    : ''
+                  }`}
+              >
+                {hora}
+              </div>
+            </div>
+          ))} */}
 
         </div>
       </div>
