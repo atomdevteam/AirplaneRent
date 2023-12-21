@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 const Calander = () => {
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -137,10 +137,10 @@ const Calander = () => {
               className=" border-r border-b flex justify-center "
               style={{ height: "120px" }}
             >
-              <div className='mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out d'>
+              <Link to='/hours' className='mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out d'>
 
                 {date + 1}
-              </div>
+              </Link>
             </div>
           ))}
 
