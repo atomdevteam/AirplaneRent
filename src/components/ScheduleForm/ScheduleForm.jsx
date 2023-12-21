@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
+const ScheduleForm = ({ isOpen, setIsOpen, onSave, data }) => {
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -49,11 +49,14 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
         setTimeEnd(null)
         setfuel("")
     }
+
+
+
+
+
     return (
 
         <div className=''>
-
-
             {isOpen && (
                 <div className='fixed inset-0 flex items-center justify-center z-50'>
                     <div className='bg-white rounded-lg p-6 w-96 max-w-full shadow-lg transform transition-all duration-300'>
@@ -81,6 +84,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
                                             id="name"
                                             name="name"
                                             placeholder="Name"
+                                            value={name}
                                             onChange={(e) => setname(e.target.value)}
                                             className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
@@ -93,6 +97,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={selectedTime}
+                                                    value={selectedTime}
                                                     onChange={handleTimeChange}
                                                     showTimeSelect
                                                     showTimeSelectOnly
@@ -131,6 +136,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
                                                 id="fuel"
                                                 name="fuel"
                                                 placeholder="Fuel"
+                                                value={fuel}
                                                 onChange={(e) => setfuel(e.target.value)}
                                                 className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                         </div>
@@ -144,6 +150,13 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave }) => {
 
                                         >
                                             Save
+                                        </button>
+                                        <button
+
+                                            className="middle none center mr-4 rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+
+                                        >
+                                            Delete
                                         </button>
                                     </div>
 
