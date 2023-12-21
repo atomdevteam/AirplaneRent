@@ -10,7 +10,7 @@ function Hours() {
   const horas = Array.from({ length: 24 }, (_, i) => {
     const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
     // const period = i < 12 || i === 24 ? 'a. m.' : 'p. m.';
-    
+
     const timeString = new Date().setHours(i, 0, 0);
     const formattedTime = new Date(timeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return `${formattedTime}`;
@@ -75,6 +75,17 @@ function Hours() {
     setcantidad(data.fuel)
   };
 
+  const handleSaveDelete = () => {
+    const dataToSend = {
+      start: Inicio,
+      end: Final,
+      name: nombre,
+      fuel: cantidad,
+    };
+    setData(dataToSend);
+    setIsOpen(true); // Abre el modal para mostrar los datos seleccionados
+  };
+
   useEffect(() => {
     console.log("UseEffect")
     console.log("Start: " + Inicio)
@@ -85,7 +96,9 @@ function Hours() {
 
 
 
-  
+
+
+
 
 
 
@@ -157,7 +170,7 @@ function Hours() {
           </div>
         </div>
         : ""} */}
-      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} />
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData}  data={Data}/>
       <div className="container  mt-8">
 
         <div className="flex pl-4 items-center mb-4">
@@ -207,20 +220,26 @@ function Hours() {
           {horas.filter(hora => hora !== 0).map((hora, index) => (
             <div key={index} className='flex'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
-              {hora >= "13:00" ? hora + " PM" : hora + " AM"}
+                {hora >= "13:00" ? hora + " PM" : hora + " AM"}
               </span>
-              <div onClick={() => setIsOpen(true)} className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500`: ""}`}>
-             
+              <div 
+                onClick={() => {
+                  // Llama a handleSave para guardar la información antes de abrir el modal
+                  handleSaveDelete();
+                  setIsOpen(true);
+                }}
+              className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500` : ""}`}>
+
               {Inicio <= hora && Final >= hora ?
-              <>
-                {nombre +" "}
-                {cantidad}
+                <>
+                  {nombre + " "}
+                  {cantidad}
                 </>
-                :""}
-              </div>
+                : ""}
+            </div>
             </div>
           ))}
-          {/* {horas.map((hora, index) => (
+        {/* {horas.map((hora, index) => (
             <div key={index} className='flex'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
                 {hora >= 13 ? hora + ' PM' : hora + ' AM'}
@@ -237,8 +256,8 @@ function Hours() {
             </div>
           ))} */}
 
-        </div>
       </div>
+    </div >
     </>
   );
 }
