@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import ScheduleForm from "../ScheduleForm/ScheduleForm"
+import {useParams} from "react-router-dom"
 function Hours() {
   const [mesActual, setMesActual] = useState(new Date());
   const [Inicio, setInicio] = useState(0)
   const [Final, setFinal] = useState(0)
-
+  const  datos  = useParams();
   // const horas = Array.from({ length: 24 }, (_, i) => i);
   //11:00 a. m.
   const horas = Array.from({ length: 24 }, (_, i) => {
@@ -172,25 +173,52 @@ function Hours() {
         : ""} */}
       <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} data={Data} />
       <div className="container  mt-8">
+        <div className=' w-full h-[5rem] flex items-center'>
+          <div className='flex items-center justify-between py-2 px-6'>
+            <div className='px-1 flex items-center'>
 
-        <div className="flex pl-4 items-center mb-4">
-          <button
-            className=" text-black font-bold py-2 px-4 rounded pl-2"
-            onClick={irAlMesAnterior}
-          >
+              <div className=' mx-4'>
+                <button
+                  type='button'
+                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                  onClick={irAlMesAnterior}
+                >
+                  <svg
+                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                  </svg>
+                </button>
+                <div className=' inline-flex h-6'></div>
+                <button
+                  type='button'
+                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                  onClick={irAlMesSiguiente}
+                >
+                  <svg
+                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                  </svg>
+                </button>
+              </div>
+              <div>
+              <span className="text-lg text-black font-normal">{datos.Dia+" de "}</span>
+                <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
+                <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
 
-            {"<"}
-          </button>
-          <button
-            className=" text-black font-bold py-2 px-4 rounded pl-2"
-            onClick={irAlMesSiguiente}
-          >
-            {">"}
-          </button>
-          <h2 className="text-xl font-bold pl-2">
-            {mesActual.toLocaleString('default', { month: 'long', year: 'numeric' })}
-          </h2>
+                
+              </div>
+            </div>
+          </div>
         </div>
+
         {/* <div className="flex justify-between items-center mb-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -212,7 +240,7 @@ function Hours() {
         ))}
       </div> */}
 
-        <div className="grid grid-rows-8 p-10 ">
+        <div className="grid grid-rows-8 pl-10 ">
           {/* gap-4 */}
           {/* `bg-${Color}` */}
           {/*  */}
