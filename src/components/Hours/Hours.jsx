@@ -3,7 +3,8 @@ import ScheduleForm from "../ScheduleForm/ScheduleForm"
 import {useParams} from "react-router-dom"
 function Hours() {
   const  datos  = useParams();
-  const fechaEspecifica = new Date();
+  const fechaEspecifica = new Date()
+   fechaEspecifica.setDate(datos.Dia)
   fechaEspecifica.setFullYear(datos.Year)
   fechaEspecifica.setMonth(datos.Month )
 
@@ -22,10 +23,10 @@ function Hours() {
 
 
   const irAlMesSiguiente = () => {
-    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 1));
+    setMesActual(new Date(mesActual.getFullYear(),mesActual.getMonth() ,mesActual.getDate() + 1));
   };
   const irAlMesAnterior = () => {
-    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() - 1, 1));
+    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth(),mesActual.getDate()- 1));
   };
 
  
@@ -117,7 +118,7 @@ function Hours() {
                 </button>
               </div>
               <div>
-              <span className="text-lg text-black font-normal">{datos.Dia+" de "}</span>
+              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' })+" de "}</span>
                 <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
                 <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
 
@@ -136,7 +137,7 @@ function Hours() {
           {horas.filter(hora => hora !== 0).map((hora, index) => (
             <div key={index} className='flex'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
-                {hora >= "13:00" ? hora + " PM" : hora + " AM"}
+                {hora}
               </span>
               <div
                 onClick={() => {
