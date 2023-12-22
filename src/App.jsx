@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route>
           <Route path="" element={<Calander />} />
-          <Route path="/hours/:Dia" element={<Hours />} />
+          <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
         </Route>
       </Routes>
     </>
