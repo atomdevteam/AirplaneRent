@@ -145,7 +145,7 @@ function Hours() {
                   handleSaveDelete();
                   setIsOpen(true);
                 }}
-                className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500` : ""}`}>
+                className={`flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out ${Inicio <= hora && Final >= hora ? `bg-green-500` : ""}`}>
 
                 {Inicio <= hora && Final >= hora ?
                   <>
