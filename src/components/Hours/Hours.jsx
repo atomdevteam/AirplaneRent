@@ -80,8 +80,8 @@ function Hours() {
     <>
      
       <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} data={Data} />
-      <div className="container  mt-8">
-        <div className=' w-full h-[5rem] flex items-center'>
+      
+        <div className=' w-full h-[5rem] flex items-center border-b-2 '>
           <div className='flex items-center justify-between py-2 px-6'>
             <div className='px-1 flex items-center'>
 
@@ -173,7 +173,7 @@ function Hours() {
           ))} */}
 
         </div>
-      </div >
+  
     </>
   );
 }
