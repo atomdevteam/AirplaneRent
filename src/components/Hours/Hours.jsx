@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react';
 import ScheduleForm from "../ScheduleForm/ScheduleForm"
 import { useParams } from "react-router-dom"
+import { format } from 'date-fns';
 function Hours() {
   const datos = useParams();
-  const fechaEspecifica = new Date()
+  // const fechaEspecifica = new Date()
+  const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
   fechaEspecifica.setFullYear(datos.Year)
   fechaEspecifica.setMonth(datos.Month)
+  const [horasDelDia, setHorasDelDia] = useState([]);
+
+
 
   const [mesActual, setMesActual] = useState(fechaEspecifica);
   const [Inicio, setInicio] = useState(0)
@@ -32,12 +37,16 @@ function Hours() {
 
   const [nombre, setnombre] = useState("")
   const [cantidad, setcantidad] = useState("")
+  const [dateselect, setdateselect] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
-
+  const year = fechaEspecifica.getFullYear();
+  const month = fechaEspecifica.getMonth() + 1;
+  const day = fechaEspecifica.getDate();
 
 
 
   const [Data, setData] = useState(null);
+  const dateSelect = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
   const handleSaveModalData = (data) => {
     setData(data);
@@ -48,18 +57,12 @@ function Hours() {
     setFinal(data.end)
     setnombre(data.name)
     setcantidad(data.fuel)
+    setdateselect(dateSelect);
   };
 
-  const handleSaveDelete = () => {
-    const dataToSend = {
-      start: Inicio,
-      end: Final,
-      name: nombre,
-      fuel: cantidad,
-    };
-    setData(dataToSend);
-    setIsOpen(true); // Abre el modal para mostrar los datos seleccionados
-  };
+
+
+
 
   useEffect(() => {
     console.log("UseEffect")
@@ -67,14 +70,24 @@ function Hours() {
     console.log("End: " + Final)
     console.log("Name: " + nombre)
     console.log("Fuel: " + cantidad)
+    console.log("Date now: " + dateselect)
   }, [Inicio, Final])
 
   let isFirstHour = true;
 
+  useEffect(() => {
+    const horasActuales = Array.from({ length: 24 }, (_, i) => {
+      const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
+      const timeString = new Date(fechaEspecifica.getFullYear(), fechaEspecifica.getMonth(), fechaEspecifica.getDate(), i, 0, 0);
+      const formattedTime = timeString.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return `${formattedTime}`;
+    });
 
+    setHorasDelDia(horasActuales);
+  }, [fechaEspecifica, mesActual]);
 
-
-
+  const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
+  console.log("Condicion" + formattedMesActual + " " + dateSelect)
 
 
   return (
@@ -134,7 +147,7 @@ function Hours() {
         {/* `bg-${Color}` */}
         {/*  */}
         <div className="pt-4">Hora</div>
-        {horas.filter(hora => hora !== 0).map((hora, index) => {
+        {horasDelDia.filter(hora => hora !== 0).map((hora, index) => {
           const isStartHour = Inicio === hora;
 
           if (isStartHour) {
@@ -148,63 +161,34 @@ function Hours() {
               </span>
               <div
                 onClick={() => {
-                  handleSaveDelete();
                   setIsOpen(true);
                 }}
-                className={` ${Inicio <= hora && Final >= hora ? `flex-1  p-6 bg-green-500` : "flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out"}`}>
+                className={` ${Inicio <= hora && Final >= hora &&  formattedMesActual === dateselect? `flex-1  p-6 bg-green-500` : "flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out"}`}>
 
-                {Inicio <= hora && Final >= hora &&
+                {/* {Inicio <= hora && Final >= hora &&
                   isStartHour && isFirstHour && (
                     <div className='text-xs  text-white'>
                       <p className='font-bold'>{nombre}</p>
-                      {/*  {hora >= "13:00" ? hora + " PM" : hora + " AM"} */}
+                    
                       <p>{Inicio >= "13:00" ? Inicio + " pm" : Inicio + " am"} - {Final >= "13:00" ? Inicio + " pm" : Final + " am"}</p>
                     </div>
                   )
-                }
+                } */}
+                {formattedMesActual === dateselect && ( // Condición para mostrar los datos si los meses son iguales
+                  Inicio <= hora && Final >= hora &&
+                  isStartHour && isFirstHour && (
+                    <div className='text-xs  text-white'>
+                      <p className='font-bold'>{nombre}</p>
+                      <p>{Inicio >= "13:00" ? Inicio + " pm" : Inicio + " am"} - {Final >= "13:00" ? Inicio + " pm" : Final + " am"}</p>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           );
         })}
 
-        {/* {horas.filter(hora => hora !== 0).map((hora, index) => (
-            <div key={index} className='flex'>
-              <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
-                {hora}
-              </span>
-              <div
-                onClick={() => {
-                  // Llama a handleSave para guardar la información antes de abrir el modal
-                  handleSaveDelete();
-                  setIsOpen(true);
-                }}
-                className={`flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out ${Inicio <= hora && Final >= hora ? `bg-green-500` : ""}`}>
 
-                {Inicio <= hora && Final >= hora ?
-                  <>
-                    {nombre + " "}
-                    {cantidad}
-                  </>
-                  : ""}
-              </div>
-            </div>
-          ))} */}
-        {/* {horas.map((hora, index) => (
-            <div key={index} className='flex'>
-              <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
-                {hora >= 13 ? hora + ' PM' : hora + ' AM'}
-              </span>
-            
-              <div
-                className={`flex-1 border p-6 ${selectedTime && selectedTime.getHours() === hora
-                    ? 'bg-green-500'
-                    : ''
-                  }`}
-              >
-                {hora}
-              </div>
-            </div>
-          ))} */}
 
       </div>
 
