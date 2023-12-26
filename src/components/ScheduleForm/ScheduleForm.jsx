@@ -13,8 +13,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
     const handleTimeChange = (time) => {
         const start = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         setSelectedTime(time);
-        console.log("Start")
-        console.log(start);
     };
 
     const handleTimeEnd = (time) => {
@@ -23,16 +21,12 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
         if (start && time > selectedTime) {
             setTimeEnd(time);
-            console.log("End:", end);
         } else {
             console.log("End time should be greater than start time");
         }
     }
 
     const formattedMesActual = format(date, 'yyyy-MM-dd');
-
-    console.log("Fecha selecionada")
-    console.log(formattedMesActual)
 
     const handleSave = (e) => {
         e.preventDefault()
@@ -69,8 +63,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             fuel: fuel,
             date: formattedMesActual
         }
-        console.log("Datos")
-        console.log(datos)
         onSave(datos);
         setIsOpen(false)
         setname("")
@@ -106,10 +98,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         if (reservaAEditar) {
             const dateNow = new Date()
             const dateNowFormat = format(dateNow, 'yyyy-MM-dd');
-            const datereservation = new Date(reservaAEditar.date);
-            console.log("Fecha actual: " +  dateNowFormat)
-            console.log("Fecha de reservacion: " + reservaAEditar.date)
-            console.log(dateNowFormat < reservaAEditar.date)
 
             if (dateNowFormat <= reservaAEditar.date) {
                 
@@ -129,8 +117,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             );
 
             setReservations(updatedReservations)
-            console.log("Datos actualizados")
-            console.log(editedReservation)
+
             setIsOpen(false);
             setname("");
             setSelectedTime(null);

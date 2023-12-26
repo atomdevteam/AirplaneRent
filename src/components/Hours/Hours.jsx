@@ -56,7 +56,6 @@ function Hours() {
   const handleSaveModalData = (data) => {
     setReservations([...reservations, data]);
     setData(data);
-    console.log('Datos recibidos en ParentComponent:', data);
     setInicio(data.start)
     setFinal(data.end)
     setnombre(data.name)
@@ -64,20 +63,6 @@ function Hours() {
     setdateselect(dateSelect);
   };
 
-
-
-
-
-  useEffect(() => {
-    console.log("UseEffect")
-    console.log("Start: " + Inicio)
-    console.log("End: " + Final)
-    console.log("Name: " + nombre)
-    console.log("Fuel: " + cantidad)
-    console.log("Date now: " + dateselect)
-  }, [Inicio, Final])
-
-  let isFirstHour = true;
 
   useEffect(() => {
     const horasActuales = Array.from({ length: 24 }, (_, i) => {
@@ -94,13 +79,6 @@ function Hours() {
 
 
   const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
-
-  reservations.map((r, i) => (
-    console.log("Condicion de reservation  " + formattedMesActual + " === " + r.date)
-  ))
-  console.log("Muchas resERVATION")
-  console.log(reservations)
-
 
   return (
     <>
@@ -187,7 +165,7 @@ function Hours() {
                 onClick={() => {
                   if (reservaMostrar) {
                     setIsOpen(true);
-                    setreservationEdit(reservaMostrar); // Aquí puedes guardar la reserva seleccionada para mostrar en el modal
+                    setreservationEdit(reservaMostrar)
                   } else {
                     setIsOpen(true);
                   }
