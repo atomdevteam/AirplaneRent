@@ -12,6 +12,7 @@ function Hours() {
   const [horasDelDia, setHorasDelDia] = useState([]);
 
   const [reservations, setReservations] = useState([]);
+  const [reservationEdit, setreservationEdit] = useState(null)
 
 
 
@@ -19,13 +20,15 @@ function Hours() {
   const [Inicio, setInicio] = useState(0)
   const [Final, setFinal] = useState(0)
 
-  const horas = Array.from({ length: 24 }, (_, i) => {
-    const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
+  // const horas = Array.from({ length: 24 }, (_, i) => {
+  //   const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
 
-    const timeString = new Date().setHours(i, 0, 0);
-    const formattedTime = new Date(timeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    return `${formattedTime}`;
-  });
+  //   const timeString = new Date().setHours(i, 0, 0);
+  //   const formattedTime = new Date(timeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  //   return `${formattedTime}`;
+  // });
+
+  const horas = Array.from({ length: 24 }, (_, i) => i);
 
 
 
@@ -80,12 +83,15 @@ function Hours() {
     const horasActuales = Array.from({ length: 24 }, (_, i) => {
       const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
       const timeString = new Date(fechaEspecifica.getFullYear(), fechaEspecifica.getMonth(), fechaEspecifica.getDate(), i, 0, 0);
-      const formattedTime = timeString.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const formattedTime = timeString.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00');
       return `${formattedTime}`;
     });
 
     setHorasDelDia(horasActuales);
   }, [fechaEspecifica, mesActual]);
+  
+
+
 
   const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
 
@@ -99,7 +105,7 @@ function Hours() {
   return (
     <>
 
-      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} date={mesActual} />
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
 
       <div className=' w-full h-[5rem] flex items-center border-b-2 '>
         <div className='flex items-center justify-between py-2 px-6'>
@@ -161,7 +167,13 @@ function Hours() {
           );
 
           const isHoraReservada = reservacionesEnEstaHora.length > 0;
-          let bordeAplicado = false;
+          let reservaMostrar = null;
+
+          if (isHoraReservada) {
+            reservaMostrar = reservacionesEnEstaHora.find(reserva =>
+              reserva.start <= hora && reserva.end >= hora
+            );
+          }
 
           return (
             <div key={index} className='flex h-[4rem]'>
@@ -173,7 +185,13 @@ function Hours() {
                 className={` ${isHoraReservada ? 'flex-1  p-6 bg-green-500' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
                   }`}
                 onClick={() => {
-                  setIsOpen(true);
+                  if (reservaMostrar) {
+                    setIsOpen(true);
+                    setreservationEdit(reservaMostrar); // Aquí puedes guardar la reserva seleccionada para mostrar en el modal
+                  } else {
+                    setIsOpen(true);
+                  }
+
                 }}
               >
                 {reservacionesEnEstaHora.map((reserva, reservaIndex) => (
@@ -184,7 +202,7 @@ function Hours() {
                           reserva.start === hora && (
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
-                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"}</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel}</p>
 
                             </div>
                           )
