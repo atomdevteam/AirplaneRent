@@ -92,7 +92,6 @@ function Hours() {
   reservations.map((r, i) => (
     console.log("Condicion de reservation  " + formattedMesActual + " === " + r.date)
   ))
-  // console.log("Condicion " + formattedMesActual + " " + dateselect)
   console.log("Muchas resERVATION")
   console.log(reservations)
 
@@ -149,7 +148,7 @@ function Hours() {
       </div>
 
 
-      <div className="grid grid-rows-8 pl-10 ">
+      <div className="grid grid-rows-8 pl-10 mx-4">
         {/* gap-4 */}
         {/* `bg-${Color}` */}
         {/*  */}
@@ -186,7 +185,7 @@ function Hours() {
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
                               <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"}</p>
-                            
+
                             </div>
                           )
                         )
