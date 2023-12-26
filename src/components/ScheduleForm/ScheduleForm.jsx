@@ -19,7 +19,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         const end = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
 
-        if (start && time > selectedTime) {
+        if (start && time > selectedTime && time !== selectedTime) {
             setTimeEnd(time);
         } else {
             console.log("End time should be greater than start time");
