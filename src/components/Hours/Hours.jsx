@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import ScheduleForm from "../ScheduleForm/ScheduleForm"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
+import { FaRegCalendarAlt } from "react-icons/fa";
 function Hours() {
   const datos = useParams();
   // const fechaEspecifica = new Date()
@@ -130,11 +131,11 @@ function Hours() {
                 </svg>
               </button>
             </div>
-            <div>
+            <div className='flex row'>
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
               <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
-
+              <Link className="pl-4 " to={"/"}>< FaRegCalendarAlt size={25} /></Link>
 
             </div>
           </div>
