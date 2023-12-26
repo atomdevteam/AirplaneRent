@@ -100,31 +100,52 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             const dateNowFormat = format(dateNow, 'yyyy-MM-dd');
 
             if (dateNowFormat <= reservaAEditar.date) {
-                
-            const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00') : null;
-            const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00') : null;
-            const editedReservation = {
-                id: reservaAEditar.id,
-                name: name,
-                start: start,
-                end: end,
-                fuel: fuel,
-                date: formattedMesActual
-            };
+                const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00') : null;
+                const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00') : null;
+                const overlapsExistingReservation = reservations.some(reserva =>
+                    reserva.id !== reservaAEditar.id && (
+                        (start >= reserva.start && start < reserva.end) ||
+                        (end > reserva.start && end <= reserva.end) ||
+                        (start <= reserva.start && end >= reserva.end)
+                    )
+                );
 
-            const updatedReservations = reservations.map(reserva =>
-                reserva.id === editedReservation.id ? editedReservation : reserva
-            );
+                const overlapsWithExistingDate = reservations.some(reserva =>
+                    reserva.id !== reservaAEditar.id && 
+                    formattedMesActual === reserva.date &&
+                    (
+                        (start >= reserva.start && start < reserva.end) ||
+                        (end > reserva.start && end <= reserva.end) ||
+                        (start <= reserva.start && end >= reserva.end)
+                    )
+                );
+                if (overlapsExistingReservation && overlapsWithExistingDate) {
+                    console.log('La nueva reserva se superpone con una reserva existente en el mismo horario y fecha. Elige otro horario o fecha.');
+                    return;
+                }
 
-            setReservations(updatedReservations)
+                const editedReservation = {
+                    id: reservaAEditar.id,
+                    name: name,
+                    start: start,
+                    end: end,
+                    fuel: fuel,
+                    date: formattedMesActual
+                };
 
-            setIsOpen(false);
-            setname("");
-            setSelectedTime(null);
-            setTimeEnd(null);
-            setfuel("");
-            setreservationEdit(null)
-            }else {
+                const updatedReservations = reservations.map(reserva =>
+                    reserva.id === editedReservation.id ? editedReservation : reserva
+                );
+
+                setReservations(updatedReservations)
+
+                setIsOpen(false);
+                setname("");
+                setSelectedTime(null);
+                setTimeEnd(null);
+                setfuel("");
+                setreservationEdit(null)
+            } else {
                 console.log("No se pued editar reservaciones pasadas")
             }
 
@@ -181,7 +202,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             placeholder="Name"
                                             value={name}
                                             onChange={(e) => setname(e.target.value)}
-                                            disabled={reservationEdit !== null ? true : false}
                                             className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
 
@@ -201,7 +221,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     timeCaption="Time"
                                                     dateFormat="h aa"
                                                     placeholderText="Select time"
-                                                    disabled={reservationEdit !== null ? true : false}
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
 
@@ -219,7 +238,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     timeCaption="Time"
                                                     dateFormat="h aa"
                                                     placeholderText="Select time"
-                                                    disabled={reservationEdit !== null ? true : false}
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
 
