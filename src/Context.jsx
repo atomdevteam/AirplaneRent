@@ -15,30 +15,22 @@ export function ProviderContext({children}) {
     //Varibale or state
     //here
     //Funtions
-    const SaveListHour = async () => {
-        console.log("Backend")
-        let id = 0
-        id++
+    const SaveScheduledform = async (datos) => {
         try {
-
-            set(ref(db, 'ListHours/'), {
-              V1: "8:00"
-            })
-
-            console.log("Save Data")
-
+          const newScheduledformRef = push(ref(db, 'Scheduledform'));
+          const newScheduledformKey = newScheduledformRef.key;
+          await set(newScheduledformRef, datos);
+          console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
         } catch (error) {
-
-            console.log("Error save data")
-            console.log(error)
+          console.error("Error al guardar datos:", error);
         }
-    }
+      }
 
-
+      
     return (
         <Context.Provider
             value={{
-                SaveListHour
+                SaveScheduledform
             }}
         >
             {children}
