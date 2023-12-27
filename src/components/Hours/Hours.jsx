@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import ScheduleForm from "../ScheduleForm/ScheduleForm"
 import { useParams } from "react-router-dom"
 import { format } from 'date-fns';
+import { useContextAir } from '../../Context';
 function Hours() {
   const datos = useParams();
+  const { ShowListHours,ReservationsForDate} = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -75,10 +77,12 @@ function Hours() {
     setHorasDelDia(horasActuales);
   }, [fechaEspecifica, mesActual]);
   
-
-
-
   const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
+  useEffect(() => {
+    ShowListHours(formattedMesActual);
+  }, [formattedMesActual])
+  
+
 
   return (
     <>
@@ -138,7 +142,7 @@ function Hours() {
         {/*  */}
         <div className="pt-4">Hora</div>
         {horasDelDia.map((hora, index) => {
-          const reservacionesEnEstaHora = reservations.filter(
+          const reservacionesEnEstaHora = ReservationsForDate.filter(
             reserva =>
               reserva.start <= hora && reserva.end > hora &&
               formattedMesActual === reserva.date

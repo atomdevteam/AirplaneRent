@@ -12,8 +12,8 @@ export const useContextAir = () => {
 }
 
 export function ProviderContext({children}) {
-    //Varibale or state
-    //here
+    //Varibale or state setReservationsForDate
+    const [ReservationsForDate, setReservationsForDate] = useState([])
     //Funtions
     const SaveListHour = async () => {
         console.log("Backend")
@@ -34,11 +34,38 @@ export function ProviderContext({children}) {
         }
     }
 
+    const ShowListHours = async (fecha) => {
+        try {
+          const fetchData = ref(db, 'Scheduledform/');
+          
+          // Suscribirse a los cambios en la base de datos
+          onValue(fetchData, (snapshot) => {
+            const data = snapshot.val();
+            
+            // Filtrar las reservaciones por la fecha proporcionada
+            const reservationsForDate = Object.values(data || {}).filter(reservation => reservation.date === fecha);
+      
+            // Actualizar la visualización con las reservaciones filtradas
+            setReservationsForDate(reservationsForDate); // Esta línea depende de cómo gestionas el estado en tu aplicación
+          });
+        } catch (error) {
+          console.error("Error al obtener datos:", error);
+        }
+      };
+
+      useEffect(() => {
+        console.log("Reservaciones")
+        console.log(ReservationsForDate)
+      }, [ReservationsForDate])
+      
+      
+
 
     return (
         <Context.Provider
             value={{
-                SaveListHour
+                ShowListHours,
+                ReservationsForDate
             }}
         >
             {children}
