@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 const Calander = () => {
-  const [dayfull, setDayfull] = useState('7')
-  const [daynight, setDaynight] = useState("10")
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -106,8 +104,8 @@ const Calander = () => {
               </button>
             </div>
             <div>
-            <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
-            <span className="text-lg text-black font-normal">{year}</span>
+              <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
+              <span className="text-lg text-black font-normal">{year}</span>
             </div>
           </div>
         </div>
@@ -139,9 +137,8 @@ const Calander = () => {
               className=" border-r border-b flex justify-center "
               style={{ height: "120px" }}
             >
-              <Link to={`/hours/${date + 1}/${month}/${year}`} className={`mt-2 inline-flex w-6 h-6 justify-center bg-green-200 items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out d 
-              ${dayfull == date+1?"bg-red-300":""}  ${daynight == date+1?"bg-orange-300":""}`}>
-        
+              <Link to={`/hours/${date + 1}/${month}/${year}`} className='mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out d'>
+
                 {date + 1}
               </Link>
             </div>

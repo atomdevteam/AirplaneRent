@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations, date, reservationEdit, setreservationEdit }) => {
-    const {SaveScheduledform} = useContextAir()
+    const { SaveScheduledform } = useContextAir()
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -114,7 +114,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                 );
 
                 const overlapsWithExistingDate = reservations.some(reserva =>
-                    reserva.id !== reservaAEditar.id && 
+                    reserva.id !== reservaAEditar.id &&
                     formattedMesActual === reserva.date &&
                     (
                         (start >= reserva.start && start < reserva.end) ||
