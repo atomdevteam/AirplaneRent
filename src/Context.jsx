@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db } from "./firebase/firebase"
-import { set, ref, onValue, get, update, push } from "firebase/database"
+import { set, ref, onValue, get, update, push,getDatabase } from "firebase/database"
 
 
 const Context = createContext()
@@ -17,7 +17,7 @@ export function ProviderContext({children}) {
     //Funtions
     const SaveScheduledform = async (datos) => {
         try {
-          const newScheduledformRef = push(ref(db, 'Scheduledform'));
+          const newScheduledformRef = push(ref(db, 'Scheduledform/'));
           const newScheduledformKey = newScheduledformRef.key;
           await set(newScheduledformRef, datos);
           console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
@@ -44,6 +44,27 @@ export function ProviderContext({children}) {
           console.error("Error al obtener datos:", error);
         }
       };
+      
+      const GetAll = async () => {
+        const partnersRef = ref(db, 'Scheduledform');
+
+        try {
+            const partnersSnapshot = await get(partnersRef);
+
+            if (partnersSnapshot.exists()) {
+                // Obtén todos los datos de Partners
+                const partnersData = partnersSnapshot.val();
+                const allReservations = Object.values(partnersData || {});
+                return allReservations;
+            } else {
+                console.log("No data available");
+                return null;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            return null;
+        }
+    };
 
       useEffect(() => {
         console.log("Reservaciones")
@@ -59,7 +80,7 @@ export function ProviderContext({children}) {
             value={{
                 ShowListHours,
                 ReservationsForDate,
-                SaveScheduledform
+                SaveScheduledform,GetAll
             }}
         >
             {children}
