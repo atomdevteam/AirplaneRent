@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import ScheduleForm from "../ScheduleForm/ScheduleForm"
 import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
-import { FaRegCalendarAlt } from "react-icons/fa";
+import { useContextAir } from '../../Context';
 function Hours() {
   const datos = useParams();
+  const { ShowListHours, ReservationsForDate } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -75,11 +76,13 @@ function Hours() {
 
     setHorasDelDia(horasActuales);
   }, [fechaEspecifica, mesActual]);
-  
-
-
 
   const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
+  useEffect(() => {
+    ShowListHours(formattedMesActual);
+  }, [formattedMesActual])
+
+
 
   return (
     <>
@@ -91,8 +94,8 @@ function Hours() {
           <div className='px-1 flex items-center'>
 
             <div className='flex row  mx-4'>
-            <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
-              
+              <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
+
               <button
                 type='button'
                 className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
@@ -139,7 +142,7 @@ function Hours() {
         {/*  */}
         <div className="pt-4">Hora</div>
         {horasDelDia.map((hora, index) => {
-          const reservacionesEnEstaHora = reservations.filter(
+          const reservacionesEnEstaHora = ReservationsForDate.filter(
             reserva =>
               reserva.start <= hora && reserva.end > hora &&
               formattedMesActual === reserva.date
