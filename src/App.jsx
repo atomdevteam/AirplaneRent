@@ -9,8 +9,8 @@ function App() {
     <>
       <Routes>
         <Route>
-          {/* <Route path="" element={<Calander />} /> */}
-          <Route path="" element={<Signln />} />
+          <Route path="" element={<Calander />} />
+          <Route path="Signln" element={<Signln />} />
           <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
         </Route>
       </Routes>
