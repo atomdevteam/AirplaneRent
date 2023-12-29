@@ -55,7 +55,7 @@ const LogIn = () => {
                         </div>
                         <div className="py-5">
                             <div className="text-center text-xs">
-                                Don't you have an account yet? <Link to="/registro" className=" hover:underline transition-all underline ">Sign in</Link>
+                                Don't you have an account yet? <Link to="/Signln" className=" hover:underline transition-all underline ">Sign in</Link>
                             </div>
                         </div>
                     </div>

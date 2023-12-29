@@ -4,7 +4,6 @@ import Calander from "./components/Calander/Calander"
 import Hours from './components/Hours/Hours'
 import LogIn from './components/LogIn/LogIn'
 import { useContextAir } from './Context'
-import NavBar from './components/NavBar'
 import Signln from './Layout/Signln'
 
 function App() {
@@ -25,6 +24,7 @@ function App() {
         <Route path='/' element={<LogIn />} />
       )}
       <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+      <Route path="/Signln" element={<Signln />} />
     </Routes>
   );
 
