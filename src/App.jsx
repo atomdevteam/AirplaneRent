@@ -5,6 +5,7 @@ import Hours from './components/Hours/Hours'
 import LogIn from './components/LogIn/LogIn'
 import { useContextAir } from './Context'
 import NavBar from './components/NavBar'
+import Signln from './Layout/Signln'
 
 function App() {
   const { isAuth } = useContextAir()
