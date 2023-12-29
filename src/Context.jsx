@@ -1,8 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db,auth } from "./firebase/firebase"
-import { set, ref, onValue, get, update, push } from "firebase/database"
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut } from "firebase/auth"
 import { toast } from "react-toastify"
+import { set, ref,query, orderByChild, equalTo, onValue, get, update, push, remove } from "firebase/database"
+
+
 const Context = createContext()
 //123456789
 export const useContextAir = () => {
@@ -11,67 +13,107 @@ export const useContextAir = () => {
   return context
 }
 
-export function ProviderContext({ children }) {
-  //Varibale or state setReservationsForDate
-  const [ReservationsForDate, setReservationsForDate] = useState([])
-  const [isAuth, setisAuth] = useState(false)
-  //Funtions
-  const LogIn = async (email, password) => {
-    console.log("Backend")
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        const user = userCredential.user
-        console.log(userCredential)
-        user.getIdToken().then((value) => {
-          localStorage.setItem("Token", value)
-          setisAuth(true)
-        })
-      })
-    } catch (error) {
-        console.log(error)
-    }
-  }
-
-  const logout = async () => {
-    console.log("Logout")
-    await signOut(auth)
-    setisAuth(false)
-  }
-  const SaveScheduledform = async (datos) => {
-    try {
-      const newScheduledformRef = push(ref(db, 'Scheduledform'));
-      const newScheduledformKey = newScheduledformRef.key;
-      await set(newScheduledformRef, datos);
-      console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
-    } catch (error) {
-      console.error("Error al guardar datos:", error);
-    }
-  }
-
-  const ShowListHours = async (fecha) => {
-    try {
-      const fetchData = ref(db, 'Scheduledform/');
-      
-      // Suscribirse a los cambios en la base de datos
-      onValue(fetchData, (snapshot) => {
-        const data = snapshot.val();
-        
-        // Filtrar las reservaciones por la fecha proporcionada
-        const reservationsForDate = Object.values(data || {}).filter(reservation => reservation.date === fecha);
+export function ProviderContext({children}) {
+    //Varibale or state setReservationsForDate
+    const [ReservationsForDate, setReservationsForDate] = useState([])
+    const [AllReservations, setAllReservations] = useState([])
+    const [isAuth, setisAuth] = useState(false)
+    //Funtions
+    const LogIn = async (email, password) => {
+      console.log("Backend")
   
-        // Actualizar la visualización con las reservaciones filtradas
-        setReservationsForDate(reservationsForDate); // Esta línea depende de cómo gestionas el estado en tu aplicación
-      });
-    } catch (error) {
-      console.error("Error al obtener datos:", error);
+      try {
+        await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+          const user = userCredential.user
+          console.log(userCredential)
+          user.getIdToken().then((value) => {
+            localStorage.setItem("Auth", true)
+            setisAuth(true)
+          })
+        })
+      } catch (error) {
+          console.log(error)
+      }
     }
-  };
+  
+    const logout = async () => {
+      console.log("Logout")
+      await signOut(auth)
+      setisAuth(false)
+    }
+    const SaveScheduledform = async (datos) => {
+        try {
+          const newScheduledformRef = push(ref(db, 'Scheduledform'));
+          const newScheduledformKey = newScheduledformRef.key;
+          await set(newScheduledformRef, datos);
+          console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
+        } catch (error) {
+          console.error("Error al guardar datos:", error);
+        }
+    }
+
+    const DeleteScheduleById = async (idToDelete) => {
+      try {
+        const scheduledformsRef = ref(db, 'Scheduledform');
+        const queryById = query(scheduledformsRef, orderByChild('id'), equalTo(idToDelete));
+        const snapshot = await get(queryById);
+    
+        if (snapshot.exists()) {
+          const key = Object.keys(snapshot.val())[0]; // Obtener la clave del elemento
+          const elementRef = ref(db, `Scheduledform/${key}`);
+          await remove(elementRef);
+          console.log("Elemento eliminado correctamente");
+        } else {
+          console.log("No se encontró ningún elemento con la ID proporcionada");
+        }
+      } catch (error) {
+        console.error("Error al eliminar elemento:", error);
+        throw error;
+      }
+    }
+
+    const EditScheduleById = async (idToEdit, newData) => {
+      try {
+        const scheduledformsRef = ref(db, 'Scheduledform');
+        const queryById = query(scheduledformsRef, orderByChild('id'), equalTo(idToEdit));
+        const snapshot = await get(queryById);
+    
+        if (snapshot.exists()) {
+          const key = Object.keys(snapshot.val())[0]; // Obtener la clave del elemento
+          const elementRef = ref(db, `Scheduledform/${key}`);
+          await update(elementRef, newData); // Actualizar los datos del elemento
+          console.log("Elemento editado correctamente");
+        } else {
+          console.log("No se encontró ningún elemento con la ID proporcionada");
+        }
+      } catch (error) {
+        console.error("Error al editar elemento:", error);
+        throw error;
+      }
+    }
+    
+
+    const ShowListHours = async (fecha) => {
+        try {
+          const fetchData = ref(db, 'Scheduledform/');
+          onValue(fetchData, (snapshot) => {
+            const data = snapshot.val();
+            const reservationsForDate = Object.values(data || {}).filter(reservation => reservation.date === fecha);
+            const All = Object.values(data || {});
+            setReservationsForDate(reservationsForDate); 
+            setAllReservations(All)
+          });
+        } catch (error) {
+          console.error("Error al obtener datos:", error);
+        }
+      };
 
       useEffect(() => {
         console.log("Reservaciones")
         console.log(ReservationsForDate)
-      }, [ReservationsForDate])
+        console.log("Todas....")
+        console.log(AllReservations)
+      }, [ReservationsForDate, AllReservations])
       
       
       const signup = async (email, password) => {
@@ -109,7 +151,11 @@ export function ProviderContext({ children }) {
                 signup,
                 LogIn,
                 isAuth,
-                logout
+                logout,
+                AllReservations,
+                SaveScheduledform,
+                DeleteScheduleById,
+                EditScheduleById
             }}
         >
             {children}
