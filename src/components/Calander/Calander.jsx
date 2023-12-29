@@ -98,7 +98,7 @@ const Calander = () => {
       );
     });
   
-    for (let hour = 1; hour <= 18; hour++) {
+    for (let hour = 7; hour <= 18; hour++) {
       if (!data.some(reservation => {
         const startHour = parseInt(reservation.start.split(":")[0], 10);
         const endHour = parseInt(reservation.end.split(":")[0], 10);
