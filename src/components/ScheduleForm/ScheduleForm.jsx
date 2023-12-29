@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations, date, reservationEdit, setreservationEdit }) => {
-    const {SaveScheduledform} = useContextAir()
+    const { SaveScheduledform, AllReservations, DeleteScheduleById, EditScheduleById } = useContextAir()
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -53,7 +53,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             console.log('La nueva reserva se superpone con una reserva existente en el mismo horario y fecha. Elige otro horario o fecha.');
             return;
         }
-        const highestId = reservations.reduce((maxId, reserva) => {
+        const highestId = AllReservations.reduce((maxId, reserva) => {
             return reserva.id > maxId ? reserva.id : maxId;
         }, 0);
         const newId = highestId + 1;
@@ -96,7 +96,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
     const handleEdit = (e) => {
         e.preventDefault()
-        const reservaAEditar = reservations.find(reserva => reserva.id === idreservation);
+        const reservaAEditar = AllReservations.find(reserva => reserva.id === idreservation);
 
         if (reservaAEditar) {
             const dateNow = new Date()
@@ -105,7 +105,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             if (dateNowFormat <= reservaAEditar.date) {
                 const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00') : null;
                 const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }).replace(/^24/, '00') : null;
-                const overlapsExistingReservation = reservations.some(reserva =>
+                const overlapsExistingReservation = AllReservations.some(reserva =>
                     reserva.id !== reservaAEditar.id && (
                         (start >= reserva.start && start < reserva.end) ||
                         (end > reserva.start && end <= reserva.end) ||
@@ -113,8 +113,8 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                     )
                 );
 
-                const overlapsWithExistingDate = reservations.some(reserva =>
-                    reserva.id !== reservaAEditar.id && 
+                const overlapsWithExistingDate = AllReservations.some(reserva =>
+                    reserva.id !== reservaAEditar.id &&
                     formattedMesActual === reserva.date &&
                     (
                         (start >= reserva.start && start < reserva.end) ||
@@ -135,19 +135,21 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                     fuel: fuel,
                     date: formattedMesActual
                 };
+                EditScheduleById(idreservation, editedReservation)
 
-                const updatedReservations = reservations.map(reserva =>
-                    reserva.id === editedReservation.id ? editedReservation : reserva
-                );
+                // const updatedReservations = reservations.map(reserva =>
+                //     reserva.id === editedReservation.id ? editedReservation : reserva
+                // );
 
-                setReservations(updatedReservations)
+                // setReservations(updatedReservations)
 
                 setIsOpen(false);
                 setname("");
                 setSelectedTime(null);
                 setTimeEnd(null);
                 setfuel("");
-                setreservationEdit(null)
+                // setreservationEdit(null)
+                // window.location.reload()
             } else {
                 console.log("No se pued editar reservaciones pasadas")
             }
@@ -156,6 +158,18 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         } else {
             console.log('La reserva con el ID proporcionado no se encontró.');
         }
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault()
+        DeleteScheduleById(reservationEdit.id)
+        setIsOpen(false)
+        setname("")
+        setSelectedTime(null)
+        setTimeEnd(null)
+        setfuel("")
+        window.location.reload()
+
     }
 
 
@@ -271,24 +285,29 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             >
                                                 Save
                                             </button> : (
-                                                <button
-                                                    onClick={(e) => handleEdit(e)}
-                                                    className="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                                <>
+                                                    <button
+                                                        onClick={(e) => handleEdit(e)}
+                                                        className="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 
-                                                >
-                                                    Editar
-                                                </button>
+                                                    >
+                                                        Editar
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => handleDelete(e)}
+                                                        className="middle none center mr-4 rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </>
+
+
                                             )
 
                                         }
 
-                                        <button
 
-                                            className="middle none center mr-4 rounded-lg bg-red-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-
-                                        >
-                                            Delete
-                                        </button>
                                     </div>
 
                                 </div>
