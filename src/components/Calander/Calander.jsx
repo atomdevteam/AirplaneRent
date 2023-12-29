@@ -87,18 +87,18 @@ const Calander = () => {
 
   // Array para almacenar las reservaciones con hora de inicio y hora final
 
-  
+
   // Función para verificar si se han realizado reservaciones para todas las horas
   const Green = (date) => {
-    const data =calenderAll.filter((entry) => {
+    const data = calenderAll.filter((entry) => {
       const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-      
+
       return (
-        entry.date === formattedDate 
+        entry.date === formattedDate
       );
     });
-  
-    for (let hour = 1; hour <= 18; hour++) {
+
+    for (let hour = 7; hour <= 18; hour++) {
       if (!data.some(reservation => {
         const startHour = parseInt(reservation.start.split(":")[0], 10);
         const endHour = parseInt(reservation.end.split(":")[0], 10);
@@ -109,16 +109,16 @@ const Calander = () => {
     }
     return true;
   }
-  
+
   const Oragen = (date) => {
-    const data =calenderAll.filter((entry) => {
+    const data = calenderAll.filter((entry) => {
       const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-  
+
       return (
-        entry.date === formattedDate 
+        entry.date === formattedDate
       );
     });
-  
+
     for (let hour = 18; hour <= 23; hour++) {
       if (!data.some(reservation => {
         const startHour = parseInt(reservation.start.split(":")[0], 10);
@@ -130,12 +130,12 @@ const Calander = () => {
     }
     return true;
   }
-  
+
 
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
   //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-  
+
   //     return (
   //       dato.date === formattedDate &&
   //       (
@@ -148,7 +148,7 @@ const Calander = () => {
   //       )
   //     );
   //   });
-  
+
   //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
   //     if (!datos.some(reservacion => {
   //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
@@ -257,8 +257,8 @@ const Calander = () => {
               <Link
                 to={`/hours/${date + 1}/${month}/${year}`}
                 className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
-               ${calenderAll.some((entry) => entry.date===`${year}-${(month + 1).toString().padStart(2, "0")}-${(date+1).toString().padStart(2, "0")}`)?
-               Green(date+1)===true&& Oragen(date+1)===true ?"bg-red-200":Green(date+1)===true?"bg-orange-200":"bg-green-200":""}
+               ${calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
+                    Green(date + 1) === true && Oragen(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
               
                 `}
               >
