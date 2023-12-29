@@ -57,21 +57,28 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             return reserva.id > maxId ? reserva.id : maxId;
         }, 0);
         const newId = highestId + 1;
-        const datos = {
-            id: newId,
-            name: name,
-            start: start,
-            end: end,
-            fuel: fuel,
-            date: formattedMesActual
+        if (newId && name && start && end && fuel && formattedMesActual) {
+            const datos = {
+                id: newId,
+                name: name,
+                start: start,
+                end: end,
+                fuel: fuel,
+                date: formattedMesActual
+            };
+            SaveScheduledform(datos)
+            onSave(datos);
+
+            setIsOpen(false)
+            setname("")
+            setSelectedTime(null)
+            setTimeEnd(null)
+            setfuel("")
+        } else {
+            console.log('Todos los campos son obligatorio');
         }
-        onSave(datos);
-        SaveScheduledform(datos)
-        setIsOpen(false)
-        setname("")
-        setSelectedTime(null)
-        setTimeEnd(null)
-        setfuel("")
+
+
     }
 
     useEffect(() => {
