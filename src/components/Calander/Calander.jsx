@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { BsPersonCircle } from "react-icons/bs";
+import { useContextAir } from '../../Context';
 const Calander = () => {
+  const {logout} = useContextAir()
+  const [open2, setOpen2] = useState(false);
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -64,11 +68,18 @@ const Calander = () => {
     }
   };
 
+  const handleLogout = (e) => {
+    e.preventDefault()
+    logout()
+    window.location.reload();
+  
+  }
+
 
 
   return (
     <div>
-      <div className=' w-full h-[5rem] flex items-center'>
+      <div className=' flex items-center relative justify-between  px-5 py-6 w-full'>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
@@ -103,12 +114,44 @@ const Calander = () => {
                 </svg>
               </button>
             </div>
+
+
             <div>
-            <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
-            <span className="text-lg text-black font-normal">{year}</span>
+              <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
+              <span className="text-lg text-black font-normal">{year}</span>
             </div>
+
+          </div>
+
+        </div>
+        <div className="flex gap-3 items-center  user cursor-pointer"
+          onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
+        >
+          <div
+
+            className="h-6 w-6  relative  rounded-full  bg-gray-200">
+            <BsPersonCircle className="text-gray-500 w-full h-full" />
+            <div
+              style={open2 ? { display: 'block' } : { display: 'none' }}
+              className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
+              <ul>
+                <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  <button
+                    onClick={handleLogout}
+                    className='hover:bg-gray-400'>
+                    Log Out
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div className="text-gray-900 font-medium">
+            Jose A.
           </div>
         </div>
+
+
       </div>
       <div>
         <div className='grid grid-cols-7'>
