@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db,auth } from "./firebase/firebase"
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut } from "firebase/auth"
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
 import { toast } from "react-toastify"
 import { set, ref,query, orderByChild, equalTo, onValue, get, update, push, remove } from "firebase/database"
 
@@ -17,29 +17,34 @@ export function ProviderContext({children}) {
     //Varibale or state setReservationsForDate
     const [ReservationsForDate, setReservationsForDate] = useState([])
     const [AllReservations, setAllReservations] = useState([])
-    const [isAuth, setisAuth] = useState(false)
+    const [isAuth, setisAuth] = useState(null)
+    const [user, setUser] = useState(null);
     //Funtions
     const LogIn = async (email, password) => {
-      console.log("Backend")
-  
+
       try {
         await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
           const user = userCredential.user
-          console.log(userCredential)
           user.getIdToken().then((value) => {
-            localStorage.setItem("Auth", true)
-            setisAuth(true)
+            localStorage.setItem("Token", value)
+            localStorage.setItem("DisplayName", user.displayName)
+            toast.success("Session started successfully!",
+              {
+                theme: "dark"
+              })
+  
           })
         })
       } catch (error) {
-          console.log(error)
+        toast.error('Failed to start session!', {
+          theme: 'dark',
+        });
       }
     }
   
     const logout = async () => {
       console.log("Logout")
       await signOut(auth)
-      setisAuth(false)
     }
     const SaveScheduledform = async (datos) => {
         try {
@@ -141,6 +146,14 @@ export function ProviderContext({children}) {
         }
       }
 
+      useEffect(() => {
+        const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
+          console.log({ currentUser });
+          setUser(currentUser);
+        });
+        return () => unsubuscribe();
+      }, [user]);
+
       
     return (
         <Context.Provider
@@ -153,9 +166,9 @@ export function ProviderContext({children}) {
                 isAuth,
                 logout,
                 AllReservations,
-                SaveScheduledform,
                 DeleteScheduleById,
-                EditScheduleById
+                EditScheduleById,
+                user
             }}
         >
             {children}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { useContextAir } from '../../Context';
 const Calander = () => {
-  const {logout} = useContextAir()
+  const { logout } = useContextAir()
   const [open2, setOpen2] = useState(false);
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -70,9 +70,14 @@ const Calander = () => {
 
   const handleLogout = (e) => {
     e.preventDefault()
+    console.log("Logout")
     logout()
+    localStorage.clear();
     window.location.reload();
-  
+
+    return (
+      <Navigate to='/' replace />
+    )
   }
 
 
@@ -134,13 +139,12 @@ const Calander = () => {
             <div
               style={open2 ? { display: 'block' } : { display: 'none' }}
               className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
-              <ul>
+              <ul onClick={handleLogout}>
                 <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
-                  <button
-                    onClick={handleLogout}
+                  <span
                     className='hover:bg-gray-400'>
                     Log Out
-                  </button>
+                  </span>
                 </li>
               </ul>
             </div>
