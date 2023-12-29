@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db,auth } from "./firebase/firebase"
-import { set, ref, onValue, get, update, push } from "firebase/database"
+import { set, ref, onValue, get, update, push,getDatabase } from "firebase/database"
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut } from "firebase/auth"
 import { toast } from "react-toastify"
 const Context = createContext()
@@ -50,8 +50,19 @@ export function ProviderContext({children}) {
         console.log(ReservationsForDate)
       }, [ReservationsForDate])
       
+      async function saveUserDetails(email, userDetails) {
+        const db = getDatabase();
+        const userRef = ref(db, 'users/' + email.replace('.', ',')); // Usando el correo electrónico como clave, reemplazando '.' con ','
       
-      const signup = async (email, password) => {
+        try {
+          await set(userRef, userDetails);
+          console.log('Detalles del usuario guardados correctamente en la base de datos');
+        } catch (error) {
+          console.error('Error al guardar detalles del usuario:', error.message);
+        }
+      }
+      
+      const signup = async (email, password,name,phonenumber) => {
         // Validar el formato del correo electrónico
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -62,6 +73,10 @@ export function ProviderContext({children}) {
         try {
           await createUserWithEmailAndPassword(auth, email, password);
           console.log("Usuario registrado exitosamente");
+        
+          // Guardar detalles adicionales del usuario en la base de datos
+          await saveUserDetails(email, { name, phonenumber });
+        
         } catch (error) {
           // Manejar errores específicos
           if (error.code === "auth/weak-password") {
@@ -73,6 +88,7 @@ export function ProviderContext({children}) {
           } else {
             console.error("Error al registrar usuario:", error.message);
           }
+        
         }
       }
 
