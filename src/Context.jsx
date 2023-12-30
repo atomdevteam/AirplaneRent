@@ -28,7 +28,10 @@ export function ProviderContext({ children }) {
         user.getIdToken().then((value) => {
           localStorage.setItem("Token", value)
           localStorage.setItem("DisplayName", user.displayName)
-         
+          toast.success("Session started successfully!",
+            {
+              theme: "dark"
+            })
 
         })
       })
@@ -42,17 +45,13 @@ export function ProviderContext({ children }) {
   const logout = async () => {
     console.log("Logout")
     await signOut(auth)
-    localStorage.clear()
   }
   const SaveScheduledform = async (datos) => {
     try {
-      const newScheduledformRef = push(ref(db, 'Scheduledform'));
+      const newScheduledformRef = push(ref(db, 'Scheduledform/'));
       const newScheduledformKey = newScheduledformRef.key;
       await set(newScheduledformRef, datos);
-      toast.success("Done!",
-        {
-          theme: "dark"
-        })
+      console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
     } catch (error) {
       console.error("Error al guardar datos:", error);
     }
@@ -121,6 +120,27 @@ export function ProviderContext({ children }) {
     }
   };
 
+  const GetAll = async () => {
+    const partnersRef = ref(db, 'Scheduledform');
+
+    try {
+      const partnersSnapshot = await get(partnersRef);
+
+      if (partnersSnapshot.exists()) {
+        // Obtén todos los datos de Partners
+        const partnersData = partnersSnapshot.val();
+        const allReservations = Object.values(partnersData || {});
+        return allReservations;
+      } else {
+        console.log("No data available");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     console.log("Reservaciones")
     console.log(ReservationsForDate)
@@ -178,7 +198,8 @@ export function ProviderContext({ children }) {
         AllReservations,
         DeleteScheduleById,
         EditScheduleById,
-        user
+        user,
+         GetAll
       }}
     >
       {children}
