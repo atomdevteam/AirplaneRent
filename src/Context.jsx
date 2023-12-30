@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db,auth } from "./firebase/firebase"
 import { set, ref, onValue, get, update, push,getDatabase } from "firebase/database"
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut } from "firebase/auth"
+import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth"
 import { toast } from "react-toastify"
 const Context = createContext()
 //123456789
@@ -73,7 +73,10 @@ export function ProviderContext({children}) {
         try {
           await createUserWithEmailAndPassword(auth, email, password);
           console.log("Usuario registrado exitosamente");
-        
+          updateProfile(
+            auth.currentUser,
+            { displayName: name  }
+          )
           // Guardar detalles adicionales del usuario en la base de datos
           await saveUserDetails(email, { name, phonenumber });
         
