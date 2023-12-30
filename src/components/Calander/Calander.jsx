@@ -211,7 +211,7 @@ const Calander = () => {
 
           </div>
           <div className="text-gray-900 font-medium">
-            {/* {user.displayName} */}
+          {user && user.displayName}
           </div>
         </div>
 
