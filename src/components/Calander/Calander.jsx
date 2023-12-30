@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { BsPersonCircle } from "react-icons/bs";
 import { useContextAir } from '../../Context';
 const Calander = () => {
   const [calenderAll, setCalenderAll] = useState([])
-  const { ShowListHours, ReservationsForDate, GetAll } = useContextAir()
+  const { ShowListHours, ReservationsForDate, GetAll,  logout, user } = useContextAir()
+  const [open2, setOpen2] = useState(false);
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -182,10 +184,22 @@ const Calander = () => {
 
   // console.log(horasFormato24SinPrimeraHora);
 
+  const handleLogout = (e) => {
+    e.preventDefault()
+    console.log("Logout")
+    logout()
+    localStorage.clear();
+    window.location.reload();
+
+    return (
+      <Navigate to='/' replace />
+    )
+  }
+
 
   return (
     <div>
-      <div className=' w-full h-[5rem] flex items-center'>
+      {/* <div className=' w-full h-[5rem] flex items-center'>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
@@ -226,6 +240,79 @@ const Calander = () => {
             </div>
           </div>
         </div>
+      </div> */}
+       <div className=' flex items-center relative justify-between  px-5 py-6 w-full'>
+        <div className='flex items-center justify-between py-2 px-6'>
+          <div className='px-1 flex items-center'>
+
+            <div className=' mx-4'>
+              <button
+                type='button'
+                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                onClick={decreaseMonth}
+              >
+                <svg
+                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                </svg>
+              </button>
+              <div className=' inline-flex h-6'></div>
+              <button
+                type='button'
+                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                onClick={increaseMonth}
+              >
+                <svg
+                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
+                >
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                </svg>
+              </button>
+            </div>
+
+
+            <div>
+              <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
+              <span className="text-lg text-black font-normal">{year}</span>
+            </div>
+
+          </div>
+
+        </div>
+        <div className="flex gap-3 items-center  user cursor-pointer"
+          onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
+        >
+          <div
+
+            className="h-6 w-6  relative  rounded-full  bg-gray-200">
+            <BsPersonCircle className="text-gray-500 w-full h-full" />
+            <div
+              style={open2 ? { display: 'block' } : { display: 'none' }}
+              className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
+              <ul onClick={handleLogout}>
+                <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  <span
+                    className='hover:bg-gray-400'>
+                    Log Out
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div className="text-gray-900 font-medium">
+          {user && user.displayName}
+          </div>
+        </div>
+
+
       </div>
       <div>
         <div className='grid grid-cols-7'>
