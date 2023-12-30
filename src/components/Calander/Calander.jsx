@@ -224,6 +224,33 @@ const Calander = () => {
               <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
               <span className="text-lg text-black font-normal">{year}</span>
             </div>
+
+          </div>
+
+        </div>
+        <div className="flex gap-3 items-center  user cursor-pointer"
+          onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
+        >
+          <div
+
+            className="h-6 w-6  relative  rounded-full  bg-gray-200">
+            <BsPersonCircle className="text-gray-500 w-full h-full" />
+            <div
+              style={open2 ? { display: 'block' } : { display: 'none' }}
+              className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
+              <ul onClick={handleLogout}>
+                <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
+                  <span
+                    className='hover:bg-gray-400'>
+                    Log Out
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div className="text-gray-900 font-medium">
+          {user && user.displayName}
           </div>
         </div>
       </div>
