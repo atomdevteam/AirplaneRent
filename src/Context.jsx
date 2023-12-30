@@ -28,10 +28,6 @@ export function ProviderContext({ children }) {
         user.getIdToken().then((value) => {
           localStorage.setItem("Token", value)
           localStorage.setItem("DisplayName", user.displayName)
-          toast.success("Session started successfully!",
-            {
-              theme: "dark"
-            })
 
         })
       })

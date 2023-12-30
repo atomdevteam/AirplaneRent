@@ -6,7 +6,7 @@ import { useContextAir } from '../../Context';
 import Loader from '../Loader/Loader';
 const Calander = () => {
   const [calenderAll, setCalenderAll] = useState([])
-  const { ShowListHours, ReservationsForDate, GetAll, user } = useContextAir()
+  const { ShowListHours, ReservationsForDate, GetAll, user, logout } = useContextAir()
   const [open2, setOpen2] = useState(false);
   const calendarRef = useRef(null);
   let initialX = null;
@@ -309,16 +309,16 @@ const Calander = () => {
           onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
         >
           <div
-
+            onClick={handleLogout}
             className="h-6 w-6  relative  rounded-full  bg-gray-200">
             <BsPersonCircle className="text-gray-500 w-full h-full" />
             <div
               style={open2 ? { display: 'block' } : { display: 'none' }}
               className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
-              <ul onClick={handleLogout}>
+              <ul >
                 <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
                   <span
-                    className='hover:bg-gray-400'>
+                    className=''>
                     Log Out
                   </span>
                 </li>
