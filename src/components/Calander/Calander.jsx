@@ -1,9 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import { BsPersonCircle } from "react-icons/bs";
+import { FaPlane } from "react-icons/fa6";
 import { useContextAir } from '../../Context';
+import Loader from '../Loader/Loader';
 const Calander = () => {
   const [calenderAll, setCalenderAll] = useState([])
-  const { ShowListHours, ReservationsForDate, GetAll } = useContextAir()
+  const { ShowListHours, ReservationsForDate, GetAll, user } = useContextAir()
+  const [open2, setOpen2] = useState(false);
+  const calendarRef = useRef(null);
+  let initialX = null;
+  const [touchAnimation, setTouchAnimation] = useState(false);
+
+  const handleTouchStart = (e) => {
+    initialX = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    if (e.touches && e.touches[0]) {
+      if (initialX === null) {
+        return;
+      }
+
+      const currentX = e.touches[0].clientX;
+      const diffX = initialX - currentX;
+
+      if (diffX > 0) {
+        // Swiped left - Go to next day
+        console.log('Swiped left - Go to next day');
+        // Implementa la lógica para cambiar al día siguiente en el calendario
+        increaseMonth()
+        setTouchAnimation(true);
+      } else {
+        // Swiped right - Go to previous day
+        console.log('Swiped right - Go to previous day');
+        decreaseMonth()
+        setTouchAnimation(true);
+      }
+
+      initialX = null;
+    }
+  };
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -182,10 +219,48 @@ const Calander = () => {
 
   // console.log(horasFormato24SinPrimeraHora);
 
+  const handleLogout = (e) => {
+    e.preventDefault()
+    console.log("Logout")
+    logout()
+    localStorage.clear();
+    window.location.reload();
+
+    return (
+      <Navigate to='/' replace />
+    )
+  }
+
+  const [loadingCalendar, setLoadingCalendar] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadingCalendar(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loadingCalendar) {
+    return <Loader />;
+  }
+
 
   return (
-    <div>
-      <div className=' w-full h-[5rem] flex items-center'>
+    <div
+      ref={calendarRef}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      style={{ touchAction: 'none' }}
+      className='relative'
+    >
+      {touchAnimation && (
+        <FaPlane
+          className="absolute top-1/2 left-full transform -translate-y-1/2 animate-flyLeft text-blue-500"
+          onAnimationEnd={() => setTouchAnimation(false)} // Oculta el avión al finalizar la animación
+        />
+      )}
+      <div className=' flex items-center relative justify-between  px-5 py-6 w-full'>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
@@ -220,6 +295,8 @@ const Calander = () => {
                 </svg>
               </button>
             </div>
+
+
             <div>
               <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
               <span className="text-lg text-black font-normal">{year}</span>
@@ -250,9 +327,11 @@ const Calander = () => {
 
           </div>
           <div className="text-gray-900 font-medium">
-          {user && user.displayName}
+            {user && user.displayName}
           </div>
         </div>
+
+
       </div>
       <div>
         <div className='grid grid-cols-7'>

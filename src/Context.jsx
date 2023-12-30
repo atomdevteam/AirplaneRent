@@ -51,7 +51,10 @@ export function ProviderContext({ children }) {
       const newScheduledformRef = push(ref(db, 'Scheduledform/'));
       const newScheduledformKey = newScheduledformRef.key;
       await set(newScheduledformRef, datos);
-      console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
+      toast.success("Done!",
+      {
+        theme: "dark"
+      })
     } catch (error) {
       console.error("Error al guardar datos:", error);
     }
