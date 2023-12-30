@@ -1,50 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { BsPersonCircle } from "react-icons/bs";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useContextAir } from '../../Context';
-import { FaPlane } from "react-icons/fa6";
-import Loader from '../Loader/Loader';
 const Calander = () => {
-  const { logout, user } = useContextAir()
-  const [open2, setOpen2] = useState(false);
-  const calendarRef = useRef(null);
-  let initialX = null;
-  const [touchAnimation, setTouchAnimation] = useState(false);
-
-  const handleTouchStart = (e) => {
-    initialX = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    if (e.touches && e.touches[0]) {
-      if (initialX === null) {
-        return;
-      }
-
-      const currentX = e.touches[0].clientX;
-      const diffX = initialX - currentX;
-
-      if (diffX > 0) {
-        // Swiped left - Go to next day
-        console.log('Swiped left - Go to next day');
-        // Implementa la lógica para cambiar al día siguiente en el calendario
-        increaseMonth()
-        setTouchAnimation(true);
-      } else {
-        // Swiped right - Go to previous day
-        console.log('Swiped right - Go to previous day');
-        decreaseMonth()
-        setTouchAnimation(true);
-      }
-
-      initialX = null;
-    }
-  };
-
+  const [calenderAll, setCalenderAll] = useState([])
+  const { ShowListHours, ReservationsForDate, GetAll } = useContextAir()
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+
 
   const DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -56,7 +20,32 @@ const Calander = () => {
 
   useEffect(() => {
     initDate();
+    const fetchData = async () => {
+      try {
+        const partnersData = await GetAll();
+        console.log("Hola", partnersData)
+        setCalenderAll(partnersData)
+        console.log(GetAll())
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
   }, [])
+
+
+  useEffect(() => {
+    // console.log("klk")
+    // console.log(calenderAll[1])
+    // console.log()
+
+  }, [calenderAll, year, month, numberOfDays])
+
+
+
+
 
 
   useEffect(() => {
@@ -95,6 +84,85 @@ const Calander = () => {
     }
   };
 
+
+  // Array para almacenar las reservaciones con hora de inicio y hora final
+
+
+  // Función para verificar si se han realizado reservaciones para todas las horas
+  const Green = (date) => {
+    const data = calenderAll.filter((entry) => {
+      const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
+
+      return (
+        entry.date === formattedDate
+      );
+    });
+
+    for (let hour = 7; hour <= 18; hour++) {
+      if (!data.some(reservation => {
+        const startHour = parseInt(reservation.start.split(":")[0], 10);
+        const endHour = parseInt(reservation.end.split(":")[0], 10);
+        return startHour <= hour && endHour >= hour;
+      })) {
+        return false; // At least one hour is not reserved
+      }
+    }
+    return true;
+  }
+
+  const Oragen = (date) => {
+    const data = calenderAll.filter((entry) => {
+      const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
+
+      return (
+        entry.date === formattedDate
+      );
+    });
+
+    for (let hour = 18; hour <= 23; hour++) {
+      if (!data.some(reservation => {
+        const startHour = parseInt(reservation.start.split(":")[0], 10);
+        const endHour = parseInt(reservation.end.split(":")[0], 10);
+        return startHour <= hour && endHour >= hour;
+      })) {
+        return false; // At least one hour is not reserved
+      }
+    }
+    return true;
+  }
+
+
+  // const todasLasHorasReservadas2 = (date) => {
+  //   const datos = calenderAll.filter((dato) => {
+  //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
+
+  //     return (
+  //       dato.date === formattedDate &&
+  //       (
+  //         (parseInt(dato.start.split(":")[0], 10) >= 18 && parseInt(dato.start.split(":")[0], 10) <= 23) ||
+  //         (parseInt(dato.start.split(":")[0], 10) >= 0 && parseInt(dato.start.split(":")[0], 10) <= 6)
+  //       ) &&
+  //       (
+  //         (parseInt(dato.end.split(":")[0], 10) >= 18 && parseInt(dato.end.split(":")[0], 10) <= 23) ||
+  //         (parseInt(dato.end.split(":")[0], 10) >= 0 && parseInt(dato.end.split(":")[0], 10) <= 6)
+  //       )
+  //     );
+  //   });
+
+  //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
+  //     if (!datos.some(reservacion => {
+  //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
+  //       const finHora = parseInt(reservacion.end.split(":")[0], 10);
+  //       return (inicioHora <= hora && finHora >= hora) || (inicioHora <= hora + 24 && finHora >= hora + 24);
+  //     })) {
+  //       return false; // Hay al menos una hora sin reservaciones
+  //     }
+  //   }
+  //   return true;
+  // }
+  // reservaciones.push({ inicio: "01:00", fin: "12:00" }, { inicio: "12:00", fin: "16:00" }, { inicio: "16:00", fin: "18:00" });
+  // const todasReservadas = todasLasHorasReservadas();
+  // console.log(`¿Todas las horas han sido reservadas? ${todasReservadas ? 'Sí' : 'No'}`);
   const increaseMonth = () => {
     if (month === 11) {
       setYear(year + 1);
@@ -104,47 +172,20 @@ const Calander = () => {
     }
   };
 
-  const handleLogout = (e) => {
-    e.preventDefault()
-    console.log("Logout")
-    logout()
-    localStorage.clear();
-    window.location.reload();
+  // const horasFormato24 = Array.from({ length: 24 }, (_, i) => {
+  //   const horaFormateada = i < 10 ? `0${i}` : `${i}`;
+  //   return `${horaFormateada}:00`;
+  // });
 
-    return (
-      <Navigate to='/' replace />
-    )
-  }
+  // // Eliminar la primera hora (00:00)
+  // const horasFormato24SinPrimeraHora = horasFormato24.slice(1);
 
-  const [loadingCalendar, setLoadingCalendar] = useState(true);
+  // console.log(horasFormato24SinPrimeraHora);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoadingCalendar(false);
-    }, 1000); 
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loadingCalendar) {
-    return <Loader />;
-  }
   return (
-
-    <div
-      ref={calendarRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      style={{ touchAction: 'none' }}
-      className='relative'
-    >
-      {touchAnimation && (
-        <FaPlane
-          className="absolute top-1/2 left-full transform -translate-y-1/2 animate-flyLeft text-blue-500"
-          onAnimationEnd={() => setTouchAnimation(false)} // Oculta el avión al finalizar la animación
-        />
-      )}
-      <div className=' flex items-center relative justify-between  px-5 py-6 w-full'>
+    <div>
+      <div className=' w-full h-[5rem] flex items-center'>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
@@ -179,43 +220,12 @@ const Calander = () => {
                 </svg>
               </button>
             </div>
-
-
             <div>
               <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
               <span className="text-lg text-black font-normal">{year}</span>
             </div>
-
-          </div>
-
-        </div>
-        <div className="flex gap-3 items-center  user cursor-pointer"
-          onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
-        >
-          <div
-
-            className="h-6 w-6  relative  rounded-full  bg-gray-200">
-            <BsPersonCircle className="text-gray-500 w-full h-full" />
-            <div
-              style={open2 ? { display: 'block' } : { display: 'none' }}
-              className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
-              <ul onClick={handleLogout}>
-                <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
-                  <span
-                    className='hover:bg-gray-400'>
-                    Log Out
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-          </div>
-          <div className="text-gray-900 font-medium">
-            {/* {user.displayName} */}
           </div>
         </div>
-
-
       </div>
       <div>
         <div className='grid grid-cols-7'>
@@ -241,15 +251,23 @@ const Calander = () => {
           {[...Array(numberOfDays).keys()].map((date) => (
             <div
               key={date}
-              className=" border-r border-b flex justify-center "
+              className="border-r border-b flex justify-center"
               style={{ height: "120px" }}
             >
-              <Link to={`/hours/${date + 1}/${month}/${year}`} className='mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out d'>
-
+              <Link
+                to={`/hours/${date + 1}/${month}/${year}`}
+                className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
+               ${calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
+                    Green(date + 1) === true && Oragen(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
+              
+                `}
+              >
                 {date + 1}
               </Link>
             </div>
           ))}
+
+
 
 
         </div>
