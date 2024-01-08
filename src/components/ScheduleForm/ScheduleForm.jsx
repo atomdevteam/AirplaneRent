@@ -4,13 +4,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations, date, reservationEdit, setreservationEdit }) => {
-    const { SaveScheduledform, AllReservations, DeleteScheduleById, EditScheduleById } = useContextAir()
+    const { SaveScheduledform, AllReservations, DeleteScheduleById, EditScheduleById, user } = useContextAir()
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
     const [selectedTime, setSelectedTime] = useState(null);
     const [TimeEnd, setTimeEnd] = useState(null)
     const [idreservation, setidreservation] = useState()
+    const MAX_FUEL = 50; 
 
     const handleTimeChange = (time) => {
         const start = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
@@ -53,6 +54,12 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             console.log('La nueva reserva se superpone con una reserva existente en el mismo horario y fecha. Elige otro horario o fecha.');
             return;
         }
+        
+
+        if (fuel > MAX_FUEL) {
+          console.log('La cantidad de combustible no puede ser mayor a 50.');
+          return;
+        }
         const highestId = AllReservations.reduce((maxId, reserva) => {
             return reserva.id > maxId ? reserva.id : maxId;
         }, 0);
@@ -60,6 +67,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         if (newId && name && start && end && fuel && formattedMesActual) {
             const datos = {
                 id: newId,
+                id_user: user.uid,
                 name: name,
                 start: start,
                 end: end,
@@ -134,6 +142,11 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                     return;
                 }
 
+                if (fuel > MAX_FUEL) {
+                    console.log('La cantidad de combustible no puede ser mayor a 50.');
+                    return;
+                  }
+
                 const editedReservation = {
                     id: reservaAEditar.id,
                     name: name,
@@ -177,6 +190,17 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         setfuel("")
 
     }
+
+    useEffect(() => {
+
+        // {user && user.displayName}
+
+        if (user) {
+            setname(user.displayName)
+        }
+
+    }, [user])
+
 
 
 
@@ -224,6 +248,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             name="name"
                                             placeholder="Name"
                                             value={name}
+                                            disabled={true}
                                             onChange={(e) => setname(e.target.value)}
                                             className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
@@ -271,7 +296,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                         <label htmlFor="fuel" className="block text-sm font-bold ml-1 mb-2 text-black">Fuel</label>
                                         <div className="relative">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 id="fuel"
                                                 name="fuel"
                                                 placeholder="Fuel"
