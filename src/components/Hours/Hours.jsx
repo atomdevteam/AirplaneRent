@@ -116,7 +116,7 @@ function Hours() {
                 <img src={iconCalendar} className='w-16 h-16' />
               </Link>
 
-              <div className=' flex'>
+          
                 
                 <button
                   type='button'
@@ -147,11 +147,11 @@ function Hours() {
                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
                   </svg>
                 </button>
-              </div>
+        
 
 
             </div>
-            <div >
+            <div className='ml-4'>
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
               <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
