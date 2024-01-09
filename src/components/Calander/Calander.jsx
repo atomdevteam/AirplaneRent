@@ -11,7 +11,10 @@ const Calander = () => {
   const calendarRef = useRef(null);
   let initialX = null;
   const [touchAnimation, setTouchAnimation] = useState(false);
-
+  const [month1, setMonth1] = useState(new Date().getMonth()+1);
+  const [year1, setYear1] = useState(new Date().getFullYear());
+  const [day1, setDay1] = useState(new Date().getDate());
+  
   const handleTouchStart = (e) => {
     initialX = e.touches[0].clientX;
   };
@@ -265,7 +268,6 @@ const Calander = () => {
     return <Loader />;
   }
 
-
   return (
     <div
       ref={calendarRef}
@@ -380,6 +382,7 @@ const Calander = () => {
               className="border-r border-b flex justify-center"
               style={{ height: "120px" }}
             >
+               {`${year}-${(month + 1).toString().padStart(2, "0")}-${(date+1).toString().padStart(2, "0")}`>=`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`?
               <Link
                 to={`/hours/${date + 1}/${month}/${year}`}
                 className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
@@ -388,12 +391,16 @@ const Calander = () => {
               
                 `}
               >
-                {date + 1}
-              </Link>
+               {date+1}
+          
+              </Link>: <> {date+1}</>
+             }
+
+
+
+
             </div>
           ))}
-
-
 
 
         </div>

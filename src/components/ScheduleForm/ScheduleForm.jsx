@@ -236,13 +236,13 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={selectedTime}
-                                                    value={selectedTime}
                                                     onChange={handleTimeChange}
                                                     showTimeSelect
                                                     showTimeSelectOnly
                                                     timeIntervals={60}
                                                     timeCaption="Time"
-                                                    dateFormat="h aa"
+                                                    dateFormat="HH:mm"
+                                                    timeFormat="HH:mm"
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
@@ -259,7 +259,8 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     showTimeSelectOnly
                                                     timeIntervals={60}
                                                     timeCaption="Time"
-                                                    dateFormat="h aa"
+                                                    dateFormat="HH:mm"
+                                                    timeFormat="HH:mm"
                                                     placeholderText="Select time"
                                                     className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
