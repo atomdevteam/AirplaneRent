@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
-import iconCalendar from "../../Icon/calander.png"
+import iconCalendar from "../../Icon/calander_2.png"
 function Hours() {
   const datos = useParams();
   const { ShowListHours, ReservationsForDate } = useContextAir()
@@ -102,7 +102,7 @@ function Hours() {
 
 
   return (
-    <>
+    <div className="bg-[#0d141d] text-white">
 
       <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
 
@@ -112,8 +112,8 @@ function Hours() {
 
             <div className='flex row '>
               <Link className="pl-4 pr-4" to={"/"}>
-                {/* < FaRegCalendarAlt size={30} /> */}
-                <img src={iconCalendar} className='w-16 h-16' />
+                < FaRegCalendarAlt size={30} />
+                {/* <img src={iconCalendar} className='w-16 h-16' /> */}
               </Link>
 
           
@@ -151,10 +151,10 @@ function Hours() {
 
 
             </div>
-            <div className='ml-4'>
-              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
-              <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
-              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
+            <div className='ml-4 text-white'>
+              <span className="text-lg  font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
+              <span className="text-lg   mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
+              <span className="text-lg  font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ function Hours() {
 
       </div>
 
-    </>
+    </div>
   );
 }
 

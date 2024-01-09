@@ -272,7 +272,7 @@ const Calander = () => {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       style={{ touchAction: 'none' }}
-      className='relative'
+      className='relative bg-[#141e30] text-white'
     >
       {touchAnimation && (
         <FaPlane
@@ -317,9 +317,9 @@ const Calander = () => {
             </div>
 
 
-            <div>
-              <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
-              <span className="text-lg text-black font-normal">{year}</span>
+            <div className='text-white'>
+              <span className="text-lg   mr-1">{MONTH_NAMES[month]}</span>
+              <span className="text-lg  font-normal">{year}</span>
             </div>
 
           </div>
@@ -346,7 +346,7 @@ const Calander = () => {
             </div>
 
           </div>
-          <div className="text-gray-900 font-medium">
+          <div className="text-white font-medium">
             {user && user.displayName}
           </div>
         </div>
@@ -356,7 +356,7 @@ const Calander = () => {
       <div>
         <div className='grid grid-cols-7'>
           {DAYS.map((day, index) => (
-            <div key={index} className='px-4 py-2 text-center text-gray-600 text-sm uppercase tracking-wide font-bold border-r border-t'>
+            <div key={index} className='px-4 py-2 text-center text-white text-sm uppercase tracking-wide font-bold border-r border-t'>
               {day}
             </div>
 
@@ -382,7 +382,7 @@ const Calander = () => {
             >
               <Link
                 to={`/hours/${date + 1}/${month}/${year}`}
-                className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
+                className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-400 hover:w-8 hover:h-8 hover:text-white transition ease-in-out 
                ${calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
                     Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
               

@@ -198,7 +198,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         <div className=''>
             {isOpen && (
                 <div className='fixed inset-0 flex items-center justify-center z-50'>
-                    <div className='bg-white rounded-lg p-6 w-96 max-w-full shadow-lg transform transition-all duration-300'>
+                    <div className='bg-[#1d2c3d] rounded-lg p-6 w-96 max-w-full shadow-lg transform transition-all duration-300 '>
                         <div className='flex justify-between items-center border-b-2 border-gray-200 pb-4'>
                             <h2 className="text-2xl font-semibold">Schedule Form</h2>
                             <button
@@ -216,7 +216,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
                             <form className='grid gap-y-4' onSubmit={handleSave}>
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-bold ml-1 mb-2 text-black">Name</label>
+                                    <label htmlFor="name" className="block text-sm font-bold ml-1 mb-2 text-white">Name</label>
                                     <div className="relative">
                                         <input
                                             type="text"
@@ -232,7 +232,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                 <div>
                                     <div className='flex flex-row '>
                                         <div className='mr-4'>
-                                            <label className="block text-sm font-bold ml-1 mb-2 text-black">Start</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-text">Start</label>
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={selectedTime}
@@ -250,7 +250,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             </div>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold ml-1 mb-2 text-black">End</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-white">End</label>
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={TimeEnd}
@@ -268,7 +268,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                         </div>
                                     </div>
                                     <div className='my-4'>
-                                        <label htmlFor="fuel" className="block text-sm font-bold ml-1 mb-2 text-black">Fuel</label>
+                                        <label htmlFor="fuel" className="block text-sm font-bold ml-1 mb-2 text-white">Fuel</label>
                                         <div className="relative">
                                             <input
                                                 type="text"
