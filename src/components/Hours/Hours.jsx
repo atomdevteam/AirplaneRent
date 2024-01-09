@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
+import iconCalendar from "../../Icon/icon_calander.png"
 function Hours() {
   const datos = useParams();
   const { ShowListHours, ReservationsForDate } = useContextAir()
@@ -109,37 +110,45 @@ function Hours() {
           <div className='px-1 flex items-center'>
 
             <div className='flex row  mx-4'>
-              <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
+              <Link className="pl-4 pr-4" to={"/"}>
+                {/* < FaRegCalendarAlt size={30} /> */}
+                <img src={iconCalendar} className='w-10 h-10' />
+              </Link>
 
-              <button
-                type='button'
-                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
-                onClick={irAlMesAnterior}
-              >
-                <svg
-                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
+              <div className='ml-[0.4rem] flex'>
+                
+                <button
+                  type='button'
+                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                  onClick={irAlMesAnterior}
                 >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
-                </svg>
-              </button>
-              <div className=' inline-flex h-6'></div>
-              <button
-                type='button'
-                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
-                onClick={irAlMesSiguiente}
-              >
-                <svg
-                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
+                  <svg
+                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                  </svg>
+                </button>
+                <div className=' inline-flex h-6'></div>
+                <button
+                  type='button'
+                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                  onClick={irAlMesSiguiente}
                 >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
-                </svg>
-              </button>
+                  <svg
+                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                  </svg>
+                </button>
+              </div>
+
+
             </div>
             <div >
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
