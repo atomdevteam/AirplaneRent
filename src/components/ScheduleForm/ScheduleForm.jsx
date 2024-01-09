@@ -196,10 +196,11 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         // {user && user.displayName}
 
         if (user) {
-            setname(user.displayName)
+            // setname(user.displayName)
+            setname(localStorage.getItem("DisplayName"))
         }
 
-    }, [user])
+    }, [user, isOpen])
 
 
 
