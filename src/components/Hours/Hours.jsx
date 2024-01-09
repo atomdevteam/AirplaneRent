@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
-import iconCalendar from "../../Icon/icon_calander.png"
+import iconCalendar from "../../Icon/calander.png"
 function Hours() {
   const datos = useParams();
   const { ShowListHours, ReservationsForDate } = useContextAir()
@@ -97,6 +97,7 @@ function Hours() {
     console.log(reservationsA)
   }, [ReservationsForDate])
 
+  
 
 
 
@@ -105,17 +106,17 @@ function Hours() {
 
       <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
 
-      <div className=' w-full h-[5rem] flex items-center border-b-2 '>
+      <div className=' w-full h-[5rem] flex items-center border-b-2'>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
-            <div className='flex row  mx-4'>
+            <div className='flex row '>
               <Link className="pl-4 pr-4" to={"/"}>
                 {/* < FaRegCalendarAlt size={30} /> */}
-                <img src={iconCalendar} className='w-10 h-10' />
+                <img src={iconCalendar} className='w-16 h-16' />
               </Link>
 
-              <div className='ml-[0.4rem] flex'>
+              <div className=' flex'>
                 
                 <button
                   type='button'
