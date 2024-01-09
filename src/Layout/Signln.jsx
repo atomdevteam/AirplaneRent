@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useContextAir } from '../Context';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify"
 const Signln = () => {
     const history = useNavigate();
@@ -134,7 +134,7 @@ const Signln = () => {
                     <div className="py-5">
 
                         <div className="text-center text-xs">
-                        You have an account?<Link to="/LogIn" className=" hover:underline transition-all underline ">Sign in</Link>
+                            Do you have an account?<Link to="/LogIn" className=" hover:underline transition-all underline ">Sign in</Link>
                         </div>
 
                         {/* <div className="grid grid-cols-2 gap-1">
