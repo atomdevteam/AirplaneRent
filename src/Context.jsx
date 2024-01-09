@@ -158,6 +158,7 @@ export function ProviderContext({ children }) {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      LogIn(email, password)
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos

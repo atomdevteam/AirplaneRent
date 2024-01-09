@@ -19,7 +19,7 @@ const LogIn = () => {
     }
     return (
         <div className=''>
-            <div className="min-h-screen bg-white flex flex-col justify-center sm:py-12">
+            <div className="min-h-screen bg-[#000320] flex flex-col justify-center sm:py-12">
                 <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
                     <div className="bg-white shadow w-full rounded-lg">
                         <div className='flex flex-col items-center justify-center px-5 py-7 font-bold'>
@@ -56,8 +56,8 @@ const LogIn = () => {
                         </form>
                      
                         <div className="py-5">
-                            <div className="text-center font-bold text-xs text-gray-600 pb-1 block">
-                            DONT'T YOU HAVE AN ACCOUNT YET? <Link to="/Signln" className=" hover:underline transition-all underline ">SIGN IN</Link>
+                            <div className="text-center text-xs">
+                                Don't you have an account yet? <Link to="/Signln" className=" hover:underline transition-all underline ">Sign in</Link>
                             </div>
                         </div>
                     </div>
@@ -68,4 +68,3 @@ const LogIn = () => {
 };
 
 export default LogIn;
-
