@@ -191,7 +191,7 @@ function Hours() {
               </span>
               <div
                 key={index}
-                className={` ${isHoraReservada ? 'flex-1  p-6 bg-green-500' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+                className={` ${isHoraReservada ? 'flex-1  p-6 bg-[#0d7ca8]' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {

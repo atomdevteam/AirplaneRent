@@ -225,14 +225,14 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             placeholder="Name"
                                             value={name}
                                             onChange={(e) => setname(e.target.value)}
-                                            className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                                            className="py-3 px-4 block w-full text-black border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
 
                                 </div>
                                 <div>
                                     <div className='flex flex-row '>
                                         <div className='mr-4'>
-                                            <label className="block text-sm font-bold ml-1 mb-2 text-text">Start</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-white">Start</label>
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={selectedTime}
@@ -244,7 +244,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     timeCaption="Time"
                                                     dateFormat="h aa"
                                                     placeholderText="Select time"
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                                    className="py-3 px-4 block w-full border-2 text-black border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
 
                                             </div>
@@ -261,7 +261,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     timeCaption="Time"
                                                     dateFormat="h aa"
                                                     placeholderText="Select time"
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                                    className="py-3 px-4 block w-full border-2 text-black border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
 
                                             </div>
@@ -277,7 +277,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                 placeholder="Fuel"
                                                 value={fuel}
                                                 onChange={(e) => setfuel(e.target.value)}
-                                                className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                                                className="py-3 px-4 block w-full border-2 text-black border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                         </div>
 
                                     </div>
@@ -286,12 +286,12 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                         {reservationEdit === null ?
                                             <button
                                                 type='submit'
-                                                className="middle none center mr-4 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                                className="middle w-full none center mr-4 rounded-lg bg-[#0d7ca8] py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 
                                             >
                                                 Save
                                             </button> : (
-                                                <>
+                                                <div className='flex justify-center items-center'>
                                                     <button
                                                         onClick={(e) => handleEdit(e)}
                                                         className="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -306,7 +306,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     >
                                                         Delete
                                                     </button>
-                                                </>
+                                                </div>
 
 
                                             )

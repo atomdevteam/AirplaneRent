@@ -272,7 +272,7 @@ const Calander = () => {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       style={{ touchAction: 'none' }}
-      className='relative bg-[#141e30] text-white'
+      className='relative bg-[#070d16] text-white'
     >
       {touchAnimation && (
         <FaPlane
