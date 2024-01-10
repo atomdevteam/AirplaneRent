@@ -112,8 +112,9 @@ function Hours() {
 
             <div className='flex row '>
               <Link className="pl-4 pr-4" to={"/"}>
-                < FaRegCalendarAlt size={30} />
-                {/* <img src={iconCalendar} className='w-16 h-16' /> */}
+                {/* < FaRegCalendarAlt size={30} /> */}
+                <img src={iconCalendar} className='w-16 h-16 filter brightness-0 invert saturate-150 contrast-200' />
+
               </Link>
 
           
