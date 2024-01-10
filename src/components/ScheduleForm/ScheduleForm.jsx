@@ -29,6 +29,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
     }
 
     const formattedMesActual = format(date, 'yyyy-MM-dd');
+    console.log("hhaaaa",formattedMesActual)
 
     const handleSave = (e) => {
         e.preventDefault()
