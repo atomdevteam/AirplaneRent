@@ -142,7 +142,22 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                     fuel: fuel,
                     date: formattedMesActual
                 };
-                EditScheduleById(idreservation, editedReservation)
+
+                const confirmed = window.confirm('Are you sure to edit this reservation?');
+
+                if (confirmed) {
+                    EditScheduleById(idreservation, editedReservation);
+                    setIsOpen(false);
+                    setname("");
+                    setSelectedTime(null);
+                    setTimeEnd(null);
+                    setfuel("");
+                } else {
+                    console.log('Edit canceled by user.');
+                }
+
+
+                // EditScheduleById(idreservation, editedReservation)
 
                 // const updatedReservations = reservations.map(reserva =>
                 //     reserva.id === editedReservation.id ? editedReservation : reserva
@@ -150,11 +165,11 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
                 // setReservations(updatedReservations)
 
-                setIsOpen(false);
-                setname("");
-                setSelectedTime(null);
-                setTimeEnd(null);
-                setfuel("");
+                // setIsOpen(false);
+                // setname("");
+                // setSelectedTime(null);
+                // setTimeEnd(null);
+                // setfuel("");
                 // setreservationEdit(null)
                 // window.location.reload()
             } else {
@@ -169,13 +184,17 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
     const handleDelete = (e) => {
         e.preventDefault()
-        DeleteScheduleById(reservationEdit.id)
-        setIsOpen(false)
-        setname("")
-        setSelectedTime(null)
-        setTimeEnd(null)
-        setfuel("")
-
+        const confirmed = window.confirm('Are you sure to delete this reservation?');
+        if (confirmed) {
+            DeleteScheduleById(reservationEdit.id)
+            setIsOpen(false)
+            setname("")
+            setSelectedTime(null)
+            setTimeEnd(null)
+            setfuel("")
+        }else {
+            console.log('Deletion canceled by user.')
+        }
     }
 
 
