@@ -19,7 +19,6 @@ function Hours() {
   const [reservationEdit, setreservationEdit] = useState(null)
 
 
-
   const [mesActual, setMesActual] = useState(fechaEspecifica);
   const [Inicio, setInicio] = useState(0)
   const [Final, setFinal] = useState(0)
@@ -97,16 +96,17 @@ function Hours() {
     console.log(reservationsA)
   }, [ReservationsForDate])
 
-  
-
-
-
+  const [month1, setMonth1] = useState(new Date().getMonth() + 1);
+  const [year1, setYear1] = useState(new Date().getFullYear());
+  const [day1, setDay1] = useState(new Date().getDate());
+  // console.log('Prueba1',formattedMesActual)
+  // console.log('Prueba2',`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`)
   return (
     <div className="bg-[#070d16] text-white">
-
-      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
-
-      <div className=' w-full h-[5rem] flex items-center border-b-2'>
+      {formattedMesActual >= `${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}` ?
+        <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} /> : ""
+      }
+      <div className=' w-full h-[5rem] flex items-center border-b-2 '>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
@@ -118,38 +118,38 @@ function Hours() {
 
               </Link>
 
-          
-                
-                <button
-                  type='button'
-                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
-                  onClick={irAlMesAnterior}
+
+
+              <button
+                type='button'
+                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                onClick={irAlMesAnterior}
+              >
+                <svg
+                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
                 >
-                  <svg
-                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
-                  </svg>
-                </button>
-                <div className=' inline-flex h-6'></div>
-                <button
-                  type='button'
-                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
-                  onClick={irAlMesSiguiente}
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                </svg>
+              </button>
+              <div className=' inline-flex h-6'></div>
+              <button
+                type='button'
+                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                onClick={irAlMesSiguiente}
+              >
+                <svg
+                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
                 >
-                  <svg
-                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
-                  </svg>
-                </button>
-        
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                </svg>
+              </button>
+
 
 
             </div>
@@ -171,7 +171,7 @@ function Hours() {
         {horasDelDia.map((hora, index) => {
           const reservacionesEnEstaHora = reservationsA.filter(
             reserva =>
-              reserva.start <= hora && reserva.end > hora &&
+              reserva.start <= hora && reserva.end >= hora &&
               formattedMesActual === reserva.date
           );
 
@@ -185,13 +185,13 @@ function Hours() {
           }
 
           return (
-            <div key={index} className='flex h-[4rem]'>
+            <div key={index} className='flex h-[2.8rem]  sm:h-[5rem]'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
                 {hora}
               </span>
               <div
                 key={index}
-                className={` ${isHoraReservada ? 'flex-1  p-6 bg-[#0d7ca8]' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+                className={` ${isHoraReservada ? 'flex-1  pl-6 bg-green-500' : 'flex-1 border pl-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
@@ -214,7 +214,8 @@ function Hours() {
                           reserva.start === hora && (
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
-                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel + " gal"}</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} </p>
+                              <p>{reserva.fuel} Gal</p>
 
                             </div>
                           )
@@ -235,7 +236,7 @@ function Hours() {
 
       </div>
 
-    </div>
+    </ div>
   );
 }
 
