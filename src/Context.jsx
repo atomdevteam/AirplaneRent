@@ -17,8 +17,19 @@ export function ProviderContext({ children }) {
   //Varibale or state setReservationsForDate
   const [ReservationsForDate, setReservationsForDate] = useState([])
   const [AllReservations, setAllReservations] = useState([])
-  const [isAuth, setisAuth] = useState(null)
+  const [isAuth, setisAuth] = useState(false)
   const [user, setUser] = useState(null);
+  //Permisos
+    const [CanEditPermi, setCanEditPermi] = useState(false)
+  const [CanReservation, setCanReservation] = useState(false)
+  const [CanEdit, setCanEdit] = useState(false)
+  const [CanDelete, setCanDelete] = useState(false)
+  const [CanSaveDoc, setCanSaveDoc] = useState(false)
+  const [CanChangeDoc, setCanChangeDoc] = useState(false)
+  const [CanChangeImg, setCanChangeImg] = useState(false)
+  const [CanChanInfoAer, setCanChanInfoAer] = useState(false)
+  const [WhichRole, setWhichRole] = useState(null)
+
   //Funtions
   const LogIn = async (email, password) => {
 
@@ -28,6 +39,7 @@ export function ProviderContext({ children }) {
         user.getIdToken().then((value) => {
           localStorage.setItem("Token", value)
           localStorage.setItem("DisplayName", user.displayName)
+          setisAuth(true)
 
         })
       })
@@ -48,9 +60,9 @@ export function ProviderContext({ children }) {
       const newScheduledformKey = newScheduledformRef.key;
       await set(newScheduledformRef, datos);
       toast.success("Done!",
-      {
-        theme: "dark"
-      })
+        {
+          theme: "dark"
+        })
     } catch (error) {
       console.error("Error al guardar datos:", error);
     }
@@ -67,10 +79,10 @@ export function ProviderContext({ children }) {
         const elementRef = ref(db, `Scheduledform/${key}`);
         await remove(elementRef);
         toast.success("Reservation successfully deleted!",
-        {
-          theme: "dark"
-        })
-       
+          {
+            theme: "dark"
+          })
+
       } else {
         console.log("No se encontró ningún elemento con la ID proporcionada");
       }
@@ -148,19 +160,39 @@ export function ProviderContext({ children }) {
   }, [ReservationsForDate, AllReservations])
 
 
-  const signup = async (email, password, name) => {
+  const signup = async (datos) => {
     // Validar el formato del correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(datos.email)) {
       console.error("Error: El formato del correo electrónico no es válido");
       return;
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, datos.email, datos.password).then((userCredential) => {
+        const user = userCredential.user;
+        try {
+          const info = {
+            userId: user.uid,
+            name: datos.name,
+            role: "user",
+            phone: datos.phone,
+            email: datos.email,
+            password: datos.password,
+          }
+          const newRolesformRef = push(ref(db, 'Roles/'));
+          const newRolesformKey = newRolesformRef.key;
+          set(newRolesformRef, info);
+
+        } catch (error) {
+          console.error("Error al guardar datos:", error);
+        }
+
+
+      })
       updateProfile(
         auth.currentUser,
-        { displayName: name }
+        { displayName: datos.name }
       )
       console.log("Usuario registrado exitosamente");
     } catch (error) {
@@ -177,19 +209,201 @@ export function ProviderContext({ children }) {
     }
   }
 
+
+  const ShowRoles = async (id) => {
+    try {
+      const fetchData = ref(db, 'Roles/');
+      onValue(fetchData, (snapshot) => {
+        const data = snapshot.val();
+        const loggedInUserRole = Object.values(data || {})
+          .filter(rol => rol.userId === id)
+          .map(rol => rol.role);
+        const roleAsString = loggedInUserRole.join('');
+        const infoUsertype = Object.values(data || {}).find(rolUser => rolUser.userId === id)
+
+        if (roleAsString === "user") {
+          console.log("Es user")
+          setWhichRole(roleAsString)
+          //CanReservar
+          if (infoUsertype) {
+            if (infoUsertype.hasOwnProperty('CanReservar') && infoUsertype.CanReservar === true) {
+              setCanReservation(true);
+            }
+          
+            if (infoUsertype.hasOwnProperty('CanEdit') && infoUsertype.CanEdit === true) {
+              setCanEdit(true);
+            }
+          }
+          
+          localStorage.setItem("Rol", roleAsString)
+        } else if (roleAsString === "admin") {
+          console.log("es admin")
+          setWhichRole(roleAsString)
+          //FUNCION PARA PODER EDITAR LOS PERMISOS 
+          let iduser = "K8GZUlVesTUxpuEE8abjjuIJlai2"
+          // const roluser = Object.values(data || {}).find(rolUser => rolUser.userId === iduser)
+          if (infoUsertype.CanEdirPerm === true) {
+            console.log("Tiene permiso de habilidades para el usuario")
+            localStorage.setItem("Rol", roleAsString)
+            setCanEditPermi(true)
+            // EditPermission(roluser.userId, "CanEdit")
+       
+          }
+          //El tipo de permiso asignado por el admin, se puede usar un Input select, ya con esto permisos
+          //Tiene que tener su propio nombre ya asignado fijamente 
+          //Variables
+          //CanReservar
+
+        } else if (roleAsString === "maintance") {
+          console.log("Es maintance")
+          setWhichRole(roleAsString)
+          //CanReservar
+          //CanEdit
+          //CanDelete
+          //CanChangeDoc
+          //CanSaveDoc
+          //CanImgAer
+          //CanInfoAer
+          if (infoUsertype) {
+            const {
+              CanReservar,
+              CanEdit,
+              CanDelete,
+              CanChangeDoc,
+              CanSaveDoc,
+              CanImgAer,
+              CanInfoAer
+            } = infoUsertype;
+
+            // Verificar si el usuario tiene ciertos permisos
+            if (CanReservar && CanEdit && CanDelete && CanChangeDoc && CanSaveDoc && CanImgAer && CanInfoAer) {
+              console.log("El usuario tiene permisos para reservar, eliminar y guardar documentos.");
+              localStorage.setItem("Rol", roleAsString)
+              setCanReservation(true)
+              setCanEdit(true)
+              setCanDelete(true)
+              setCanChangeDoc(true)
+              setCanChangeImg(true)
+              setCanSaveDoc(true)
+            } else {
+              console.log("El usuario no tiene todos los permisos necesarios.");
+            }
+          } else {
+            console.log("No se encontró ningún usuario con el ID proporcionado.");
+          }
+        } else if (roleAsString === "owner") {
+          console.log("Es owner")
+          setWhichRole(roleAsString)
+          if (infoUsertype) {
+            const {
+              CanEdirPerm,
+              CanEdit,
+              CanDelete,
+              CanChangeDoc,
+              CanSaveDoc,
+              CanImgAer,
+              CanInfoAer
+            } = infoUsertype;
+
+            // Verificar si el usuario tiene ciertos permisos
+            if (CanEdirPerm && CanEdit && CanDelete && CanChangeDoc && CanSaveDoc && CanImgAer && CanInfoAer) {
+              console.log("El usuario tiene permisos para reservar, eliminar y guardar documentos y dar permisos a usuarios general.");
+              setCanEdit(true)
+              setCanDelete(true)
+              setCanEditPermi(true)
+              setCanChangeDoc(true)
+              setCanChangeImg(true)
+              setCanSaveDoc(true)
+              localStorage.setItem("Rol", roleAsString)
+            } else {
+              console.log("El usuario no tiene todos los permisos necesarios.");
+            }
+          } else {
+            console.log("No se encontró ningún usuario con el ID proporcionado.");
+          }
+        } else if (roleAsString === "manager") {
+
+          console.log("Es manager")
+          setWhichRole(roleAsString)
+          //Allpermission
+          if (infoUsertype) {
+            if (infoUsertype.Allpermission) {
+              console.log("Todos los permisos permitidos")
+              localStorage.setItem("Rol", roleAsString)
+              setCanReservation(true)
+              setCanEdit(true)
+              setCanDelete(true)
+              setCanEditPermi(true)
+              setCanSaveDoc(true)
+              setCanChangeDoc(true)
+              setCanChangeImg(true)
+              setCanChanInfoAer(true)
+            } else {
+              console.log("El usuario no tiene  los permisos")
+            }
+          } else {
+            console.log("No se encontró ningún usuario con el ID proporcionado.");
+          }
+        }
+      });
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+  };
+
+  const EditPermission = async (iduser, permittype) => {
+    //Esta funcion solo permite agregar acceso a los usuario
+    try {
+      const rolesRef = ref(db, 'Roles');
+      const queryById = query(rolesRef, orderByChild('userId'), equalTo(iduser));
+      const snapshot = await get(queryById);
+
+      if (snapshot.exists()) {
+        const key = Object.keys(snapshot.val())[0];
+        const userRef = ref(db, `Roles/${key}`);
+
+        const updateData = {};
+        updateData[permittype] = true;
+
+        await update(userRef, updateData);
+
+        toast.success(`Permiso de ${permittype} actualizado exitosamente`, {
+          theme: "dark"
+        });
+      } else {
+        console.log("No se encontró ningún elemento con la ID proporcionada");
+      }
+    } catch (error) {
+      console.error("Error al editar elemento:", error);
+      throw error;
+    }
+  };
+
+
+
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log({ currentUser });
       setUser(currentUser);
       localStorage.setItem("auth", currentUser)
-      
-  
-     
     });
     return () => unsubuscribe();
   }, [user]);
 
 
+
+
+
+  useEffect(() => {
+    if (user) {
+      ShowRoles(user.uid)
+
+    }
+
+  }, [user])
+
+
+  console.log("Pude reservar ? " + CanReservation)
 
 
   return (
@@ -206,7 +420,11 @@ export function ProviderContext({ children }) {
         DeleteScheduleById,
         EditScheduleById,
         user,
-         GetAll
+        GetAll,
+        CanReservation,
+        CanEdit,
+        CanDelete,
+        WhichRole
       }}
     >
       {children}
