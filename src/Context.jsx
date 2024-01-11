@@ -48,9 +48,9 @@ export function ProviderContext({ children }) {
       const newScheduledformKey = newScheduledformRef.key;
       await set(newScheduledformRef, datos);
       toast.success("Done!",
-      {
-        theme: "dark"
-      })
+        {
+          theme: "dark"
+        })
     } catch (error) {
       console.error("Error al guardar datos:", error);
     }
@@ -67,10 +67,10 @@ export function ProviderContext({ children }) {
         const elementRef = ref(db, `Scheduledform/${key}`);
         await remove(elementRef);
         toast.success("Reservation successfully deleted!",
-        {
-          theme: "dark"
-        })
-       
+          {
+            theme: "dark"
+          })
+
       } else {
         console.log("No se encontró ningún elemento con la ID proporcionada");
       }
@@ -182,9 +182,9 @@ export function ProviderContext({ children }) {
       console.log({ currentUser });
       setUser(currentUser);
       localStorage.setItem("auth", currentUser)
-      
-  
-     
+
+
+
     });
     return () => unsubuscribe();
   }, [user]);
@@ -206,7 +206,7 @@ export function ProviderContext({ children }) {
         DeleteScheduleById,
         EditScheduleById,
         user,
-         GetAll
+        GetAll
       }}
     >
       {children}

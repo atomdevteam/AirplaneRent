@@ -9,12 +9,13 @@ import Loader from './components/Loader/Loader';
 
 function App() {
   const { user } = useContextAir();
-  const userisAuth  = localStorage.getItem("Token")
+  const userisAuth = localStorage.getItem("Token")
 
   if (userisAuth) {
     return (
       <Routes>
         <Route path="/" element={<Calander />} />
+        <Route path="/calender" element={<Calander />} />
         <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
       </Routes>
     );
