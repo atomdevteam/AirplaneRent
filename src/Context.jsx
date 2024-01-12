@@ -157,11 +157,24 @@ export function ProviderContext({ children }) {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      updateProfile(
-        auth.currentUser,
-        { displayName: name }
-      )
+      await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+            user.getIdToken().then((value) => {
+              localStorage.setItem("Token", value)
+              localStorage.setItem("DisplayName", user.displayName)
+    
+            })
+          })
+    // Actualizar el perfil del usuario con el nombre
+          await updateProfile(auth.currentUser, { displayName: name });
+      await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+        user.getIdToken().then((value) => {
+          localStorage.setItem("Token", value)
+          localStorage.setItem("DisplayName", user.displayName)
+
+        })
+      })
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos
