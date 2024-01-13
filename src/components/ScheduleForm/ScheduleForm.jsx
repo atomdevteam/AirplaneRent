@@ -4,7 +4,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations, date, reservationEdit, setreservationEdit }) => {
-    const { SaveScheduledform, AllReservations, DeleteScheduleById, EditScheduleById, user } = useContextAir()
+    const { SaveScheduledform, 
+        AllReservations, 
+        DeleteScheduleById, 
+        EditScheduleById, 
+        user,
+        CanEdit,
+        CanDelete
+    } = useContextAir()
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -112,7 +119,8 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
     const handleEdit = (e) => {
         e.preventDefault()
-        const reservaAEditar = AllReservations.find(reserva => reserva.id === idreservation);
+        if (CanEdit === true) {
+             const reservaAEditar = AllReservations.find(reserva => reserva.id === idreservation);
 
         if (reservaAEditar) {
             const dateNow = new Date()
@@ -170,22 +178,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                     console.log('Edit canceled by user.');
                 }
 
-
-                // EditScheduleById(idreservation, editedReservation)
-
-                // const updatedReservations = reservations.map(reserva =>
-                //     reserva.id === editedReservation.id ? editedReservation : reserva
-                // );
-
-                // setReservations(updatedReservations)
-
-                // setIsOpen(false);
-                // setname("");
-                // setSelectedTime(null);
-                // setTimeEnd(null);
-                // setfuel("");
-                // setreservationEdit(null)
-                // window.location.reload()
             } else {
                 console.log("No se pued editar reservaciones pasadas")
             }
@@ -194,11 +186,16 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         } else {
             console.log('La reserva con el ID proporcionado no se encontró.');
         }
+        }else {
+            window.confirm('You do not have permission to edit!')
+        }
+       
     }
 
     const handleDelete = (e) => {
         e.preventDefault()
-        const confirmed = window.confirm('Are you sure to delete this reservation?');
+        if (CanDelete) {
+              const confirmed = window.confirm('Are you sure to delete this reservation?');
         if (confirmed) {
             DeleteScheduleById(reservationEdit.id)
             setIsOpen(false)
@@ -209,6 +206,10 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         }else {
             console.log('Deletion canceled by user.')
         }
+        }else {
+            window.confirm('You do not have permission to delete!')
+        }
+      
     }
 
     useEffect(() => {

@@ -7,7 +7,15 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import iconCalendar from "../../Icon/icon_cal.png"
 function Hours() {
   const datos = useParams();
-  const { ShowListHours, ReservationsForDate, user } = useContextAir()
+  const {
+    ShowListHours,
+    ReservationsForDate,
+    user,
+    CanReservation,
+    CanEdit,
+    CanDelete,
+    WhichRole
+  } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -17,6 +25,7 @@ function Hours() {
 
   const [reservations, setReservations] = useState([]);
   const [reservationEdit, setreservationEdit] = useState(null)
+
 
 
   const [mesActual, setMesActual] = useState(fechaEspecifica);
@@ -96,17 +105,21 @@ function Hours() {
     console.log(reservationsA)
   }, [ReservationsForDate])
 
-  const [month1, setMonth1] = useState(new Date().getMonth() + 1);
-  const [year1, setYear1] = useState(new Date().getFullYear());
-  const [day1, setDay1] = useState(new Date().getDate());
-  // console.log('Prueba1',formattedMesActual)
-  // console.log('Prueba2',`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`)
+
+
+
+
+
+
+
+
+
   return (
     <div className="bg-[#070d16] text-white">
-      {formattedMesActual >= `${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}` ?
-        <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} /> : ""
-      }
-      <div className=' w-full h-[5rem] flex items-center border-b-2 '>
+
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
+
+      <div className=' w-full h-[5rem] flex items-center border-b-2'>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
@@ -171,7 +184,7 @@ function Hours() {
         {horasDelDia.map((hora, index) => {
           const reservacionesEnEstaHora = reservationsA.filter(
             reserva =>
-              reserva.start <= hora && reserva.end >= hora &&
+              reserva.start <= hora && reserva.end > hora &&
               formattedMesActual === reserva.date
           );
 
@@ -185,23 +198,39 @@ function Hours() {
           }
 
           return (
-            <div key={index} className='flex h-[2.8rem]  sm:h-[5rem]'>
+            <div key={index} className='flex h-[4rem]'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
                 {hora}
               </span>
               <div
                 key={index}
-                className={` ${isHoraReservada ? 'flex-1  pl-6 bg-green-500' : 'flex-1 border pl-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+                className={` ${isHoraReservada ? 'flex-1  p-6 bg-[#0d7ca8]' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
-                    if (user && user.uid === reservaMostrar.id_user) {
-                      setIsOpen(true);
-                      setreservationEdit(reservaMostrar)
+                    if (CanEdit === true) {
+                      if (WhichRole === "user") {
+                        if (user && user.uid === reservaMostrar.id_user) {
+                          setIsOpen(true);
+                          setreservationEdit(reservaMostrar)
+                        }
+                      } else {
+                        setIsOpen(true);
+                        setreservationEdit(reservaMostrar)
+                      }
+
+                    } else {
+                      window.confirm('You do not have permission to edit or delete!');
                     }
 
+
                   } else {
-                    setIsOpen(true);
+                    if (CanReservation === true) {
+                      setIsOpen(true);
+                    } else {
+                      window.confirm('You do not have permission to reserve!');
+                    }
+
                   }
 
                 }}
@@ -214,8 +243,7 @@ function Hours() {
                           reserva.start === hora && (
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
-                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} </p>
-                              <p>{reserva.fuel} Gal</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel + " gal"}</p>
 
                             </div>
                           )
@@ -236,7 +264,7 @@ function Hours() {
 
       </div>
 
-    </ div>
+    </div>
   );
 }
 
