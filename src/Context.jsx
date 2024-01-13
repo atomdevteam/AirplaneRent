@@ -160,40 +160,33 @@ export function ProviderContext({ children }) {
   }, [ReservationsForDate, AllReservations])
 
 
-  const signup = async (datos) => {
+  const signup = async (email, password, name) => {
     // Validar el formato del correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(datos.email)) {
+    if (!emailRegex.test(email)) {
       console.error("Error: El formato del correo electrónico no es válido");
       return;
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, datos.email, datos.password).then((userCredential) => {
-        const user = userCredential.user;
-        try {
-          const info = {
-            userId: user.uid,
-            name: datos.name,
-            role: "user",
-            phone: datos.phone,
-            email: datos.email,
-            password: datos.password,
-          }
-          const newRolesformRef = push(ref(db, 'Roles/'));
-          const newRolesformKey = newRolesformRef.key;
-          set(newRolesformRef, info);
+      await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+        user.getIdToken().then((value) => {
+          localStorage.setItem("Token", value)
+          localStorage.setItem("DisplayName", user.displayName)
 
-        } catch (error) {
-          console.error("Error al guardar datos:", error);
-        }
-
-
+        })
       })
-      updateProfile(
-        auth.currentUser,
-        { displayName: datos.name }
-      )
+      // Actualizar el perfil del usuario con el nombre
+      await updateProfile(auth.currentUser, { displayName: name });
+      await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+        user.getIdToken().then((value) => {
+          localStorage.setItem("Token", value)
+          localStorage.setItem("DisplayName", user.displayName)
+
+        })
+      })
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos

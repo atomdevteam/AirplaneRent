@@ -15,6 +15,7 @@ function App() {
     return (
       <Routes>
         <Route path="/" element={<Calander />} />
+        <Route path="/calender" element={<Calander />} />
         <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
       </Routes>
     );

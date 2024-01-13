@@ -24,13 +24,7 @@ const Signln = () => {
         if (name && phonenumber && email && password && confirmPassword) {
             if (password.length >= 8) {
                 if (password == confirmPassword) {
-                    const datos = {
-                        name: name,
-                        phone: phonenumber,
-                        email: email,
-                        password: password
-                    }
-                    if (signup(datos)) {
+                    if (signup(email, password, name)) {
                         toast.success("Successfully Saved Record", {
                             theme: "dark"
                         });
