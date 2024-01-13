@@ -198,7 +198,7 @@ function Hours() {
           }
 
           return (
-            <div key={index} className='flex h-[4rem]'>
+            <div key={index} className='flex h-[2rem]  sm:h-[5rem]'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
                 {hora}
               </span>
@@ -243,7 +243,7 @@ function Hours() {
                           reserva.start === hora && (
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
-                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel + " gal"}</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"}</p> <p>{reserva.fuel} Gal</p>
 
                             </div>
                           )
