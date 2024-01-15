@@ -6,6 +6,7 @@ import LogIn from './components/LogIn/LogIn';
 import { useContextAir } from './Context';
 import Signln from './Layout/Signln';
 import Loader from './components/Loader/Loader';
+import Navbar from './components/Navbar/Navbar'
 
 function App() {
   const { user } = useContextAir();
