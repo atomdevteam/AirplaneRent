@@ -6,27 +6,31 @@ import LogIn from './components/LogIn/LogIn';
 import { useContextAir } from './Context';
 import Signln from './Layout/Signln';
 import Loader from './components/Loader/Loader';
+import Cards from './components/Cards/Cards';
 
 function App() {
-  const { user } = useContextAir();
-  const userisAuth = localStorage.getItem("Token")
+  // const { user } = useContextAir();
+  // const userisAuth = localStorage.getItem("Token")
 
-  if (userisAuth) {
-    return (
-      <Routes>
-        <Route path="/" element={<Calander />} />
-        <Route path="/calender" element={<Calander />} />
-        <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
-      </Routes>
-    );
-  } else {
-    return (
-      <Routes>
-        <Route path="/" element={<LogIn />} />
-        <Route path="/Signln" element={<Signln />} />
-      </Routes>
-    );
-  }
+  // if (userisAuth) {
+  //   return (
+  //     <Routes>
+  //       <Route path="/" element={<Calander />} />
+  //       <Route path="/calender" element={<Calander />} />
+  //       <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+  //     </Routes>
+  //   );
+  // } else {
+  //   return (
+  //     <Routes>
+  //       <Route path="/" element={<LogIn />} />
+  //       <Route path="/Signln" element={<Signln />} />
+  //     </Routes>
+  //   );
+  // }
+  return(
+    <Cards></Cards>
+  )
 }
 
 export default App;
