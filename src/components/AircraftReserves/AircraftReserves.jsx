@@ -87,34 +87,46 @@ const Boxes2 = ({ actReserves }) => {
     )
 }
 
- const reportData = [
+const reportData = [
     {
         id: 14,
-        month: "Jan",
+        month: "Sund",
         value1: 45,
         value2: null
     },
     {
         id: 15,
-        month: "Feb",
+        month: "Mond",
         value1: 45,
         value2: 60
     },
     {
         id: 16,
-        month: "Mar",
+        month: "Tuesd",
         value1: 45,
         value2: null
     },
     {
         id: 17,
-        month: "Apr",
+        month: "Wedn",
         value1: 45,
         value2: null
     },
     {
         id: 18,
-        month: "May",
+        month: "Thursd",
+        value1: 45,
+        value2: null
+    },
+    {
+        id: 19,
+        month: "Frid",
+        value1: 45,
+        value2: null
+    },
+    {
+        id: 20,
+        month: "Saturd",
         value1: 45,
         value2: null
     }
@@ -123,39 +135,54 @@ const Boxes2 = ({ actReserves }) => {
 import plus from '../../assets/plus.svg'
 import "./Report.css";
 const Chart2 = () => {
-
-    return(
+    const horas = Array.from({ length: 7 }, (_, i) => i);
+    const labels = ['Sund', 'Mond', 'Tuesd', 'Wedn', 'Thursd', 'Frid', 'Saturd'];
+    return (
         <div className="grid-one-item grid-common grid-c3">
-        <div className="grid-c-title">
-            <h3 className="grid-c-title-text">Report</h3>
-            <button className="grid-c-title-icon">
+            <div className="grid-c-title">
+                <h3 className="grid-c-title-text">Total Reserves</h3>
+                {/* <button className="grid-c-title-icon">
                 <img src={ plus } />
-            </button>
-        </div>
-        <div className="grid-c3-content">
-            <div className="grid-chart">
-                <div className="chart-vert-value">
-                    <span>100</span>
-                    <span>75</span>
-                    <span>50</span>
-                    <span>25</span>
-                    <span>0</span>
-                </div>
-                {
-                    reportData.map((report) => (
-                        <div className="grid-chart-bar" key={report.id}>
-                            <div className="bar-wrapper">
-                                <div className="bar-item1" style={{ height: `${report.value1 !== null ? "40%" : ""}` }}></div>
-                                <div className="bar-item2" style={{ height: `${report.value2 !== null ? "60%" : ""}` }}></div>
+            </button> */}
+            </div>
+            <div className="grid-c3-content">
+                <div className="grid-chart">
+                    <div className="chart-vert-value">
+                        {horas.reverse().map((hora, index) => (
+                            <>
+                                <span key={index}>{hora}h</span>
+
+                            </>
+
+                        ))}
+                        {/* <span>6h</span>
+                        <span>5h</span>
+                        <span>4h</span>
+                        <span>3h</span>
+                        <span>2h</span>
+                        <span>1h</span>
+                        <span>0h</span> */}
+                    </div>
+                    {
+                        reportData.map((report) => (
+                            <div className="grid-chart-bar" key={report.id}>
+                                <div className="bar-wrapper">
+                                    <div className="bar-item1" style={{ height: `${report.value1 !== null ? "40%" : ""}` }}></div>
+                                    <div className="bar-item2" style={{ height: `${report.value2 !== null ? "60%" : ""}` }}></div>
+                                    {/* <hr className="w-full border-t border-gray-300 my-1" /> */}
+                                </div>
+
+                                {/* Línea horizontal que atraviesa las barras */}
+                                <div className="w-full h-px bg-gray-300"></div>
+                                <span className="grid-hortz-value">{report.month}</span>
+
                             </div>
-                            <span className="grid-hortz-value">Jan</span>
-                        </div>
-                    ))
-                }
-                
+                        ))
+                    }
+
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 
