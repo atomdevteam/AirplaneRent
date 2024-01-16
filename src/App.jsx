@@ -7,6 +7,7 @@ import { useContextAir } from './Context';
 import Signln from './Layout/Signln';
 import Loader from './components/Loader/Loader';
 import Sidebar from './Layout/Sidebar/Sidebar';
+import Dashboard from './Layout/Dashboard/Dashboard';
 
 
 function App() {
@@ -26,22 +27,26 @@ function App() {
 
 
   if (userisAuth) {
-    if (WhichRole !== "user") {
-      return (
-        <>
-          {/* {WhichRole !== "user" && <Navigate to='/aircraft' replace />} */}
+    return WhichRole === "user" ? (
+      <Routes>
+        <Route path="/" element={<Calander />} />
+        <Route path="/calender" element={<Calander />} />
+        <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+      </Routes>
+    ) : (
+      <>
+        <div className="flex">
           <Sidebar />
-        </>
-      )
-    } else {
-      return (
-        <Routes>
-          <Route path="/" element={<Calander />} />
-          <Route path="/calender" element={<Calander />} />
-          <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
-        </Routes>
-      );
-    }
+          <div className="flex-1 p-4 bg-black">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+
+            </Routes>
+          </div>
+        </div>
+      </>
+    );
+
 
   } else {
     return (
@@ -51,6 +56,44 @@ function App() {
       </Routes>
     );
   }
+
+
+  // if (userisAuth) {
+  //   if (WhichRole === "user") {
+  //     return (
+  //       <>
+
+  //       </>
+  //     );
+  //   } else {
+  //     if (WhichRole !== "user") {
+  //       return (
+  //         <>
+  //           {WhichRole !== "user" &&
+  //             <div className="flex">
+  //               <Sidebar />
+  //               <div className="flex-1 p-4 bg-black">
+  //                 <Routes>
+  //                   <Route path="/" element={<Dashboard />} />
+  //                 </Routes>
+  //               </div>
+  //             </div>
+  //           }
+
+  //         </>
+  //       )
+  //     }
+
+  //   }
+
+  // } else {
+  //   return (
+  //     <Routes>
+  //       <Route path="/" element={<LogIn />} />
+  //       <Route path="/Signln" element={<Signln />} />
+  //     </Routes>
+  //   );
+  // }
 }
 
 export default App;
