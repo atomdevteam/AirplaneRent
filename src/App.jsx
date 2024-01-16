@@ -8,7 +8,7 @@ import Signln from './Layout/Signln';
 import Loader from './components/Loader/Loader';
 import Sidebar from './Layout/Sidebar/Sidebar';
 import Dashboard from './Layout/Dashboard/Dashboard';
-
+import DashboardLayout from './Layout/AdminDash';
 
 function App() {
   const { user, WhichRole } = useContextAir();
@@ -35,9 +35,15 @@ function App() {
       </Routes>
     ) : (
       <>
-        <div className="flex">
+        {/* <div className='bg-[#1E1E1E]'>
+      <Routes>
+            <Route path="/" element={<DashboardLayout/>} />
+      </Routes>
+     </div> */}
+        <div className="flex bg-[#2c2c2c]">
           <Sidebar />
           <div className="flex-1 p-4 bg-black">
+
             <Routes>
               <Route path="/" element={<Dashboard />} />
 
@@ -45,6 +51,8 @@ function App() {
           </div>
         </div>
       </>
+
+
     );
 
 

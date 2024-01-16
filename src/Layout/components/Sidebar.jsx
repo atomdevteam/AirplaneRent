@@ -1,8 +1,5 @@
-import React from 'react'
-import SidebarItem from '../../components/SidebarItem/SidebarItem';
-import { IoMdHome, IoMdSearch, IoMdAdd, IoMdNotifications, IoMdPerson, IoMdSettings } from "react-icons/io";
-import { useContextAir } from '../../Context';
-import { useNavigate } from 'react-router-dom';
+
+
 const generalRoutes = [
     {
         name: 'Dashboard',
@@ -47,22 +44,10 @@ const settingsRoutes = [
     }
 ]
 
-const Sidebar = () => {
-    const { logout } = useContextAir()
-    const history = useNavigate()
 
-    const handleLogout = (e) => {
-        e.preventDefault()
-        console.log("Logout")
-        logout()
-        localStorage.clear();
-        window.location.reload();
-        history('/');
-
-
-    }
+function Sidebar() {
     return (
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
 
             <div className="w-64 h-screen bg-[#2C2C2C] rounded-tr-[1.5rem] rounded-br-[1.5rem]">
 
@@ -77,9 +62,9 @@ const Sidebar = () => {
                                 <span className="ml-8 flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                            <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                        </svg> */}
+                                                <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                                <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                            </svg> */}
                                     <span className="mx-4 font-medium">{route.name}</span>
                                 </span>
                             </button>
@@ -93,9 +78,9 @@ const Sidebar = () => {
                                 <span className="ml-8 flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                         <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                         <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                     </svg> */}
+                                             <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                             <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                         </svg> */}
                                     <span className="mx-4 font-medium">{route.name}</span>
                                 </span>
                             </button>
@@ -109,9 +94,9 @@ const Sidebar = () => {
                                 <span className="ml-8 flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                     <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                 </svg> */}
+                                         <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                         <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                                     </svg> */}
                                     <span className="mx-4 font-medium">{route.name}</span>
                                 </span>
                             </button>
@@ -121,25 +106,6 @@ const Sidebar = () => {
             </div >
 
         </div >
-
-        // <div className="bg-gray-900 h-screen w-[14rem] p-4 text-white">
-        //     <div className="mb-4 text-xl font-bold mt-[2rem]">Aircraft X</div>
-        //     <ul className='mt-[2rem]'>
-        //         <SidebarItem icon={<IoMdHome />} name="Dashboard" />
-        //         <SidebarItem icon={<IoMdSearch />} name="Search" />
-        //         <SidebarItem icon={<IoMdAdd />} name="Add Aircraft" />
-        //         <SidebarItem icon={<IoMdNotifications />} name="Notification" />
-        //         <SidebarItem icon={<IoMdPerson />} name="Profile" />
-        //     </ul>
-
-        //     <div className=" absolute bottom-0 left-0  mb-2 w-[14rem] p-2 rounded">
-        //         <ul>
-        //             <SidebarItem icon={<IoMdSettings />} name="Settings" />
-        //             <SidebarItem icon={<IoMdPerson />} name="Log Out" onClick={handleLogout} />
-        //         </ul>
-        //     </div>
-        // </div>
-
     )
 }
 
