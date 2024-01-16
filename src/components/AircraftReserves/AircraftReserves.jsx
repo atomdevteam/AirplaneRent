@@ -112,242 +112,89 @@ const Boxes2 = ({ actReserves }) => {
     )
 }
 
-const reportData = [
-    {
-        id: 14,
-        month: "Sund",
-        value1: 45,
-        value2: null
-    },
-    {
-        id: 15,
-        month: "Mond",
-        value1: 45,
-        value2: 60
-    },
-    {
-        id: 16,
-        month: "Tuesd",
-        value1: 45,
-        value2: null
-    },
-    {
-        id: 17,
-        month: "Wedn",
-        value1: 45,
-        value2: null
-    },
-    {
-        id: 18,
-        month: "Thursd",
-        value1: 45,
-        value2: null
-    },
-    {
-        id: 19,
-        month: "Frid",
-        value1: 45,
-        value2: null
-    },
-    {
-        id: 20,
-        month: "Saturd",
-        value1: 45,
-        value2: null
-    }
-];
 
-import plus from '../../assets/plus.svg'
-import "./Report.css";
+
+// import plus from '../../assets/plus.svg'
+// import "./Report.css";
 const Chart2 = () => {
-    
+
     const data = {
         labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [
-          {
-            label: 'Otra serie de datos',
-            backgroundColor: 'rgba(128, 128, 128, 128)', // Negro con opacidad
-            borderColor: 'rgba(128, 128, 128, 128)', // Negro
-            borderWidth: 2,
-            borderRadius: 10,
-            hoverBackgroundColor: 'rgba(0, 0, 0, 0.6)', // Negro con mayor opacidad al pasar el ratón
-            hoverBorderColor: 'rgba(0, 0, 0, 1)', // Negro al pasar el ratón
-            data: [1, 1, 2, 3, 4, 3, 5],
-            barThickness: 18,
-          },
-          {
-            label: 'Productos vendidos',
-            backgroundColor: 'rgba(255, 165, 0, 1)', // Naranja
-            borderColor: 'rgba(255, 165, 0, 1)', // Naranja
-            borderWidth: 2,
-            borderRadius: 10,
-            hoverBackgroundColor: 'rgba(255, 165, 0, 0.4)', // Naranja con opacidad al pasar el ratón
-            hoverBorderColor: 'rgba(255, 165, 0, 1)', // Naranja al pasar el ratón
-            data: [6, 6, 6, 6, 6, 6, 6],
-            barThickness: 18,
-          },
+            {
+                label: 'Reserved',
+                backgroundColor: 'rgba(44, 44, 44, 1)',
+                borderColor: 'rgba(44, 44, 44, 1)',
+                borderWidth: 2,
+                borderRadius: 10,
+                hoverBackgroundColor: 'rgba(0, 0, 0, 0.6)',
+                hoverBorderColor: 'rgba(0, 0, 0, 1)',
+                data: [1, 1, 2, 3, 4, 3, 5],
+                barThickness: 18,
+            },
+            {
+                label: 'Unreserved',
+                backgroundColor: 'rgba(255, 165, 0, 1)',
+                borderColor: 'rgba(255, 165, 0, 1)',
+                borderWidth: 2,
+                borderRadius: 10,
+                hoverBackgroundColor: 'rgba(255, 165, 0, 0.4)',
+                hoverBorderColor: 'rgba(255, 165, 0, 1)',
+                data: [6, 6, 6, 6, 6, 6, 6],
+                barThickness: 18,
+            },
         ],
-      };
-      
-      // Resto del código sin cambios
-      const options = {
-        scales: {
-          x: {
-            beginAtZero: true,
-            stacked: true,
-          },
-          y: {
-            beginAtZero: true,
-            stepSize: 1,
-          },
-        },
-      };
-      
-      return (
-        <div className="w-full max-w-screen-lg mx-auto mt-8">
-          <Bar data={data} options={options} />
-        </div>
-      );
-      
-      
-      
-}
-
-const Chart = ({ }) => {
-    const horas = Array.from({ length: 7 }, (_, i) => i);
-    const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    const chartData = [112, 10, 225, 134, 101, 80, 50];
-    const labels = ['Sund', 'Mond', 'Tuesd', 'Wedn', 'Thursd', 'Frid', 'Saturd'];
-
-    const [tooltipContent, setTooltipContent] = React.useState('');
-    const [tooltipOpen, setTooltipOpen] = React.useState(false);
-    const [tooltipX, setTooltipX] = React.useState(0);
-    const [tooltipY, setTooltipY] = React.useState(0);
-
-    const showTooltip = (e) => {
-        setTooltipContent(e.target.textContent);
-        setTooltipX(e.target.offsetLeft - e.target.clientWidth);
-        setTooltipY(e.target.clientHeight + e.target.clientWidth);
-        setTooltipOpen(true);
     };
 
-    const hideTooltip = () => {
-        setTooltipContent('');
-        setTooltipOpen(false);
-        setTooltipX(0);
-        setTooltipY(0);
+
+    const options = {
+        scales: {
+            x: {
+                beginAtZero: true,
+                stacked: true,
+            },
+            y: {
+                beginAtZero: true,
+                stepSize: 1,
+                ticks: {
+
+                    callback: (value) => {
+                        if (value === 0) return '0h'
+                        if (value === 1) return '1h';
+                        if (value === 2) return '2h';
+                        if (value === 3) return '3h';
+                        if (value === 4) return '4h';
+                        if (value === 5) return '5h';
+                        if (value === 6) return '6h';
+                    },
+                },
+
+                grid: {
+                    display: true,
+                    drawBorder: false,
+                    drawTicks: false,
+                    color: 'rgba(75, 85, 99, 1)',
+                    zeroLineColor: 'rgba(75, 85, 99, 1)',
+
+                },
+
+            },
+        },
+
     };
 
     return (
-        <div className="antialiased sans-serif w-lg min-h-screen">
-            <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-            <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
-            <div className="px-4">
-                <div className="max-w-lg mx-auto py-10">
-                    <div className="shadow p-6 rounded-lg ">
-                        <div className="md:flex md:justify-between md:items-center">
-                            <div>
-                                <h2 className="text-xl text-white font-bold leading-tight">Total Reserves</h2>
-                                {/* <p className="mb-2 text-gray-600 text-sm">Monthly Average</p> */}
-                            </div>
-
-                            {/* <div className="mb-4">
-                                <div className="flex items-center">
-                                    <div className="w-2 h-2 bg-blue-600 mr-2 rounded-full"></div>
-                                    <div className="text-sm text-gray-700">Sales</div>
-                                </div>
-                            </div> */}
-                        </div>
-
-                        <div className="line my-8 relative">
-                            {/* <div x-show="tooltipOpen" className="p-0 m-0 z-10 shadow-lg rounded-lg absolute h-auto block" style={{ bottom: `${tooltipY}px`, left: `${tooltipX}px` }}>
-                                <div className="shadow-xs rounded-lg bg-white p-2">
-                                    <div className="flex items-center justify-between text-sm">
-                                        <div>Sales:</div>
-                                        <div className="font-bold ml-2">
-                                            <span dangerouslySetInnerHTML={{ __html: tooltipContent }}></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
-
-                            {/* <div className="flex -mx-2 items-end mb-2">
-                                {chartData.map((data, index) => (
-                                    <div key={index} className="px-2 w-1/6">
-                                   
-                                        <div style={{ height: `${data}px` }} className="transition ease-in duration-200 bg-blue-600 hover:bg-blue-400 relative" onMouseEnter={showTooltip} onMouseLeave={hideTooltip}>
-                                            <div className="text-center absolute top-0 left-0 right-0 -mt-6 text-gray-800 text-sm">{data}</div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div> */}
-
-                            {/* <div className="border-t border-gray-400 mx-auto" style={{ height: '1px', width: `${100 - 1 / chartData.length * 100 + 3}%` }}></div> */}
-                            <div className='flex flex-col'>
-                                {horas.reverse().map((hora, index) => (
-                                    <div key={index} className='text-white flex items-center'>
-                                        <span className="pr-2">{hora}h</span>
-                                        <div className="w-full border-t border-gray-400"></div>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="flex ml-8 items-end">
-                                {labels.map((label, index) => (
-                                    <div key={index} className="px-2 w-1/6">
-                                        <div className="bg-red-600 relative">
-                                            <div className="text-center absolute top-0 left-0 right-0 h-2 -mt-px bg-gray-400 mx-auto" style={{ width: '8px' }}></div>
-                                            <div className="text-center absolute top-0 left-0 right-0 mt-3 text-gray-700 text-sm">{label}</div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div className="w-full max-w-screen-lg mx-auto mt-8">
+            <div>
+                <h2 className="text-xl text-white font-bold leading-tight">Total Reserves</h2>
             </div>
+            <Bar data={data} options={options} />
         </div>
     );
 
-    // return (
 
-    //   <div className='flex flex-col mt-2 ml-[1rem]'>
-    //     <h1 className='text-white mt-4'>Total reserves</h1>
-
-    //     <div className='mt-4'>
-    //       <div className='flex flex-col'>
-    //         {horas.reverse().map((hora, index) => (
-    //           <div key={index} className='text-white flex items-center'>
-    //             <span className="pr-2">{hora}h</span>
-    //             <div className="w-full border-t border-gray-400"></div>
-    //           </div>
-    //         ))}
-    //       </div>
-
-    //       <div className='flex'>
-
-    //         <div className='w-8'></div>
-
-    //         {DAYS.map((day, index) => (
-    //           <div key={index} className='text-white text-xs flex flex-col items-center mr-4'>
-    //             <span>{day}</span>
-
-    //           </div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
 
 }
-
-
-
-
-
-
 
 
 export default AircraftReserves
