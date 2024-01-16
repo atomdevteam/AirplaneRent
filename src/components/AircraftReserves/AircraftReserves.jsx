@@ -1,5 +1,30 @@
 import React from 'react'
 import { Bar } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    Filler
+);
+
+
+
 const reservations = [
     {
         id: 1,
@@ -135,55 +160,57 @@ const reportData = [
 import plus from '../../assets/plus.svg'
 import "./Report.css";
 const Chart2 = () => {
-    const horas = Array.from({ length: 7 }, (_, i) => i);
-    const labels = ['Sund', 'Mond', 'Tuesd', 'Wedn', 'Thursd', 'Frid', 'Saturd'];
-    return (
-        <div className="grid-one-item grid-common grid-c3">
-            <div className="grid-c-title">
-                <h3 className="grid-c-title-text">Total Reserves</h3>
-                {/* <button className="grid-c-title-icon">
-                <img src={ plus } />
-            </button> */}
-            </div>
-            <div className="grid-c3-content">
-                <div className="grid-chart">
-                    <div className="chart-vert-value">
-                        {horas.reverse().map((hora, index) => (
-                            <>
-                                <span key={index}>{hora}h</span>
-
-                            </>
-
-                        ))}
-                        {/* <span>6h</span>
-                        <span>5h</span>
-                        <span>4h</span>
-                        <span>3h</span>
-                        <span>2h</span>
-                        <span>1h</span>
-                        <span>0h</span> */}
-                    </div>
-                    {
-                        reportData.map((report) => (
-                            <div className="grid-chart-bar" key={report.id}>
-                                <div className="bar-wrapper">
-                                    <div className="bar-item1" style={{ height: `${report.value1 !== null ? "40%" : ""}` }}></div>
-                                    <div className="bar-item2" style={{ height: `${report.value2 !== null ? "60%" : ""}` }}></div>
-                                    {/* <hr className="w-full border-t border-gray-300 my-1" /> */}
-                                </div>
-
-                                {/* Línea horizontal que atraviesa las barras */}
-                                <div className="w-full h-px bg-gray-300"></div>
-                                <span className="grid-hortz-value">{report.month}</span>
-
-                            </div>
-                        ))
-                    }
-
-                </div>
-            </div>
+    
+    const data = {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [
+          {
+            label: 'Otra serie de datos',
+            backgroundColor: 'rgba(128, 128, 128, 128)', // Negro con opacidad
+            borderColor: 'rgba(128, 128, 128, 128)', // Negro
+            borderWidth: 2,
+            borderRadius: 10,
+            hoverBackgroundColor: 'rgba(0, 0, 0, 0.6)', // Negro con mayor opacidad al pasar el ratón
+            hoverBorderColor: 'rgba(0, 0, 0, 1)', // Negro al pasar el ratón
+            data: [1, 1, 2, 3, 4, 3, 5],
+            barThickness: 18,
+          },
+          {
+            label: 'Productos vendidos',
+            backgroundColor: 'rgba(255, 165, 0, 1)', // Naranja
+            borderColor: 'rgba(255, 165, 0, 1)', // Naranja
+            borderWidth: 2,
+            borderRadius: 10,
+            hoverBackgroundColor: 'rgba(255, 165, 0, 0.4)', // Naranja con opacidad al pasar el ratón
+            hoverBorderColor: 'rgba(255, 165, 0, 1)', // Naranja al pasar el ratón
+            data: [6, 6, 6, 6, 6, 6, 6],
+            barThickness: 18,
+          },
+        ],
+      };
+      
+      // Resto del código sin cambios
+      const options = {
+        scales: {
+          x: {
+            beginAtZero: true,
+            stacked: true,
+          },
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
+          },
+        },
+      };
+      
+      return (
+        <div className="w-full max-w-screen-lg mx-auto mt-8">
+          <Bar data={data} options={options} />
         </div>
-    )
+      );
+      
+      
+      
 }
 
 const Chart = ({ }) => {
