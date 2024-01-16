@@ -9,6 +9,7 @@ import Loader from './components/Loader/Loader';
 import Sidebar from './Layout/Sidebar/Sidebar';
 import Dashboard from './Layout/Dashboard/Dashboard';
 import DashboardLayout from './Layout/AdminDash';
+import AircraftDetailsForm from './components/AircraftDetailsForm/AircraftDetailsForm';
 
 function App() {
   const { user, WhichRole } = useContextAir();
@@ -46,6 +47,7 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path='/airdetails' element={<AircraftDetailsForm />}/>
 
             </Routes>
           </div>

@@ -5,9 +5,9 @@ import AircraftDetailsForm from '../../components/AircraftDetailsForm/AircraftDe
 const Dashboard = () => {
   return (
     <div className='flex flex-col'>
-      <AircraftDetailsForm />
-      {/* <UserProfile />
-        <AircraftReserves /> */}
+
+      <UserProfile />
+      <AircraftReserves />
     </div>
   )
 }
