@@ -4,10 +4,12 @@ import AircraftReserves from '../../components/AircraftReserves/AircraftReserves
 import Navbar from '../../components/Navbar/Navbar'
 import ReserveDetails from '../../components/ReserveDetails/ReserveDetails'
 import Cards from '../../components/Cards/Cards'
+import NotificationsBlock from '../../components/NotificationsBlock/NotificationsBlock'
+import FilterBlock from '../../components/FilterBlock/FilterBlock'
 const Dashboard = () => {
   return (
     <div className=''>
-      <Navbar />
+      {/* <Navbar />
       <div class="flex flex-row">
         <div className='flex flex-col'>
           <UserProfile />
@@ -17,8 +19,15 @@ const Dashboard = () => {
           <Cards />
           <ReserveDetails />
         </div>
-      </div>
-      </div>
+      </div> */}
+
+    
+        <NotificationsBlock />
+     
+      
+
+
+    </div>
   )
 }
 
