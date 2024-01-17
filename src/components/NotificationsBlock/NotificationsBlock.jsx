@@ -72,7 +72,7 @@ function NotificationsBlock() {
     return (
         <div className="flex flex-row">
             <div className="flex-grow">
-                <h1 className="text-4xl pt-16 font-bold text-white mb-4">Notificación en grande</h1>
+                <h1 className="text-4xl pt-16 font-bold text-white mb-4">Notification</h1>
                 <div className="flex pt-2 pb-20 h-screen">
                     <div className="w-full bg-gray-900 rounded-lg p-4 relative">
                         <div className="flex justify-between">
