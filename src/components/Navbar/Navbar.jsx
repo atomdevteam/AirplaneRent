@@ -99,10 +99,6 @@ function Navbar() {
                 </div>
             </div> */}
             </nav>
-            <div className=' flex flex-col justify-end self-end'>
-                <Cards></Cards>
-                <ReserveDetails></ReserveDetails>
-            </div>
 
         </>
 
