@@ -6,6 +6,7 @@ import ReserveDetails from '../../components/ReserveDetails/ReserveDetails'
 import Cards from '../../components/Cards/Cards'
 import NotificationsBlock from '../../components/NotificationsBlock/NotificationsBlock'
 import FilterBlock from '../../components/FilterBlock/FilterBlock'
+import  ProfileDetails from '../../components/ProfileDetails/ProfileDetails'
 const Dashboard = () => {
   return (
     <div className=''>
@@ -22,7 +23,8 @@ const Dashboard = () => {
       </div> */}
 
     
-        <NotificationsBlock />
+        {/* <NotificationsBlock /> */}
+        <ProfileDetails></ProfileDetails>
      
       
 
