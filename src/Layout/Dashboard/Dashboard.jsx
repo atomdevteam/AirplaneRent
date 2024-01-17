@@ -1,13 +1,14 @@
 import React from 'react'
 import UserProfile from '../../components/Account/UserProfile'
 import AircraftReserves from '../../components/AircraftReserves/AircraftReserves'
-import AircraftDetailsForm from '../../components/AircraftDetailsForm/AircraftDetailsForm'
+import Navbar from '../../components/Navbar/Navbar'
+import ReserveDetails from '../../components/ReserveDetails/ReserveDetails'
 const Dashboard = () => {
   return (
     <div className='flex flex-col'>
-
-      <UserProfile />
-      <AircraftReserves />
+        <Navbar/>
+        <UserProfile />
+        <AircraftReserves />
     </div>
   )
 }
