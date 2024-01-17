@@ -138,7 +138,7 @@ function ReserveDetails() {
     }
 
     return (
-        <div className="w-full lg:w-1/2 flex flex-col space-y-4 p-4 bg-[#1E1E1E]">
+        <div className="w-full lg:w-2/2 flex flex-col space-y-4 p-4 bg-[#1E1E1E]">
 
             {/* Visually appealing calendar */}
             <div className="bg-[#2C2C2C] p-4 rounded-lg">
