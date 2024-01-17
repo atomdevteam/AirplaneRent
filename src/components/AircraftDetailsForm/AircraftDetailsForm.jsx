@@ -46,7 +46,7 @@ const AircraftDetailsForm = () => {
 
     return (
         <div className='mt-[6rem]'>
-            <div className='bg-[#2c2c2c] rounded-xl mr-6 w-[40rem] h-full'>
+            <div className='bg-[#2c2c2c] rounded-xl mr-6  h-full'>
                 <div className='flex flex-col mt-2 ml-[1rem]'>
                     <h1 className='text-white mt-4'>Aircraft Details</h1>
                     <span className='text-gray-500 mt-[1rem] text-xs'></span>
