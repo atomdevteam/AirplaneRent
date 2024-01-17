@@ -45,7 +45,7 @@ const AircraftDetailsForm = () => {
 
 
     return (
-        <div className='mt-[6rem]'>
+        <div className='mt-[2rem]'>
             <div className='bg-[#2c2c2c] rounded-xl mr-6  h-full'>
                 <div className='flex flex-col mt-2 ml-[1rem]'>
                     <h1 className='text-white mt-4'>Aircraft Details</h1>
@@ -61,7 +61,7 @@ const AircraftDetailsForm = () => {
                                         value={aircraftDetails.title}
                                         onChange={handleChange}
                                         placeholder="Enter aircraft name"
-                                        className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black"
+                                        className="py-3 px-4 block w-full  text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
                                     />
                                 </div>
                             </div>
@@ -75,7 +75,7 @@ const AircraftDetailsForm = () => {
                                         value={aircraftDetails.description}
                                         onChange={handleChange}
                                         placeholder="Enter aircraft description"
-                                        className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black"
+                                        className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
                                     />
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ const AircraftDetailsForm = () => {
                                                 value={feature}
                                                 onChange={(e) => handleChange(e, index)}
                                                 placeholder={`Feature ${index + 1}`}
-                                                className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black"
+                                                className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
                                             />
                                         ))}
 
