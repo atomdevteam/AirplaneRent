@@ -12,7 +12,7 @@ const AircraftPrice = () => {
                             <div>
                                 <div className="relative">
                                     <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-white">
-                                        $ {/* Símbolo de dinero */}
+                                        $ 
                                     </span>
                                     <input
                                         type="number"
