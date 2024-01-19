@@ -259,7 +259,7 @@ const Calander = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingCalendar(false);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -337,7 +337,7 @@ const Calander = () => {
             <div
             onClick={handleLogout}
               style={open2 ? { display: 'block' } : { display: 'none' }}
-              className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
+              className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3">
               <ul >
                 <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
                   <span
