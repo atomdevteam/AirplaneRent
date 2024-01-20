@@ -12,7 +12,7 @@ const AddAircraftLayout = () => {
         <>
             <Navbar />
             <div className='flex flex-row'>
-                <div className='flex flex-col w-[70rem]'>
+                <div className='flex flex-col w-[55rem] ml-[1rem]'>
                     <AircraftDetailsForm />
                     <CTA />
                     <AircraftPrice />
