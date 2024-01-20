@@ -11,8 +11,11 @@ import Dashboard from './Layout/Dashboard/Dashboard';
 import DashboardLayout from './Layout/AdminDash';
 import AircraftDetailsForm from './components/AircraftDetailsForm/AircraftDetailsForm';
 import AddAircraftLayout from './Layout/AddAircraftLayout/AddAircraftLayout';
+import NotificationsBlock from './components/NotificationsBlock/NotificationsBlock';
+import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
+import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
 
 function App() {
   const { user, WhichRole } = useContextAir();
@@ -47,7 +50,10 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
+              <Route path='/notificationsBlock' element={<NotificationsBlock/>} />
               <Route path='/logout' element={<Logout />} />
+              <Route path='/table' element={<Table />} />
+              <Route path='/profileDetails' element={<ProfileDetails/>}/>
             </Routes>
           </div>
         </div>

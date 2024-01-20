@@ -13,7 +13,7 @@ const Dashboard = () => {
           <UserProfile />
           <AircraftReserves />
         </div>
-        <div className='flex flex-col'>
+        <div className='flex flex-col pt-20 pr-10'>
           <Cards />
           <ReserveDetails />
         </div>
