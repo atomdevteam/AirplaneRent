@@ -9,11 +9,11 @@ const Dashboard = () => {
     <div className=''>
       <Navbar />
       <div className="flex flex-row">
-        <div className='flex flex-col ml-[1rem]'>
+        <div className='flex flex-col ml-[1rem] '>
           <UserProfile />
           <AircraftReserves />
         </div>
-        <div className='flex flex-col pt-20 pr-10'>
+        <div className='flex flex-col '>
           <Cards />
           <ReserveDetails />
         </div>
