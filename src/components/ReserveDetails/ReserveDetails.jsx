@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useContextAir } from '../../Context';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const datos = [
     {
@@ -59,9 +59,9 @@ function ReserveDetails() {
 
     const history = useNavigate();
 
-  const handleButtonClick = () => {
-    history('/table');
-  };
+    const handleButtonClick = () => {
+        history('/table');
+    };
 
     useEffect(() => {
 
@@ -150,8 +150,9 @@ function ReserveDetails() {
 
             {/* Visually appealing calendar */}
             <div className="p-4 rounded-lg">
-                <div className="mb-4 text-2xl font-bold text-white">{currentMonth} {currentYear}</div>
-                <div className="grid grid-cols-7 gap-8 text-white">
+            <div className="mb-4 text-2xl font-bold text-white">{currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)} {currentYear}</div>
+
+                <div className="grid grid-cols-7 gap-4 text-white sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7">
                     {/* Days of the week */}
                     {['Sunday', 'Monday', 'Tuesday', 'Wednesd', 'Thursday', 'Friday', 'Saturday'].map((day) => (
                         <div key={day} className="text-center font-bold">
@@ -161,25 +162,25 @@ function ReserveDetails() {
                 </div>
 
                 {/* Days of the current week */}
-                <div className="grid grid-cols-7 gap-4 text-white">
+                <div className="grid grid-cols-7 gap-2 text-white sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7">
                     {Array.from({ length: 7 }, (_, index) => index).map((day) => {
                         const currentDay = new Date(firstDayOfWeek);
                         currentDay.setDate(firstDayOfWeek.getDate() + day);
                         return (
                             <div key={day} className="text-center rounded-full py-2 relative">
                                 {day > 0 && (
-                                    <div className="absolute h-4 w-px bg-white left-0 top-1/2 transform -translate-y-1/2"></div>
+                                    <div className="absolute h-4 w-px bg-gray-600 left-0 top-1/2 transform -translate-y-1/2"></div>
                                 )}
-                                <span className={` rounded-full  ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(currentDay.getDate()).toString().padStart(2, "0")}`) ?
-                                    Green(currentDay.getDate()) === true && Oragen(currentDay.getDate()) === true && Oragen2(currentDay.getDate()) === true ? "bg-red-200" : Green(currentDay.getDate()) === true ? "bg-orange-200" : "bg-green-200" : ""}
-            `}>{currentDay.getDate()}</span>
+                                <span className={`rounded-full ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(currentDay.getDate()).toString().padStart(2, "0")}`)} `}>{currentDay.getDate()}</span>
                             </div>
                         );
                     })}
                 </div>
             </div>
+
             <div className="mb-4 text-1xl font-bold text-white">Upcoming Reserve items</div>
-            <ul className="list-none p-4" style={{ maxHeight: 'calc(4 * (3rem + 2rem) + 1.5rem)', overflowY: 'auto' }}>
+            {/* style={{ maxHeight: 'calc(4 * (3rem + 2rem) + 1.5rem)', overflowY: 'auto' }} */}
+            <ul className="list-none p-4" >
                 {datos.map((item) => (
                     <li key={item.id} className="flex flex-col lg:flex-row items-start lg:items-center space-y-2 lg:space-y-0 lg:space-x-4 mb-4">
                         <img
@@ -200,7 +201,7 @@ function ReserveDetails() {
             </ul>
 
             <div className="flex justify-center mt-4">
-                <button  onClick={handleButtonClick} className="w-full bg-white text-black py-2 px-4 rounded-full">View Entire Schedule</button>
+                <button onClick={handleButtonClick} className="w-full bg-white text-black py-2 px-4 rounded-full">View Entire Schedule</button>
             </div>
 
         </div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const UserProfile = () => {
     return (
-        <div className='bg-black w-[50rem] mt-[4rem]'>
+        <div className='bg-black w-[43rem] mt-[4rem]'>
             <div className='flex flex-col text-white'>
                 <h1 className='text-3xl font-bold text-white mb-2'>Good morning, Aircraft Owner</h1>
                 <span className='text-gray-500 mt-[0.5rem] text-sm'>view you aircraft list and manager reserves</span>
