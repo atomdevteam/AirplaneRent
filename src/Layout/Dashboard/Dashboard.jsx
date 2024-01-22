@@ -8,12 +8,12 @@ const Dashboard = () => {
   return (
     <div className=''>
       <Navbar />
-      <div className="flex flex-row">
+      <div className="flex flex-row w-1/2">
         <div className='flex flex-col ml-[1rem] '>
           <UserProfile />
           <AircraftReserves />
         </div>
-        <div className='flex flex-col '>
+        <div className='flex flex-col'>
           <Cards />
           <ReserveDetails />
         </div>
