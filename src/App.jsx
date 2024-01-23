@@ -16,8 +16,8 @@ import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
-import Dashboard1 from './Layout/Dashboard/Dashboard1';
-import Sidebar1 from './Layout/Sidebar/Sidebar1';
+import LayoutNotification from './Layout/LayoutNotification/LayoutNotification';
+
 function App() {
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
@@ -46,12 +46,13 @@ function App() {
     ) : (
       <>
         <div className="flex bg-[#2c2c2c]">
-          <Sidebar1 />
-          <div className="flex-1 p-4 bg-black">
+          <Sidebar />
+          
+          <div className="flex-1  bg-black">
             <Routes>
-              <Route path="/" element={<Dashboard1 />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
-              <Route path='/notificationsBlock' element={<NotificationsBlock/>} />
+              <Route path='/notificationsBlock' element={<LayoutNotification/>} />
               <Route path='/logout' element={<Logout />} />
               <Route path='/table' element={<Table />} />
               <Route path='/profileDetails' element={<ProfileDetails/>}/>
