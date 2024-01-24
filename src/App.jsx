@@ -15,7 +15,6 @@ import AddAircraftLayout from './Layout/AddAircraftLayout/AddAircraftLayout';
 import NotificationsBlock from './components/NotificationsBlock/NotificationsBlock';
 import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
-import Navbar from './components/Navbar/Navbar';
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
 import LayoutNotification from './Layout/LayoutNotification/LayoutNotification';
 import HomeScreen from './Layout/HomeScreen/HomeScreen';
