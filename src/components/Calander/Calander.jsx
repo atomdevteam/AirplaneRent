@@ -188,11 +188,9 @@ const Calander = () => {
     return true;
   }
 
-
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
   //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-
   //     return (
   //       dato.date === formattedDate &&
   //       (
@@ -205,7 +203,6 @@ const Calander = () => {
   //       )
   //     );
   //   });
-
   //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
   //     if (!datos.some(reservacion => {
   //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
