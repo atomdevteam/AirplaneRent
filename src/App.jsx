@@ -10,6 +10,8 @@ import Navbar from './components/Navbar/Navbar'
 import Sidebar from './Layout/Sidebar/Sidebar';
 import Dashboard from './Layout/Dashboard/Dashboard';
 import DashboardLayout from './Layout/AdminDash';
+import AircraftDetailsForm from './components/AircraftDetailsForm/AircraftDetailsForm';
+import Logout from './Layout/Logout/Logout';
 
 function App() {
   const { user, WhichRole } = useContextAir();
@@ -47,6 +49,8 @@ function App() {
 
             <Routes>
               <Route path="/" element={<Dashboard />} />
+              <Route path='/airdetails' element={<AircraftDetailsForm />}/>
+              <Route path='/logout' element={<Logout />}/>
 
             </Routes>
           </div>
