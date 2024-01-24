@@ -239,7 +239,7 @@ function Hours() {
 
       </div>
 
-    </div>
+    </>
   );
 }
 
