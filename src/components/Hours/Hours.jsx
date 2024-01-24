@@ -5,7 +5,9 @@ import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
 import iconCalendar from "../../Icon/icon_cal.png"
+
 function Hours() {
+  
   const datos = useParams();
   const {
     ShowListHours,
@@ -220,6 +222,7 @@ function Hours() {
                       }
 
                     } else {
+
                       window.confirm('You do not have permission to edit or delete!');
                     }
 
