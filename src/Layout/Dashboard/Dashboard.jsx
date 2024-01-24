@@ -9,7 +9,7 @@ import FilterBlock from '../../components/FilterBlock/FilterBlock'
 import  ProfileDetails from '../../components/ProfileDetails/ProfileDetails'
 const Dashboard = () => {
   return (
-    <div className=''>
+    <div>
       <Navbar />
       <div className="flex flex-row w-1/2">
         <div className='flex flex-col ml-[1rem] '>
