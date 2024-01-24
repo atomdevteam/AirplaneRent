@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../Navbar/Navbar';
+
 function Table() {
 
     var arregloDatos = [
@@ -129,6 +130,7 @@ function Table() {
     const handleClickNextPage = () => {
         setPage((prevPage) => Math.min(prevPage + 1, Math.ceil(arregloDatos.length / itemsPerPage)));
     };
+
 
     const handleClickPrevPage = () => {
         setPage((prevPage) => Math.max(prevPage - 1, 1)); // No permitir ir a una página menor a 1
