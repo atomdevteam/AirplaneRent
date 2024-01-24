@@ -175,7 +175,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         setSelectedTime(null)
         setTimeEnd(null)
         setfuel("")
-        window.location.reload()
+     
 
     }
 

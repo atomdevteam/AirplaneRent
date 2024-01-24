@@ -8,7 +8,7 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 function Hours() {
   
   const datos = useParams();
-  const { ShowListHours,ReservationsForDate} = useContextAir()
+  const { ShowListHours, ReservationsForDate } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -79,7 +79,7 @@ function Hours() {
 
     setHorasDelDia(horasActuales);
   }, [fechaEspecifica, mesActual]);
-  
+
   const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
   useEffect(() => {
     ShowListHours(formattedMesActual);
@@ -97,8 +97,8 @@ function Hours() {
     console.log("hoursss")
     console.log(reservationsA)
   }, [ReservationsForDate])
-  
-  
+
+
 
 
   return (
@@ -111,8 +111,8 @@ function Hours() {
           <div className='px-1 flex items-center'>
 
             <div className='flex row  mx-4'>
-            <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
-              
+              <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
+
               <button
                 type='button'
                 className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
