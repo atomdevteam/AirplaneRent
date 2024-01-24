@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import ScheduleForm from "../ScheduleForm/ScheduleForm"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 function Hours() {
   
@@ -101,7 +102,9 @@ function Hours() {
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
-            <div className=' mx-4'>
+            <div className='flex row  mx-4'>
+            <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
+              
               <button
                 type='button'
                 className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
@@ -132,12 +135,10 @@ function Hours() {
                 </svg>
               </button>
             </div>
-            <div>
+            <div >
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
               <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
               <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
-
-
             </div>
           </div>
         </div>
