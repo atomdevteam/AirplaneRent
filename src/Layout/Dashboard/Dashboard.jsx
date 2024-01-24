@@ -10,9 +10,9 @@ import  ProfileDetails from '../../components/ProfileDetails/ProfileDetails'
 const Dashboard = () => {
   return (
     <div className=''>
-      {/* <Navbar />
+      <Navbar />
+      <div className="flex flex-row">
 
-      <div class="flex flex-row">
         <div className='flex flex-col ml-[1rem]'>
           <UserProfile />
           <AircraftReserves />
@@ -32,7 +32,7 @@ const Dashboard = () => {
     //     <Navbar/>
     //     <UserProfile />
     //     <AircraftReserves />
-    // </div>
+    </div>
   )
 }
 

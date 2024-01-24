@@ -8,7 +8,7 @@ function Navbar() {
 
     return (
         <>
-            <nav className="bg-black border-white border-b-2  ">
+            <nav className="bg-black border-gray-800 border-b-2  ">
                 <div className="mx-auto max-w-9xl px-2 sm:px-4 lg:px-6 ">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -26,13 +26,13 @@ function Navbar() {
                                 </svg>
                             </button>
                         </div>
-                        <div className="flex items-center justify-end sm:justify-start">
-                            <div className=" hidden sm:flex">
+                        <div className="flex items-center  justify-end sm:justify-start mb-4">
+                            <div className=" hidden sm:flex ">
                                 <div className="relative">
                                     <input
                                         type="text"
                                         placeholder="Search..."
-                                        className="border border-black text-white bg-gray-600 px-6 py-2 rounded-full focus:outline-none"
+                                        className="border border-black text-white bg-gray-600 px-6 py-2 rounded-full focus:outline-none w-[20rem]"
                                     />
                                     <HiMagnifyingGlass color='white' className="absolute right-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
                                 </div>
@@ -41,8 +41,8 @@ function Navbar() {
 
 
 
-                        <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                            <button type="button" className="relative rounded-full bg-white-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
+                            <button type="button" className="relative rounded-full bg-white-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5"></span>
                                 <span className="sr-only">View notifications</span>
                                 < IoMdNotifications color='white' className="h-6 w-6" />
@@ -50,7 +50,7 @@ function Navbar() {
 
                             <button
                                 type="button"
-                                className="relative rounded-full bg-white-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                className="relative rounded-full bg-white-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                             >
                                 <span className="absolute -inset-1.5"></span>
                                 <span className="sr-only">View Message </span>
@@ -67,39 +67,11 @@ function Navbar() {
                                         <span className="ml-2 pt-2 text-white">Your Name</span>
                                     </button>
                                 </div>
-
-
-                                {/* <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
-                                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
-                            </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                {/* <div className="sm:hidden" id="mobile-menu">
-                <div className="space-y-1 px-2 pb-3 pt-2">
-                     <div className="flex items-center justify-end sm:justify-start">
-                        <div className="ml-6 hidden sm:flex">
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    placeholder="Search..."
-                                    className="border border-black text-white bg-gray-600 px-6 py-2 rounded-full focus:outline-none"
-                                />
-                                <HiMagnifyingGlass color='white' className="absolute right-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> */}
             </nav>
-
         </>
 
     )
