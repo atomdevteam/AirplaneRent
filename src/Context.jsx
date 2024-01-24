@@ -20,7 +20,7 @@ export function ProviderContext({ children }) {
   const [isAuth, setisAuth] = useState(false)
   const [user, setUser] = useState(null);
   //Permisos
-    const [CanEditPermi, setCanEditPermi] = useState(false)
+  const [CanEditPermi, setCanEditPermi] = useState(false)
   const [CanReservation, setCanReservation] = useState(false)
   const [CanEdit, setCanEdit] = useState(false)
   const [CanDelete, setCanDelete] = useState(false)
@@ -172,14 +172,14 @@ export function ProviderContext({ children }) {
     try {
       await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user
-            user.getIdToken().then((value) => {
-              localStorage.setItem("Token", value)
-              localStorage.setItem("DisplayName", user.displayName)
-    
-            })
-          })
-    // Actualizar el perfil del usuario con el nombre
-          await updateProfile(auth.currentUser, { displayName: name });
+        user.getIdToken().then((value) => {
+          localStorage.setItem("Token", value)
+          localStorage.setItem("DisplayName", user.displayName)
+
+        })
+      })
+      // Actualizar el perfil del usuario con el nombre
+      await updateProfile(auth.currentUser, { displayName: name });
       await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
         const user = userCredential.user
         user.getIdToken().then((value) => {
@@ -223,12 +223,10 @@ export function ProviderContext({ children }) {
             if (infoUsertype.hasOwnProperty('CanReservar') && infoUsertype.CanReservar === true) {
               setCanReservation(true);
             }
-          
             if (infoUsertype.hasOwnProperty('CanEdit') && infoUsertype.CanEdit === true) {
               setCanEdit(true);
             }
           }
-          
           localStorage.setItem("Rol", roleAsString)
         } else if (roleAsString === "admin") {
           console.log("es admin")
@@ -241,7 +239,6 @@ export function ProviderContext({ children }) {
             localStorage.setItem("Rol", roleAsString)
             setCanEditPermi(true)
             // EditPermission(roluser.userId, "CanEdit")
-       
           }
           //El tipo de permiso asignado por el admin, se puede usar un Input select, ya con esto permisos
           //Tiene que tener su propio nombre ya asignado fijamente 
@@ -373,6 +370,7 @@ export function ProviderContext({ children }) {
     }
   };
 
+
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log({ currentUser });
@@ -390,6 +388,19 @@ export function ProviderContext({ children }) {
 
   console.log("Pude reservar ? " + CanReservation)
 
+
+  useEffect(() => {
+    if (user) {
+      ShowRoles(user.uid)
+
+    }
+
+  }, [user])
+
+
+  console.log("Pude reservar ? " + CanReservation)
+
+
   return (
     <Context.Provider
       value={{
@@ -404,7 +415,11 @@ export function ProviderContext({ children }) {
         DeleteScheduleById,
         EditScheduleById,
         user,
-        GetAll
+        GetAll,
+        CanReservation,
+        CanEdit,
+        CanDelete,
+        WhichRole
       }}
     >
       {children}
