@@ -5,7 +5,7 @@ import { useContextAir } from '../../Context';
 import { useNavigate } from 'react-router-dom';
 const Sidebar = () => {
     const { logout } = useContextAir()
-const history = useNavigate()
+    const history = useNavigate()
 
     const handleLogout = (e) => {
         e.preventDefault()
@@ -15,15 +15,13 @@ const history = useNavigate()
         window.location.reload();
         history('/');
 
-        // return (
-        //     <Navigate to='/' replace />
-        // )
+      
     }
     return (
         <>
             <div className="bg-gray-900 h-screen w-[14rem] p-4 text-white">
-                <div className="mb-4 text-xl font-bold">Aircraft X</div>
-                <ul>
+                <div className="mb-4 text-xl font-bold mt-[2rem]">Aircraft X</div>
+                <ul className='mt-[2rem]'>
                     <SidebarItem icon={<IoMdHome />} name="Dashboard" />
                     <SidebarItem icon={<IoMdSearch />} name="Search" />
                     <SidebarItem icon={<IoMdAdd />} name="Add Aircraft" />
@@ -38,8 +36,6 @@ const history = useNavigate()
                     </ul>
                 </div>
             </div>
-
-
         </>
     )
 }
