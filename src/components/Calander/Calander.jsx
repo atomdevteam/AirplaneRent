@@ -11,7 +11,10 @@ const Calander = () => {
   const calendarRef = useRef(null);
   let initialX = null;
   const [touchAnimation, setTouchAnimation] = useState(false);
-
+  const [month1, setMonth1] = useState(new Date().getMonth()+1);
+  const [year1, setYear1] = useState(new Date().getFullYear());
+  const [day1, setDay1] = useState(new Date().getDate());
+  
   const handleTouchStart = (e) => {
     initialX = e.touches[0].clientX;
   };
@@ -188,11 +191,9 @@ const Calander = () => {
     return true;
   }
 
-
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
   //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-
   //     return (
   //       dato.date === formattedDate &&
   //       (
@@ -205,7 +206,6 @@ const Calander = () => {
   //       )
   //     );
   //   });
-
   //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
   //     if (!datos.some(reservacion => {
   //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
@@ -264,7 +264,6 @@ const Calander = () => {
   if (loadingCalendar) {
     return <Loader />;
   }
-
 
   return (
     <div
@@ -381,6 +380,7 @@ const Calander = () => {
               className="border-r border-b flex justify-center"
               style={{ height: "120px" }}
             >
+               
               <Link
                 to={`/hours/${date + 1}/${month}/${year}`}
                 className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-400 hover:w-8 hover:h-8 hover:text-white transition ease-in-out 
@@ -388,12 +388,16 @@ const Calander = () => {
                     Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
                 `}
               >
-                {date + 1}
+               {date+1}
+          
               </Link>
+             
+
+
+
+
             </div>
           ))}
-
-
 
 
         </div>

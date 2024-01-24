@@ -160,6 +160,7 @@ export function ProviderContext({ children }) {
   }, [ReservationsForDate, AllReservations])
 
 
+
   const signup = async (datos) => {
     // Validar el formato del correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -379,8 +380,6 @@ export function ProviderContext({ children }) {
     }
   };
 
-
-
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log({ currentUser });
@@ -390,21 +389,13 @@ export function ProviderContext({ children }) {
     return () => unsubuscribe();
   }, [user]);
 
-
-
-
-
   useEffect(() => {
     if (user) {
       ShowRoles(user.uid)
-
     }
-
   }, [user])
 
-
   console.log("Pude reservar ? " + CanReservation)
-
 
   return (
     <Context.Provider

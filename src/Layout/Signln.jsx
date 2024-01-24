@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useContextAir } from '../Context';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify"
 const Signln = () => {
+    const history = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phonenumber, setPhonenumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const { signup } =useContextAir();
+    const { signup } = useContextAir();
     // const handleEmailChange = (e) => {
     //     setEmail(e.target.value);
     //     console.log(email)
@@ -32,12 +34,13 @@ const Signln = () => {
                         toast.success("Successfully Saved Record", {
                             theme: "dark"
                         });
+                        history('/calender');
                     } else {
                         toast.error("Unable to save data", {
                             theme: "dark"
                         });
                     }
-                    
+
 
                 } else {
                     toast.error("Passwords Are Not Equal",
@@ -71,9 +74,9 @@ const Signln = () => {
 
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
+        <div className="min-h-screen bg-[#000320] flex flex-col justify-center sm:py-12">
             <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-            
+
                 <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
                     <div className="py-3 flex flex-col items-center">
                         <label className="font-semibold text-lg text-gray-600 pb-2 block">Sign in with</label>
@@ -135,6 +138,11 @@ const Signln = () => {
                         </button>
                     </div>
                     <div className="py-5">
+
+                        <div className="text-center text-xs">
+                            Do you have an account?<Link to="/LogIn" className=" hover:underline transition-all underline ">Log in</Link>
+                        </div>
+
                         {/* <div className="grid grid-cols-2 gap-1">
                             <div className="text-center sm:text-left whitespace-nowrap">
                                 <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
