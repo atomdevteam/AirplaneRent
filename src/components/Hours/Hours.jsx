@@ -3,6 +3,7 @@ import ScheduleForm from "../ScheduleForm/ScheduleForm"
 import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
+import { FaRegCalendarAlt } from "react-icons/fa";
 
 function Hours() {
   
@@ -83,6 +84,20 @@ function Hours() {
   useEffect(() => {
     ShowListHours(formattedMesActual);
   }, [formattedMesActual])
+  useEffect(() => {
+    ShowListHours(formattedMesActual); // Ejecutar ShowListHours al iniciar el componente
+  }, []);
+
+
+
+  const [reservationsA, setreservationsA] = useState([])
+
+  useEffect(() => {
+    setreservationsA(ReservationsForDate)
+    console.log("hoursss")
+    console.log(reservationsA)
+  }, [ReservationsForDate])
+  
   
 
 
@@ -144,7 +159,7 @@ function Hours() {
         {/*  */}
         <div className="pt-4">Hora</div>
         {horasDelDia.map((hora, index) => {
-          const reservacionesEnEstaHora = ReservationsForDate.filter(
+          const reservacionesEnEstaHora = reservationsA.filter(
             reserva =>
               reserva.start <= hora && reserva.end > hora &&
               formattedMesActual === reserva.date
