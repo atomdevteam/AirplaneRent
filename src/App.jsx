@@ -18,6 +18,7 @@ import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
 import LayoutNotification from './Layout/LayoutNotification/LayoutNotification';
+import HomeScreen from './Layout/HomeScreen/HomeScreen';
 
 
 function App() {
@@ -66,10 +67,11 @@ function App() {
   } else {
     return (
       <>
-        <Routes>
+      <HomeScreen/>
+        {/* <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/Signln" element={<Signln />} />
-        </Routes>
+        </Routes> */}
       </>
 
     );
