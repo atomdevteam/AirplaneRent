@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
-import iconCalendar from "../../Icon/calander.png"
+import iconCalendar from "../../Icon/icon_cal.png"
 
 function Hours() {
   
@@ -104,7 +104,7 @@ function Hours() {
 
 
   return (
-    <>
+    <div className="bg-[#070d16] text-white">
 
       <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
 
@@ -115,7 +115,9 @@ function Hours() {
             <div className='flex row '>
               <Link className="pl-4 pr-4" to={"/"}>
                 {/* < FaRegCalendarAlt size={30} /> */}
+                {/* <img src={iconCalendar} className='w-16 h-16 filter brightness-0 invert saturate-150 contrast-200' /> */}
                 <img src={iconCalendar} className='w-16 h-16' />
+
               </Link>
 
           
@@ -153,10 +155,10 @@ function Hours() {
 
 
             </div>
-            <div className='ml-4'>
-              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
-              <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
-              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
+            <div className='ml-4 text-white'>
+              <span className="text-lg  font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
+              <span className="text-lg   mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
+              <span className="text-lg  font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
             </div>
           </div>
         </div>
@@ -191,7 +193,7 @@ function Hours() {
               </span>
               <div
                 key={index}
-                className={` ${isHoraReservada ? 'flex-1  p-6 bg-green-500' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+                className={` ${isHoraReservada ? 'flex-1  p-6 bg-[#0d7ca8]' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
@@ -235,7 +237,7 @@ function Hours() {
 
       </div>
 
-    </>
+    </div>
   );
 }
 

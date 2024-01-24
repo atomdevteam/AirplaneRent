@@ -155,7 +155,22 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                     fuel: fuel,
                     date: formattedMesActual
                 };
-                EditScheduleById(idreservation, editedReservation)
+
+                const confirmed = window.confirm('Are you sure to edit this reservation?');
+
+                if (confirmed) {
+                    EditScheduleById(idreservation, editedReservation);
+                    setIsOpen(false);
+                    setname("");
+                    setSelectedTime(null);
+                    setTimeEnd(null);
+                    setfuel("");
+                } else {
+                    console.log('Edit canceled by user.');
+                }
+
+
+                // EditScheduleById(idreservation, editedReservation)
 
                 // const updatedReservations = reservations.map(reserva =>
                 //     reserva.id === editedReservation.id ? editedReservation : reserva
@@ -163,11 +178,11 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
                 // setReservations(updatedReservations)
 
-                setIsOpen(false);
-                setname("");
-                setSelectedTime(null);
-                setTimeEnd(null);
-                setfuel("");
+                // setIsOpen(false);
+                // setname("");
+                // setSelectedTime(null);
+                // setTimeEnd(null);
+                // setfuel("");
                 // setreservationEdit(null)
                 // window.location.reload()
             } else {
@@ -182,13 +197,17 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
     const handleDelete = (e) => {
         e.preventDefault()
-        DeleteScheduleById(reservationEdit.id)
-        setIsOpen(false)
-        setname("")
-        setSelectedTime(null)
-        setTimeEnd(null)
-        setfuel("")
-
+        const confirmed = window.confirm('Are you sure to delete this reservation?');
+        if (confirmed) {
+            DeleteScheduleById(reservationEdit.id)
+            setIsOpen(false)
+            setname("")
+            setSelectedTime(null)
+            setTimeEnd(null)
+            setfuel("")
+        }else {
+            console.log('Deletion canceled by user.')
+        }
     }
 
     useEffect(() => {
@@ -223,7 +242,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         <div className=''>
             {isOpen && (
                 <div className='fixed inset-0 flex items-center justify-center z-50'>
-                    <div className='bg-white rounded-lg p-6 w-96 max-w-full shadow-lg transform transition-all duration-300'>
+                    <div className='bg-[#1d2c3d] rounded-lg p-6 w-96 max-w-full shadow-lg transform transition-all duration-300 '>
                         <div className='flex justify-between items-center border-b-2 border-gray-200 pb-4'>
                             <h2 className="text-2xl font-semibold">Schedule Form</h2>
                             <button
@@ -241,7 +260,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
 
                             <form className='grid gap-y-4' onSubmit={handleSave}>
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-bold ml-1 mb-2 text-black">Name</label>
+                                    <label htmlFor="name" className="block text-sm font-bold ml-1 mb-2 text-white">Name</label>
                                     <div className="relative">
                                         <input
                                             type="text"
@@ -250,14 +269,14 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                             placeholder="Name"
                                             value={name}
                                             onChange={(e) => setname(e.target.value)}
-                                            className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                                            className="py-3 px-4 block w-full text-black border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                     </div>
 
                                 </div>
                                 <div>
                                     <div className='flex flex-row '>
                                         <div className='mr-4'>
-                                            <label className="block text-sm font-bold ml-1 mb-2 text-black">Start</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-white">Start</label>
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={selectedTime}
@@ -269,13 +288,13 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     timeCaption="Time"
                                                     dateFormat="h aa"
                                                     placeholderText="Select time"
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                                    className="py-3 px-4 block w-full border-2 text-black border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
 
                                             </div>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold ml-1 mb-2 text-black">End</label>
+                                            <label className="block text-sm font-bold ml-1 mb-2 text-white">End</label>
                                             <div className="relative">
                                                 <DatePicker
                                                     selected={TimeEnd}
@@ -286,14 +305,14 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     timeCaption="Time"
                                                     dateFormat="h aa"
                                                     placeholderText="Select time"
-                                                    className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                                                    className="py-3 px-4 block w-full border-2 text-black border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                                                 />
 
                                             </div>
                                         </div>
                                     </div>
                                     <div className='my-4'>
-                                        <label htmlFor="fuel" className="block text-sm font-bold ml-1 mb-2 text-black">Fuel</label>
+                                        <label htmlFor="fuel" className="block text-sm font-bold ml-1 mb-2 text-white">Fuel</label>
                                         <div className="relative">
                                             <input
                                                 type="number"
@@ -302,7 +321,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                 placeholder="Fuel"
                                                 value={fuel}
                                                 onChange={(e) => setfuel(e.target.value)}
-                                                className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
+                                                className="py-3 px-4 block w-full border-2 text-black border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" />
                                         </div>
 
                                     </div>
@@ -311,12 +330,12 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                         {reservationEdit === null ?
                                             <button
                                                 type='submit'
-                                                className="middle none center mr-4 rounded-lg bg-green-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                                className="middle w-full none center mr-4 rounded-lg bg-[#0d7ca8] py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 
                                             >
                                                 Save
                                             </button> : (
-                                                <>
+                                                <div className='flex justify-center items-center'>
                                                     <button
                                                         onClick={(e) => handleEdit(e)}
                                                         className="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
@@ -331,7 +350,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
                                                     >
                                                         Delete
                                                     </button>
-                                                </>
+                                                </div>
 
 
                                             )
