@@ -2,7 +2,7 @@ import React from 'react'
 import SidebarItem from '../../components/SidebarItem/SidebarItem';
 import { IoMdHome, IoMdSearch, IoMdAdd, IoMdNotifications, IoMdPerson, IoMdSettings } from "react-icons/io";
 import { useContextAir } from '../../Context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 const generalRoutes = [
     {
         name: 'Dashboard',
@@ -12,12 +12,12 @@ const generalRoutes = [
     {
         name: 'Search',
         icon: <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" fill="#ffffff"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>,
-        route: '/'
+        route: '/search'
     },
     {
         name: 'Add Aircraft',
         icon: <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" fill="#ffffff"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></svg>,
-        route: '/'
+        route: '/airdetails'
     }
 ]
 
@@ -43,7 +43,7 @@ const settingsRoutes = [
     {
         name: 'Log Out',
         icon: <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512" fill="#ffffff"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" /></svg>,
-        route: '/'
+        route: '/logout'
     }
 ]
 
@@ -73,7 +73,7 @@ const Sidebar = () => {
                     {/* General Routes */}
                     <div className="flex-none">
                         {generalRoutes.map((route) => (
-                            <button key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
+                            <Link to={route.route}  key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                                 <span className="ml-8 flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,14 +82,14 @@ const Sidebar = () => {
                                         </svg> */}
                                     <span className="mx-4 font-medium">{route.name}</span>
                                 </span>
-                            </button>
+                            </Link>
                         ))}
                     </div >
 
                     {/* Personal Routes */}
                     <div className="flex-grow mt-8">
                         {personalRoutes.map((route) => (
-                            <button key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
+                            <Link to={route.route} key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                                 <span className="ml-8 flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,14 +98,14 @@ const Sidebar = () => {
                                      </svg> */}
                                     <span className="mx-4 font-medium">{route.name}</span>
                                 </span>
-                            </button>
+                            </Link>
                         ))}
                     </div >
 
                     {/* Settings Routes */}
                     <div className="flex-none">
                         {settingsRoutes.map((route) => (
-                            <button key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
+                            <Link to={route.route} key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                                 <span className="ml-8 flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,7 +114,7 @@ const Sidebar = () => {
                                  </svg> */}
                                     <span className="mx-4 font-medium">{route.name}</span>
                                 </span>
-                            </button>
+                            </Link>
                         ))}
                     </div >
                 </div >

@@ -6,10 +6,12 @@ import ReserveDetails from '../../components/ReserveDetails/ReserveDetails'
 import Cards from '../../components/Cards/Cards'
 import NotificationsBlock from '../../components/NotificationsBlock/NotificationsBlock'
 import FilterBlock from '../../components/FilterBlock/FilterBlock'
+
 const Dashboard = () => {
   return (
     <div className=''>
       {/* <Navbar />
+
       <div class="flex flex-row">
         <div className='flex flex-col'>
           <UserProfile />
@@ -23,11 +25,22 @@ const Dashboard = () => {
 
     
         <NotificationsBlock />
-     
-      
+        <div className='flex flex-col'>
+          <Cards />
+          <ReserveDetails />
+        </div>
+      </div>
+    // <div className='flex flex-col'>
+    //     <Navbar/>
 
-
-    </div>
+    //     <UserProfile />
+    //     <AircraftReserves />
+    // </div>
+    // <div className='flex flex-col'>
+    //     <Navbar/>
+    //     <UserProfile />
+    //     <AircraftReserves />
+    // </div>
   )
 }
 
