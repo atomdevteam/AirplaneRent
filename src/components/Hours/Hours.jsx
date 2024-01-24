@@ -187,7 +187,7 @@ function Hours() {
           }
 
           return (
-            <div key={index} className='flex h-[2.8rem]  sm:h-[5rem]'>
+            <div key={index} className='flex h-[5rem]'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
                 {hora}
               </span>
