@@ -191,11 +191,9 @@ const Calander = () => {
     return true;
   }
 
-
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
   //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-
   //     return (
   //       dato.date === formattedDate &&
   //       (
@@ -208,7 +206,6 @@ const Calander = () => {
   //       )
   //     );
   //   });
-
   //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
   //     if (!datos.some(reservacion => {
   //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
@@ -259,7 +256,7 @@ const Calander = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingCalendar(false);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -337,7 +334,7 @@ const Calander = () => {
             <div
             onClick={handleLogout}
               style={open2 ? { display: 'block' } : { display: 'none' }}
-              className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
+              className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3">
               <ul >
                 <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
                   <span
