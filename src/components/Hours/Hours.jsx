@@ -4,9 +4,12 @@ import { Link, useParams } from "react-router-dom"
 import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
+import iconCalendar from "../../Icon/icon_cal.png"
+
 function Hours() {
+  
   const datos = useParams();
-  const { ShowListHours, ReservationsForDate } = useContextAir()
+  const { ShowListHours, ReservationsForDate, user } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -16,7 +19,6 @@ function Hours() {
 
   const [reservations, setReservations] = useState([]);
   const [reservationEdit, setreservationEdit] = useState(null)
-
 
 
   const [mesActual, setMesActual] = useState(fechaEspecifica);
@@ -96,55 +98,67 @@ function Hours() {
     console.log(reservationsA)
   }, [ReservationsForDate])
 
-
-
-
+  const [month1, setMonth1] = useState(new Date().getMonth()+1);
+  const [year1, setYear1] = useState(new Date().getFullYear());
+  const [day1, setDay1] = useState(new Date().getDate());
+  // console.log('Prueba1',formattedMesActual)
+  // console.log('Prueba2',`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`)
   return (
     <>
-
-      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
-
+   {formattedMesActual>=`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`?
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />:""
+}
       <div className=' w-full h-[5rem] flex items-center border-b-2 '>
         <div className='flex items-center justify-between py-2 px-6'>
           <div className='px-1 flex items-center'>
 
-            <div className='flex row  mx-4'>
-              <Link className="pl-4 pr-4" to={"/"}>< FaRegCalendarAlt size={30} /></Link>
+            <div className='flex row '>
+              <Link className="pl-4 pr-4" to={"/"}>
+                {/* < FaRegCalendarAlt size={30} /> */}
+                {/* <img src={iconCalendar} className='w-16 h-16 filter brightness-0 invert saturate-150 contrast-200' /> */}
+                <img src={iconCalendar} className='w-16 h-16' />
 
-              <button
-                type='button'
-                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
-                onClick={irAlMesAnterior}
-              >
-                <svg
-                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
+              </Link>
+
+          
+                
+                <button
+                  type='button'
+                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                  onClick={irAlMesAnterior}
                 >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
-                </svg>
-              </button>
-              <div className=' inline-flex h-6'></div>
-              <button
-                type='button'
-                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
-                onClick={irAlMesSiguiente}
-              >
-                <svg
-                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
+                  <svg
+                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                  </svg>
+                </button>
+                <div className=' inline-flex h-6'></div>
+                <button
+                  type='button'
+                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                  onClick={irAlMesSiguiente}
                 >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
-                </svg>
-              </button>
+                  <svg
+                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                  </svg>
+                </button>
+        
+
+
             </div>
-            <div >
-              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
-              <span className="text-lg  text-black mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
-              <span className="text-lg text-black font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
+            <div className='ml-4 text-white'>
+              <span className="text-lg  font-normal">{mesActual.toLocaleString('default', { day: 'numeric' }) + " de "}</span>
+              <span className="text-lg   mr-1">{mesActual.toLocaleString('default', { month: 'long' })}</span>
+              <span className="text-lg  font-normal">{mesActual.toLocaleString('default', { year: 'numeric' })}</span>
             </div>
           </div>
         </div>
@@ -179,12 +193,16 @@ function Hours() {
               </span>
               <div
                 key={index}
-                className={` ${isHoraReservada ? 'flex-1  p-6 bg-green-500' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+                className={` ${isHoraReservada ? 'flex-1  pl-6 bg-green-500' : 'flex-1 border pl-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
-                    setIsOpen(true);
-                    setreservationEdit(reservaMostrar)
+                    if (user && user.uid === reservaMostrar.id_user) {
+                      setIsOpen(true);
+                      setreservationEdit(reservaMostrar)
+                    }
+
                   } else {
                     setIsOpen(true);
                   }

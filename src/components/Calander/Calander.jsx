@@ -11,7 +11,10 @@ const Calander = () => {
   const calendarRef = useRef(null);
   let initialX = null;
   const [touchAnimation, setTouchAnimation] = useState(false);
-
+  const [month1, setMonth1] = useState(new Date().getMonth()+1);
+  const [year1, setYear1] = useState(new Date().getFullYear());
+  const [day1, setDay1] = useState(new Date().getDate());
+  
   const handleTouchStart = (e) => {
     initialX = e.touches[0].clientX;
   };
@@ -188,11 +191,9 @@ const Calander = () => {
     return true;
   }
 
-
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
   //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-
   //     return (
   //       dato.date === formattedDate &&
   //       (
@@ -205,7 +206,6 @@ const Calander = () => {
   //       )
   //     );
   //   });
-
   //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
   //     if (!datos.some(reservacion => {
   //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
@@ -265,14 +265,13 @@ const Calander = () => {
     return <Loader />;
   }
 
-
   return (
     <div
       ref={calendarRef}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       style={{ touchAction: 'none' }}
-      className='relative'
+      className='relative bg-[#070d16] text-white'
     >
       {touchAnimation && (
         <FaPlane
@@ -317,9 +316,9 @@ const Calander = () => {
             </div>
 
 
-            <div>
-              <span className="text-lg  text-black mr-1">{MONTH_NAMES[month]}</span>
-              <span className="text-lg text-black font-normal">{year}</span>
+            <div className='text-white'>
+              <span className="text-lg   mr-1">{MONTH_NAMES[month]}</span>
+              <span className="text-lg  font-normal">{year}</span>
             </div>
 
           </div>
@@ -329,10 +328,11 @@ const Calander = () => {
           onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
         >
           <div
-            onClick={handleLogout}
+            
             className="h-6 w-6  relative  rounded-full  bg-gray-200">
             <BsPersonCircle className="text-gray-500 w-full h-full" />
             <div
+            onClick={handleLogout}
               style={open2 ? { display: 'block' } : { display: 'none' }}
               className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
               <ul >
@@ -346,7 +346,7 @@ const Calander = () => {
             </div>
 
           </div>
-          <div className="text-gray-900 font-medium">
+          <div className="text-white font-medium">
             {user && user.displayName}
           </div>
         </div>
@@ -356,7 +356,7 @@ const Calander = () => {
       <div>
         <div className='grid grid-cols-7'>
           {DAYS.map((day, index) => (
-            <div key={index} className='px-4 py-2 text-center text-gray-600 text-sm uppercase tracking-wide font-bold border-r border-t'>
+            <div key={index} className='px-4 py-2 text-center text-white text-sm uppercase tracking-wide font-bold border-r border-t'>
               {day}
             </div>
 
@@ -380,20 +380,24 @@ const Calander = () => {
               className="border-r border-b flex justify-center"
               style={{ height: "120px" }}
             >
+               
               <Link
                 to={`/hours/${date + 1}/${month}/${year}`}
-                className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
-               ${calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
+                className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-400 hover:w-8 hover:h-8 hover:text-white transition ease-in-out 
+               ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
                     Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
-              
                 `}
               >
-                {date + 1}
+               {date+1}
+          
               </Link>
+             
+
+
+
+
             </div>
           ))}
-
-
 
 
         </div>
