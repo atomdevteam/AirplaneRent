@@ -9,7 +9,15 @@ import iconCalendar from "../../Icon/icon_cal.png"
 function Hours() {
   
   const datos = useParams();
-  const { ShowListHours, ReservationsForDate, user } = useContextAir()
+  const {
+    ShowListHours,
+    ReservationsForDate,
+    user,
+    CanReservation,
+    CanEdit,
+    CanDelete,
+    WhichRole
+  } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -98,11 +106,6 @@ function Hours() {
     console.log(reservationsA)
   }, [ReservationsForDate])
 
-  const [month1, setMonth1] = useState(new Date().getMonth()+1);
-  const [year1, setYear1] = useState(new Date().getFullYear());
-  const [day1, setDay1] = useState(new Date().getDate());
-  // console.log('Prueba1',formattedMesActual)
-  // console.log('Prueba2',`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`)
   return (
     <>
    {formattedMesActual>=`${year1}-${(month1).toString().padStart(2, "0")}-${(day1).toString().padStart(2, "0")}`?
@@ -120,38 +123,38 @@ function Hours() {
 
               </Link>
 
-          
-                
-                <button
-                  type='button'
-                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
-                  onClick={irAlMesAnterior}
+
+
+              <button
+                type='button'
+                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                onClick={irAlMesAnterior}
+              >
+                <svg
+                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
                 >
-                  <svg
-                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
-                  </svg>
-                </button>
-                <div className=' inline-flex h-6'></div>
-                <button
-                  type='button'
-                  className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
-                  onClick={irAlMesSiguiente}
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                </svg>
+              </button>
+              <div className=' inline-flex h-6'></div>
+              <button
+                type='button'
+                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                onClick={irAlMesSiguiente}
+              >
+                <svg
+                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                  fill='none'
+                  viewBox='0 0 24 24'
+                  stroke='currentColor'
                 >
-                  <svg
-                    className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
-                  </svg>
-                </button>
-        
+                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                </svg>
+              </button>
+
 
 
             </div>
@@ -198,13 +201,28 @@ function Hours() {
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
-                    if (user && user.uid === reservaMostrar.id_user) {
-                      setIsOpen(true);
-                      setreservationEdit(reservaMostrar)
+                    if (CanEdit === true) {
+                      if (WhichRole === "user") {
+                        if (user && user.uid === reservaMostrar.id_user) {
+                          setIsOpen(true);
+                          setreservationEdit(reservaMostrar)
+                        }
+                      } else {
+                        setIsOpen(true);
+                        setreservationEdit(reservaMostrar)
+                      }
+
+                    }else {
+                      window.confirm('You do not have permission to edit or delete!');
                     }
 
                   } else {
-                    setIsOpen(true);
+                    if (CanReservation === true) {
+                      setIsOpen(true);
+                    } else {
+                      window.confirm('You do not have permission to reserve!');
+                    }
+
                   }
 
                 }}
@@ -217,8 +235,7 @@ function Hours() {
                           reserva.start === hora && (
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
-                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} </p>
-                              <p>{reserva.fuel} Gal</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel + " gal"}</p>
 
                             </div>
                           )
