@@ -47,12 +47,12 @@ const CTA = () => {
                                     name="title"
                                     value={selectedOption}
                                     onChange={(e) => setSelectedOption(e.target.value)}
-                                    className="py-3 px-4 block w-full text-black text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
+                                    className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
                                   
                                 >
                                     <option className='' value="" disabled>Select an option</option>
                                     {options.map((option) => (
-                                        <option className='' key={option.value} value={option.value}>
+                                        <option className='text-black' key={option.value} value={option.value}>
                                             {option.label}
                                         </option>
                                     ))}

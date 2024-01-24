@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Navbar from '../Navbar/Navbar';
 
 function Table() {
 
@@ -52,13 +53,84 @@ function Table() {
             pais: 'País2',
             hora: '12:30 PM'
         },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre8',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre9',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre10',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre11',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre12',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre13',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre14',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre15',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre16',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
+        {
+            imagen: 'https://th.bing.com/th/id/OIP.Lx6jNuMBRS7pWyIPxEBw6gHaED?rs=1&pid=ImgDetMain',
+            nombre: 'Nombre17',
+            descripcion: 'Descripción 2',
+            pais: 'País2',
+            hora: '12:30 PM'
+        },
     ];
     const [currentPage, setPage] = useState(1);
-    const itemsPerPage = 4; // Define la cantidad de elementos por página
+    const itemsPerPage = 7; // Define la cantidad de elementos por página
 
     const handleClickNextPage = () => {
-        setPage((prevPage) => Math.max(prevPage - Math.ceil(arregloDatos.length / itemsPerPage), Math.ceil(arregloDatos.length / itemsPerPage)));;
+        setPage((prevPage) => Math.min(prevPage + 1, Math.ceil(arregloDatos.length / itemsPerPage)));
     };
+    
 
     const handleClickPrevPage = () => {
         setPage((prevPage) => Math.max(prevPage - 1, 1)); // No permitir ir a una página menor a 1
@@ -77,38 +149,41 @@ const handlePageClick = (page) => {
    
 
     return (
-        <div className='bg-black'>
+        <>
+        <Navbar></Navbar>
+        <div className='bg-black h-creen'>
+        <h1 className="text-4xl pt-6 font-bold text-white mb-4">Aircrafts</h1>
+        <h6 className="text-1xl  font-bold border-b-2 border-b-white text-white mb-4">5 Aircrafts</h6>
             <table className="min-w-full bg-black border border-gray-300 shadow-md rounded-md overflow-hidden">
                 <tbody>
                     {paginatedData.map((item, index) => (
-                        <tr key={index}>
-                            <td className="py-2 px-4">
-                                <div className="flex items-center">
-                                    <img
-                                        src={item.imagen}
-                                        alt="Imagen de la persona"
-                                        className="w-10 h-10 rounded-full mr-2"
-                                    />
-                                    <div>
-                                        <p className="mb-1 pt-4 text-white text-sm">{item.nombre} </p>
-                                        <p className="text-xs text-white">{item.descripcion}</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td className="py-2 px-4 text-xs">
-                                <div>
-                                    <p className="mb-1 text-sm text-white">{item.pais} </p>
-                                    <p className="text-xs text-white">{item.hora}</p>
-                                </div>
-                            </td>
-                            <td className="py-2 px-4 text-xs">
-                                <div>
-                                    <button className="bg-orange-500 rounded-full px-4 py-2 text-white">
-                                        Detalles
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                     <tr key={index} className='border-b-2 border-b-white  '>
+                     <td className="py-2 px-4">
+                         <div className="flex items-center">
+                             <img
+                                 src={item.imagen}
+                                 alt="Imagen de la persona"
+                                 className="w-10 h-10 rounded-full mr-2"
+                             />
+                             <div>
+                                 <p className="mb-1 pt-4 text-white text-sm">{item.nombre} </p>
+                                 <p className="text-xs text-white">{item.descripcion}</p>
+                             </div>
+                         </div>
+                     </td>
+                     <td className="py-2 px-4 text-xs flex justify-between"> {/* Añadida la clase flex y justify-between */}
+                         <div>
+                             <p className="mb-1 text-sm text-white">{item.pais} </p>
+                             <p className="text-xs text-white">{item.hora}</p>
+                         </div>
+                         <div>
+                             <button className="bg-orange-500 rounded-full px-4 py-2 text-white">
+                                 Detalles
+                             </button>
+                         </div>
+                     </td>
+                 </tr>
+                 
                     ))}
                 </tbody>
             </table>
@@ -145,7 +220,7 @@ const handlePageClick = (page) => {
 
 
         </div>
-
+        </>
 
     );
 

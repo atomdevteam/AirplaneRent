@@ -1,39 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import { useContextAir } from '../../Context';
+import { Link,useNavigate } from 'react-router-dom';
+
 const datos = [
     {
         id: 1,
         imagen: "https://th.bing.com/th/id/R.865f5f7479be8a152bb09a1f4dcaa763?rik=GPa6XF9S4XB5Lw&pid=ImgRaw&r=0",
         nombre: "Ferrary",
-        descripcion: "caro",
+        descripcion: "1 of 12 checks,Aircraft Service",
         hora: "10:00 AM",
     },
     {
         id: 2,
         imagen: "https://th.bing.com/th/id/OIP.AdEsTj8zQ5mzXdBPNetBtgHaEo?rs=1&pid=ImgDetMain",
         nombre: "Bugati",
-        descripcion: "super caroaaaaaaaaaa",
+        descripcion: "1 of 12 checks,Aircraft Service",
         hora: "02:30 PM",
     },
     {
         id: 3,
         imagen: "https://th.bing.com/th/id/OIP.AdEsTj8zQ5mzXdBPNetBtgHaEo?rs=1&pid=ImgDetMain",
         nombre: "Bugati",
-        descripcion: "super caroaaaaaaaaaaaasssssss",
+        descripcion: "1 of 12 checks,Aircraft Service",
         hora: "02:30 PM",
     },
     {
         id: 4,
         imagen: "https://th.bing.com/th/id/OIP.AdEsTj8zQ5mzXdBPNetBtgHaEo?rs=1&pid=ImgDetMain",
         nombre: "Bugati",
-        descripcion: "super carosssssssssssssssssssssssssssssssssssss",
+        descripcion: "1 of 12 checks,Aircraft Service",
         hora: "02:30 PM",
     },
     {
         id: 5,
         imagen: "https://th.bing.com/th/id/OIP.AdEsTj8zQ5mzXdBPNetBtgHaEo?rs=1&pid=ImgDetMain",
         nombre: "Bugati",
-        descripcion: "super carosssssssssssssssssssssssssssssssssssss",
+        descripcion: "1 of 12 checks,Aircraft Service",
         hora: "02:30 PM",
     },
 
@@ -54,6 +56,12 @@ function ReserveDetails() {
     const diff = currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1);
     firstDayOfWeek.setDate(diff);
     lastDayOfWeek.setDate(diff + 6);
+
+    const history = useNavigate();
+
+  const handleButtonClick = () => {
+    history('/table');
+  };
 
     useEffect(() => {
 
@@ -138,14 +146,14 @@ function ReserveDetails() {
     }
 
     return (
-        <div className="w-full lg:w-2/2 flex flex-col space-y-4 p-4 bg-[#1E1E1E]">
+        <div className="w-full lg:w-full flex flex-col space-y-4 p-4 ">
 
             {/* Visually appealing calendar */}
-            <div className="bg-[#2C2C2C] p-4 rounded-lg">
+            <div className="p-4 rounded-lg">
                 <div className="mb-4 text-2xl font-bold text-white">{currentMonth} {currentYear}</div>
-                <div className="grid grid-cols-7 gap-2 text-white">
+                <div className="grid grid-cols-7 gap-8 text-white">
                     {/* Days of the week */}
-                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                    {['Sunday', 'Monday', 'Tuesday', 'Wednesd', 'Thursday', 'Friday', 'Saturday'].map((day) => (
                         <div key={day} className="text-center font-bold">
                             {day}
                         </div>
@@ -153,7 +161,7 @@ function ReserveDetails() {
                 </div>
 
                 {/* Days of the current week */}
-                <div className="grid grid-cols-7 gap-2 text-white">
+                <div className="grid grid-cols-7 gap-4 text-white">
                     {Array.from({ length: 7 }, (_, index) => index).map((day) => {
                         const currentDay = new Date(firstDayOfWeek);
                         currentDay.setDate(firstDayOfWeek.getDate() + day);
@@ -164,18 +172,19 @@ function ReserveDetails() {
                                 )}
                                 <span className={` rounded-full  ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(currentDay.getDate()).toString().padStart(2, "0")}`) ?
                                     Green(currentDay.getDate()) === true && Oragen(currentDay.getDate()) === true && Oragen2(currentDay.getDate()) === true ? "bg-red-200" : Green(currentDay.getDate()) === true ? "bg-orange-200" : "bg-green-200" : ""}
-                `}>{currentDay.getDate()}</span>
+            `}>{currentDay.getDate()}</span>
                             </div>
                         );
                     })}
                 </div>
             </div>
+            <div className="mb-4 text-1xl font-bold text-white">Upcoming Reserve items</div>
             <ul className="list-none p-4" style={{ maxHeight: 'calc(4 * (3rem + 2rem) + 1.5rem)', overflowY: 'auto' }}>
                 {datos.map((item) => (
                     <li key={item.id} className="flex flex-col lg:flex-row items-start lg:items-center space-y-2 lg:space-y-0 lg:space-x-4 mb-4">
                         <img
                             src={item.imagen}
-                            className="rounded-full h-12 w-12 lg:h-16 lg:w-16 object-cover mb-2 lg:mb-0 lg:mr-4"
+                            className="rounded-full h-12 w-12 lg:h-12 lg:w-12 object-cover mb-2 lg:mb-0 lg:mr-4"
                         />
                         <div className="flex flex-col flex-grow">
                             <div className="flex justify-between">
@@ -190,10 +199,12 @@ function ReserveDetails() {
                 ))}
             </ul>
 
-
-
+            <div className="flex justify-center mt-4">
+                <button  onClick={handleButtonClick} className="w-full bg-white text-black py-2 px-4 rounded-full">View Entire Schedule</button>
+            </div>
 
         </div>
+
 
     )
 }

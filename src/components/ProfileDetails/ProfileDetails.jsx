@@ -19,7 +19,7 @@ function ProfileDetails() {
 
             {/* Textos en la esquina derecha */}
             <div className="absolute top-0 right-0 flex flex-row pt-5 pr-10">
-                <button >< IoMdNotifications className="text-sm text-gray-500" size={25} color='white'/></button>
+                <button >< IoMdNotifications className="text-sm text-gray-500 mr-5" size={25} color='white'/></button>
                 <img
                      src={"https://gestion.pe/resizer/F3cNy8c2XPes1b3rCW9_QxS4_dE=/940x569/smart/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/DS7R4ETDHFFUNAFCKI3BXXUFHU.jpg"}
                     className="w-10 h-10 rounded-full "

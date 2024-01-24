@@ -10,9 +10,13 @@ const UserProfile = () => {
                     {/* <button className="w-[150px] h-[50px] p-[16px, 0px] rounded-full bg-white hover:bg-gray-400 text-black">
                         Add Aircraft
                     </button> */}
-                    <Link to='/airdetails'  className="bg-white text-black px-4 py-2 rounded-full mb-6 w-40">
+                    <Link to='/airdetails'  className="bg-white text-black px-4 py-2 rounded-full mb-2 inline-block text-sm w-30">
                         Add Aircraft
                     </Link>
+
+                    {/* <Link to='/airdetails' className="bg-white text-black px-4 py-2 rounded-full mb-6 inline-block w-80 h-80">
+                        Add Aircraft
+                    </Link> */}
                 </div>
 
                 <div className='flex flex-row mt-[2rem]'>

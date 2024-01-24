@@ -8,8 +8,8 @@ function Navbar() {
 
     return (
         <>
-            <nav className="bg-black">
-                <div className="mx-auto max-w-9xl px-2 sm:px-6 lg:px-8">
+            <nav className="bg-black border-white border-b-2  ">
+                <div className="mx-auto max-w-9xl px-2 sm:px-4 lg:px-6 ">
                     <div className="relative flex h-16 items-center justify-between">
                         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 
@@ -27,7 +27,7 @@ function Navbar() {
                             </button>
                         </div>
                         <div className="flex items-center justify-end sm:justify-start">
-                            <div className="ml-6 hidden sm:flex">
+                            <div className=" hidden sm:flex">
                                 <div className="relative">
                                     <input
                                         type="text"

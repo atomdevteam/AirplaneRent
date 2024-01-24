@@ -3,8 +3,8 @@ import React from 'react'
 const ActionButtons = () => {
     return (
         <div className='mt-[2rem]'>
-            <div className='bg-[#2c2c2c] rounded-xl mr-6  h-auto'>
-                <div className='flex flex-col mt-2 ml-[1rem]'>
+            <div className='bg-[#2c2c2c] rounded-xl   h-auto'>
+                <div className='flex flex-col mt-2 '>
                     {/* <h1 className='text-white mt-4'>Aircraft Price</h1>
                     <span className='text-white mt-[1rem] text-lg'>Amount</span> */}
                     <div className="container mx-auto mt-8">

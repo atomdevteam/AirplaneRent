@@ -13,21 +13,11 @@ const Dashboard = () => {
       {/* <Navbar />
 
       <div class="flex flex-row">
-        <div className='flex flex-col'>
+        <div className='flex flex-col ml-[1rem]'>
           <UserProfile />
           <AircraftReserves />
         </div>
-        <div className='flex pt-10 flex-col'>
-          <Cards />
-          <ReserveDetails />
-        </div>
-      </div> */}
-
- 
-        {/* <NotificationsBlock /> */}
-        <ProfileDetails></ProfileDetails>
-        <NotificationsBlock />
-        <div className='flex flex-col'>
+        <div className='flex flex-col pt-20 pr-10'>
           <Cards />
           <ReserveDetails />
         </div>

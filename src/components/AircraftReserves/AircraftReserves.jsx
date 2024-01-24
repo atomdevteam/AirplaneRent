@@ -51,15 +51,15 @@ const reservations = [
 
 const AircraftReserves = () => {
     return (
-        <div className='mt-[2rem] w-[30rem]'>
+        <div className='mt-[1rem] w-[30rem]'>
             <div className='flex flex-col ml-[1rem]'>
-                <div className='mt-[2rem]'>
+                <div className='mt-[1rem]'>
                     <h2 className='text-gray-300'>My Aircraft Reserves</h2>
                 </div>
-                <div className=' mt-[2rem]'>
+                <div className=' mt-[1rem]'>
                     <Boxes2 actReserves={2} />
                 </div>
-                <div className='mt-[2rem] text-white'>
+                <div className='mt-[1rem] text-white'>
                     <Chart2 />
                 </div>
 
@@ -71,7 +71,7 @@ const AircraftReserves = () => {
 const Boxes2 = ({ actReserves }) => {
     return (
         <>
-            <div className='bg-[#2c2c2c] rounded-xl mr-6 w-[30rem] h-full'>
+            <div className='bg-[#2c2c2c] rounded-xl mr-6 w-[40rem] h-full'>
                 <div className='flex flex-col mt-2 ml-[1rem]'>
                     <h1 className='text-white mt-4'> {actReserves} Active reserves</h1>
                     <span className='text-gray-500 mt-[1rem] text-xs'></span>
@@ -100,7 +100,7 @@ const Boxes2 = ({ actReserves }) => {
                             </tbody>
                         </table>
                         <div className="mt-[2rem] mb-4 flex items-center justify-center">
-                            <button className="w-[140px] h-[40px] p-[16px, 0px] rounded-full bg-white hover:bg-gray-400 text-black">
+                            <button className="w-[140px] h-[40px] p-[16px, 0px] rounded-full bg-white hover:bg-gray-400 text-black text-sm">
                                 View All Reserves
                             </button>
                         </div>
@@ -142,6 +142,7 @@ const Chart2 = () => {
                 hoverBorderColor: 'rgba(255, 165, 0, 1)',
                 data: [6, 6, 6, 6, 6, 6, 6],
                 barThickness: 18,
+
             },
         ],
     };
@@ -184,8 +185,8 @@ const Chart2 = () => {
     };
 
     return (
-        <div className="w-full max-w-screen-lg mx-auto mt-8">
-            <div>
+        <div className="w-[40rem] max-w-screen-lg mx-auto mt-8">
+            <div className='mb-4'>
                 <h2 className="text-xl text-white font-bold leading-tight">Total Reserves</h2>
             </div>
             <Bar data={data} options={options} />
