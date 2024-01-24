@@ -3,6 +3,7 @@ import { db,auth } from "./firebase/firebase"
 import { set, ref, onValue, get, update, push,getDatabase } from "firebase/database"
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth"
 import { toast } from "react-toastify"
+
 const Context = createContext()
 //123456789
 export const useContextAir = () => {
@@ -14,10 +15,11 @@ export const useContextAir = () => {
 export function ProviderContext({children}) {
     //Varibale or state setReservationsForDate
     const [ReservationsForDate, setReservationsForDate] = useState([])
+    const [AllReservations, setAllReservations] = useState([])
     //Funtions
     const SaveScheduledform = async (datos) => {
         try {
-          const newScheduledformRef = push(ref(db, 'Scheduledform'));
+          const newScheduledformRef = push(ref(db, 'Scheduledform/'));
           const newScheduledformKey = newScheduledformRef.key;
           await set(newScheduledformRef, datos);
           console.log("Datos guardados correctamente con el ID:", newScheduledformKey);
@@ -26,29 +28,89 @@ export function ProviderContext({children}) {
         }
     }
 
+    const DeleteScheduleById = async (idToDelete) => {
+      try {
+        const scheduledformsRef = ref(db, 'Scheduledform');
+        const queryById = query(scheduledformsRef, orderByChild('id'), equalTo(idToDelete));
+        const snapshot = await get(queryById);
+    
+        if (snapshot.exists()) {
+          const key = Object.keys(snapshot.val())[0]; // Obtener la clave del elemento
+          const elementRef = ref(db, `Scheduledform/${key}`);
+          await remove(elementRef);
+          console.log("Elemento eliminado correctamente");
+        } else {
+          console.log("No se encontró ningún elemento con la ID proporcionada");
+        }
+      } catch (error) {
+        console.error("Error al eliminar elemento:", error);
+        throw error;
+      }
+    }
+
+    const EditScheduleById = async (idToEdit, newData) => {
+      try {
+        const scheduledformsRef = ref(db, 'Scheduledform');
+        const queryById = query(scheduledformsRef, orderByChild('id'), equalTo(idToEdit));
+        const snapshot = await get(queryById);
+    
+        if (snapshot.exists()) {
+          const key = Object.keys(snapshot.val())[0]; // Obtener la clave del elemento
+          const elementRef = ref(db, `Scheduledform/${key}`);
+          await update(elementRef, newData); // Actualizar los datos del elemento
+          console.log("Elemento editado correctamente");
+        } else {
+          console.log("No se encontró ningún elemento con la ID proporcionada");
+        }
+      } catch (error) {
+        console.error("Error al editar elemento:", error);
+        throw error;
+      }
+    }
+    
+
     const ShowListHours = async (fecha) => {
         try {
           const fetchData = ref(db, 'Scheduledform/');
-          
-          // Suscribirse a los cambios en la base de datos
           onValue(fetchData, (snapshot) => {
             const data = snapshot.val();
-            
-            // Filtrar las reservaciones por la fecha proporcionada
             const reservationsForDate = Object.values(data || {}).filter(reservation => reservation.date === fecha);
-      
-            // Actualizar la visualización con las reservaciones filtradas
-            setReservationsForDate(reservationsForDate); // Esta línea depende de cómo gestionas el estado en tu aplicación
+            const All = Object.values(data || {});
+            setReservationsForDate(reservationsForDate); 
+            setAllReservations(All)
           });
         } catch (error) {
           console.error("Error al obtener datos:", error);
         }
       };
+      
+      const GetAll = async () => {
+        const partnersRef = ref(db, 'Scheduledform');
+
+        try {
+            const partnersSnapshot = await get(partnersRef);
+
+            if (partnersSnapshot.exists()) {
+                // Obtén todos los datos de Partners
+                const partnersData = partnersSnapshot.val();
+                const allReservations = Object.values(partnersData || {});
+                return allReservations;
+            } else {
+                console.log("No data available");
+                return null;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            return null;
+        }
+    };
 
       useEffect(() => {
         console.log("Reservaciones")
         console.log(ReservationsForDate)
-      }, [ReservationsForDate])
+        console.log("Todas....")
+        console.log(AllReservations)
+      }, [ReservationsForDate, AllReservations])
       
       async function saveUserDetails(email, userDetails) {
         const db = getDatabase();
