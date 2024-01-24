@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db, auth } from "./firebase/firebase"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth"
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth"
 import { toast } from "react-toastify"
 import { set, ref, query, orderByChild, equalTo, onValue, get, update, push, remove } from "firebase/database"
 
@@ -158,7 +158,10 @@ export function ProviderContext({ children }) {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      LogIn(email, password)
+      updateProfile(
+        auth.currentUser,
+        { displayName: name }
+      )
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos
@@ -179,10 +182,14 @@ export function ProviderContext({ children }) {
       console.log({ currentUser });
       setUser(currentUser);
       localStorage.setItem("auth", currentUser)
+      
+  
      
     });
     return () => unsubuscribe();
   }, [user]);
+
+
 
 
   return (

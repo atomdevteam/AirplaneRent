@@ -326,10 +326,11 @@ const Calander = () => {
           onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
         >
           <div
-            onClick={handleLogout}
+            
             className="h-6 w-6  relative  rounded-full  bg-gray-200">
             <BsPersonCircle className="text-gray-500 w-full h-full" />
             <div
+            onClick={handleLogout}
               style={open2 ? { display: 'block' } : { display: 'none' }}
               className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
               <ul >
