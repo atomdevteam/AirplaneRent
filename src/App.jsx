@@ -6,9 +6,9 @@ import LogIn from './components/LogIn/LogIn';
 import { useContextAir } from './Context';
 import Signln from './Layout/Signln';
 import Loader from './components/Loader/Loader';
+import Navbar from './components/Navbar/Navbar'
 import Sidebar from './Layout/Sidebar/Sidebar';
 import Dashboard from './Layout/Dashboard/Dashboard';
-
 
 function App() {
   const { user, WhichRole } = useContextAir();
