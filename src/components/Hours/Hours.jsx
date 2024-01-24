@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ScheduleForm from "../ScheduleForm/ScheduleForm"
 
 function Hours() {
 
-const [mesActual, setMesActual] = useState(new Date());
-
+  const [mesActual, setMesActual] = useState(new Date());
   const [Inicio, setInicio] = useState(0)
   const [Final, setFinal] = useState(0)
 
-  const horas = Array.from({ length: 24 }, (_, i) => i);
+  // const horas = Array.from({ length: 24 }, (_, i) => i);
+  //11:00 a. m.
+  const horas = Array.from({ length: 24 }, (_, i) => {
+    const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
+    // const period = i < 12 || i === 24 ? 'a. m.' : 'p. m.';
+
+    const timeString = new Date().setHours(i, 0, 0);
+    const formattedTime = new Date(timeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${formattedTime}`;
+  });
 
   const obtenerDiasDelMes = () => {
     const primerDiaDelMes = new Date(mesActual.getFullYear(), mesActual.getMonth(), 1);
@@ -26,7 +35,7 @@ const [mesActual, setMesActual] = useState(new Date());
     setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() + 1, 1));
   };
   const irAlMesAnterior = () => {
-    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() -1, 1));
+    setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth() - 1, 1));
   };
 
   const diasDelMes = obtenerDiasDelMes();
@@ -55,10 +64,49 @@ const [mesActual, setMesActual] = useState(new Date());
   };
 
 
+  const [Data, setData] = useState(null);
+
+  const handleSaveModalData = (data) => {
+    setData(data);
+    console.log('Datos recibidos en ParentComponent:', data);
+    console.log("Start: " + data.start)
+    console.log("End: " + data.end)
+    setInicio(data.start)
+    setFinal(data.end)
+    setnombre(data.name)
+    setcantidad(data.fuel)
+  };
+
+  const handleSaveDelete = () => {
+    const dataToSend = {
+      start: Inicio,
+      end: Final,
+      name: nombre,
+      fuel: cantidad,
+    };
+    setData(dataToSend);
+    setIsOpen(true); // Abre el modal para mostrar los datos seleccionados
+  };
+
+  useEffect(() => {
+    console.log("UseEffect")
+    console.log("Start: " + Inicio)
+    console.log("End: " + Final)
+    console.log("Name: " + nombre)
+    console.log("Fuel: " + cantidad)
+  }, [Inicio, Final])
+
+
+
+
+
+
+
+
 
   return (
     <>
-      {isOpen ?
+      {/* {isOpen ?
         <div className="fixed inset-0 flex items-center justify-center">
           <div className="absolute bg-gray-800 opacity-50 inset-0"></div>
           <div className="bg-white p-8 rounded-lg z-10">
@@ -123,28 +171,28 @@ const [mesActual, setMesActual] = useState(new Date());
             </div>
           </div>
         </div>
-        : ""}
-
+        : ""} */}
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData}  data={Data}/>
       <div className="container  mt-8">
 
-      <div className="flex pl-4 items-center mb-4">
-    <button
-      className=" text-black font-bold py-2 px-4 rounded pl-2"
-      onClick={irAlMesAnterior}
-    >
-      
-     {"<"}
-    </button>
-    <button
-      className=" text-black font-bold py-2 px-4 rounded pl-2"
-      onClick={irAlMesSiguiente}
-    >
-     {">"}
-    </button>
-    <h2 className="text-xl font-bold pl-2">
-      {mesActual.toLocaleString('default', { month: 'long', year: 'numeric' })}
-    </h2>
-  </div>
+        <div className="flex pl-4 items-center mb-4">
+          <button
+            className=" text-black font-bold py-2 px-4 rounded pl-2"
+            onClick={irAlMesAnterior}
+          >
+
+            {"<"}
+          </button>
+          <button
+            className=" text-black font-bold py-2 px-4 rounded pl-2"
+            onClick={irAlMesSiguiente}
+          >
+            {">"}
+          </button>
+          <h2 className="text-xl font-bold pl-2">
+            {mesActual.toLocaleString('default', { month: 'long', year: 'numeric' })}
+          </h2>
+        </div>
         {/* <div className="flex justify-between items-center mb-4">
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -168,26 +216,50 @@ const [mesActual, setMesActual] = useState(new Date());
 
         <div className="grid grid-rows-8 p-10 ">
           {/* gap-4 */}
+          {/* `bg-${Color}` */}
+          {/*  */}
           <div className="pt-4">Hora</div>
           {horas.filter(hora => hora !== 0).map((hora, index) => (
             <div key={index} className='flex'>
               <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
-                {hora >= 13 ? hora + " PM" : hora + " AM"}
+                {hora >= "13:00" ? hora + " PM" : hora + " AM"}
               </span>
-              <div onClick={() => setIsOpen(true)} className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500`: ""}`}>
-              {/* `bg-${Color}` */}
+              <div 
+                onClick={() => {
+                  // Llama a handleSave para guardar la información antes de abrir el modal
+                  handleSaveDelete();
+                  setIsOpen(true);
+                }}
+              className={`flex-1 border p-6 ${Inicio <= hora && Final >= hora ? `bg-green-500` : ""}`}>
+
               {Inicio <= hora && Final >= hora ?
-              <>
-                {nombre +" "}
-                {cantidad}
+                <>
+                  {nombre + " "}
+                  {cantidad}
                 </>
-                :""}
-              </div>
+                : ""}
+            </div>
             </div>
           ))}
+        {/* {horas.map((hora, index) => (
+            <div key={index} className='flex'>
+              <span className={`mr-2 ${hora <= 9 ? 'pr-10' : 'pr-8'}`}>
+                {hora >= 13 ? hora + ' PM' : hora + ' AM'}
+              </span>
+            
+              <div
+                className={`flex-1 border p-6 ${selectedTime && selectedTime.getHours() === hora
+                    ? 'bg-green-500'
+                    : ''
+                  }`}
+              >
+                {hora}
+              </div>
+            </div>
+          ))} */}
 
-        </div>
       </div>
+    </div >
     </>
   );
 }
