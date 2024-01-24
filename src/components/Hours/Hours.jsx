@@ -5,9 +5,11 @@ import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
 import iconCalendar from "../../Icon/icon_cal.png"
+
 function Hours() {
+  
   const datos = useParams();
-  const { ShowListHours, ReservationsForDate } = useContextAir()
+  const { ShowListHours, ReservationsForDate, user } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -195,8 +197,11 @@ function Hours() {
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
-                    setIsOpen(true);
-                    setreservationEdit(reservaMostrar)
+                    if (user && user.uid === reservaMostrar.id_user) {
+                      setIsOpen(true);
+                      setreservationEdit(reservaMostrar)
+                    }
+
                   } else {
                     setIsOpen(true);
                   }
@@ -211,7 +216,7 @@ function Hours() {
                           reserva.start === hora && (
                             <div key={reservaIndex} className='text-xs text-white '>
                               <p className='font-bold'>{reserva.name}</p>
-                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel}</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"} {reserva.fuel + " gal"}</p>
 
                             </div>
                           )
