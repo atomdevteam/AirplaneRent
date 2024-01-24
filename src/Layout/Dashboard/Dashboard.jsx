@@ -4,11 +4,15 @@ import AircraftReserves from '../../components/AircraftReserves/AircraftReserves
 import Navbar from '../../components/Navbar/Navbar'
 import ReserveDetails from '../../components/ReserveDetails/ReserveDetails'
 import Cards from '../../components/Cards/Cards'
+import NotificationsBlock from '../../components/NotificationsBlock/NotificationsBlock'
+import FilterBlock from '../../components/FilterBlock/FilterBlock'
+import  ProfileDetails from '../../components/ProfileDetails/ProfileDetails'
 const Dashboard = () => {
   return (
     <div className=''>
       <Navbar />
       <div className="flex flex-row">
+
         <div className='flex flex-col ml-[1rem]'>
           <UserProfile />
           <AircraftReserves />
@@ -18,7 +22,6 @@ const Dashboard = () => {
           <ReserveDetails />
         </div>
       </div>
-    </div>
     // <div className='flex flex-col'>
     //     <Navbar/>
 
@@ -29,7 +32,7 @@ const Dashboard = () => {
     //     <Navbar/>
     //     <UserProfile />
     //     <AircraftReserves />
-    // </div>
+    </div>
   )
 }
 
