@@ -51,7 +51,7 @@ const reservations = [
 
 const AircraftReserves = () => {
     return (
-        <div className='mt-[1rem] w-[30rem]'>
+        <div className='mt-[1rem]'>
             <div className='flex flex-col ml-[1rem]'>
                 <div className='mt-[1rem]'>
                     <h2 className='text-gray-300'>My Aircraft Reserves</h2>
@@ -71,7 +71,7 @@ const AircraftReserves = () => {
 const Boxes2 = ({ actReserves }) => {
     return (
         <>
-            <div className='bg-[#2c2c2c] rounded-xl mr-6 w-[40rem] h-full'>
+            <div className='bg-[#2c2c2c] rounded-xl mr-6  h-full'>
                 <div className='flex flex-col mt-2 ml-[1rem]'>
                     <h1 className='text-white mt-4'> {actReserves} Active reserves</h1>
                     <span className='text-gray-500 mt-[1rem] text-xs'></span>
@@ -142,7 +142,6 @@ const Chart2 = () => {
                 hoverBorderColor: 'rgba(255, 165, 0, 1)',
                 data: [6, 6, 6, 6, 6, 6, 6],
                 barThickness: 18,
-
             },
         ],
     };
@@ -158,7 +157,6 @@ const Chart2 = () => {
                 beginAtZero: true,
                 stepSize: 1,
                 ticks: {
-
                     callback: (value) => {
                         if (value === 0) return '0h'
                         if (value === 1) return '1h';
@@ -169,33 +167,29 @@ const Chart2 = () => {
                         if (value === 6) return '6h';
                     },
                 },
-
+                maxTicksLimit: 5, // Ajusta el número máximo de ticks
+                autoSkip: true, // Permite saltar automáticamente algunos ticks
                 grid: {
                     display: true,
                     drawBorder: false,
                     drawTicks: false,
                     color: 'rgba(75, 85, 99, 1)',
                     zeroLineColor: 'rgba(75, 85, 99, 1)',
-
                 },
-
             },
         },
-
     };
 
     return (
-        <div className="w-[40rem] max-w-screen-lg mx-auto mt-8">
-            <div className='mb-4'>
+        <div className=" max-w-screen-lg mx-auto mt-8">
+            <div className="mb-4">
                 <h2 className="text-xl text-white font-bold leading-tight">Total Reserves</h2>
             </div>
-            <Bar data={data} options={options} />
+            <Bar data={data} options={options} width={640}  height={200}/>
         </div>
     );
-
-
-
 }
+
 
 
 export default AircraftReserves

@@ -64,7 +64,7 @@ const Sidebar = () => {
     return (
         <div className="flex flex-col ">
 
-            <div className="w-64 h-screen bg-[#2C2C2C] rounded-tr-[1.5rem] rounded-br-[1.5rem]">
+            <div className="w-[12rem] h-screen bg-[#2C2C2C] rounded-tr-[1.5rem] rounded-br-[1.5rem]">
 
                 <div className="flex items-center justify-center mt-10">
                     <p className="text-white font-bold text-[2rem]">Aircraft X</p>
@@ -74,7 +74,7 @@ const Sidebar = () => {
                     <div className="flex-none">
                         {generalRoutes.map((route) => (
                             <Link to={route.route}  key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
-                                <span className="ml-8 flex items-center">
+                                <span className=" flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
@@ -90,7 +90,7 @@ const Sidebar = () => {
                     <div className="flex-grow mt-8">
                         {personalRoutes.map((route) => (
                             <Link to={route.route} key={route.name} className="w-full flex justify-between items-center py-3 px-6 text-gray-100 cursor-pointer hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
-                                <span className="ml-8 flex items-center">
+                                <span className=" flex items-center">
                                     {route.icon}
                                     {/* <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                          <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>

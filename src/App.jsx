@@ -48,7 +48,8 @@ function App() {
       <>
         <div className="flex bg-[#2c2c2c]">
           <Sidebar />
-          <div className="flex-1 p-4 bg-black">
+          
+          <div className="flex-1  bg-black">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
