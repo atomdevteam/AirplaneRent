@@ -5,9 +5,19 @@ import { format } from 'date-fns';
 import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
 import iconCalendar from "../../Icon/icon_cal.png"
+
 function Hours() {
+  
   const datos = useParams();
-  const { ShowListHours, ReservationsForDate, user } = useContextAir()
+  const {
+    ShowListHours,
+    ReservationsForDate,
+    user,
+    CanReservation,
+    CanEdit,
+    CanDelete,
+    WhichRole
+  } = useContextAir()
   // const fechaEspecifica = new Date()
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
   fechaEspecifica.setDate(datos.Dia)
@@ -195,13 +205,28 @@ function Hours() {
                   }`}
                 onClick={() => {
                   if (reservaMostrar) {
-                    if (user && user.uid === reservaMostrar.id_user) {
-                      setIsOpen(true);
-                      setreservationEdit(reservaMostrar)
+                    if (CanEdit === true) {
+                      if (WhichRole === "user") {
+                        if (user && user.uid === reservaMostrar.id_user) {
+                          setIsOpen(true);
+                          setreservationEdit(reservaMostrar)
+                        }
+                      } else {
+                        setIsOpen(true);
+                        setreservationEdit(reservaMostrar)
+                      }
+
+                    }else {
+                      window.confirm('You do not have permission to edit or delete!');
                     }
 
                   } else {
-                    setIsOpen(true);
+                    if (CanReservation === true) {
+                      setIsOpen(true);
+                    } else {
+                      window.confirm('You do not have permission to reserve!');
+                    }
+
                   }
 
                 }}
