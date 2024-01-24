@@ -28,7 +28,6 @@ export function ProviderContext({ children }) {
         user.getIdToken().then((value) => {
           localStorage.setItem("Token", value)
           localStorage.setItem("DisplayName", user.displayName)
-         
 
         })
       })
@@ -42,17 +41,16 @@ export function ProviderContext({ children }) {
   const logout = async () => {
     console.log("Logout")
     await signOut(auth)
-    localStorage.clear()
   }
   const SaveScheduledform = async (datos) => {
     try {
-      const newScheduledformRef = push(ref(db, 'Scheduledform'));
+      const newScheduledformRef = push(ref(db, 'Scheduledform/'));
       const newScheduledformKey = newScheduledformRef.key;
       await set(newScheduledformRef, datos);
       toast.success("Done!",
-        {
-          theme: "dark"
-        })
+      {
+        theme: "dark"
+      })
     } catch (error) {
       console.error("Error al guardar datos:", error);
     }
@@ -121,6 +119,27 @@ export function ProviderContext({ children }) {
     }
   };
 
+  const GetAll = async () => {
+    const partnersRef = ref(db, 'Scheduledform');
+
+    try {
+      const partnersSnapshot = await get(partnersRef);
+
+      if (partnersSnapshot.exists()) {
+        // Obtén todos los datos de Partners
+        const partnersData = partnersSnapshot.val();
+        const allReservations = Object.values(partnersData || {});
+        return allReservations;
+      } else {
+        console.log("No data available");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     console.log("Reservaciones")
     console.log(ReservationsForDate)
@@ -129,7 +148,7 @@ export function ProviderContext({ children }) {
   }, [ReservationsForDate, AllReservations])
 
 
-  const signup = async (email, password) => {
+  const signup = async (email, password, name) => {
     // Validar el formato del correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
@@ -139,6 +158,10 @@ export function ProviderContext({ children }) {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      updateProfile(
+        auth.currentUser,
+        { displayName: name }
+      )
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos
@@ -178,7 +201,8 @@ export function ProviderContext({ children }) {
         AllReservations,
         DeleteScheduleById,
         EditScheduleById,
-        user
+        user,
+         GetAll
       }}
     >
       {children}

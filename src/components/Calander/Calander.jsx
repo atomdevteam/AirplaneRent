@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
-import { useContextAir } from '../../Context';
 import { FaPlane } from "react-icons/fa6";
+import { useContextAir } from '../../Context';
 import Loader from '../Loader/Loader';
 const Calander = () => {
-  const { logout, user } = useContextAir()
+  const [calenderAll, setCalenderAll] = useState([])
+  const { ShowListHours, ReservationsForDate, GetAll, user, logout } = useContextAir()
   const [open2, setOpen2] = useState(false);
   const calendarRef = useRef(null);
   let initialX = null;
@@ -40,7 +41,6 @@ const Calander = () => {
       initialX = null;
     }
   };
-
   const MONTH_NAMES = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -124,17 +124,17 @@ const Calander = () => {
 
   // Array para almacenar las reservaciones con hora de inicio y hora final
 
-  
+
   // Función para verificar si se han realizado reservaciones para todas las horas
   const Green = (date) => {
-    const data =calenderAll.filter((entry) => {
+    const data = calenderAll.filter((entry) => {
       const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-      
+
       return (
-        entry.date === formattedDate 
+        entry.date === formattedDate
       );
     });
-  
+
     for (let hour = 7; hour <= 18; hour++) {
       if (!data.some(reservation => {
         const startHour = parseInt(reservation.start.split(":")[0], 10);
@@ -146,16 +146,16 @@ const Calander = () => {
     }
     return true;
   }
-  
+
   const Oragen = (date) => {
-    const data =calenderAll.filter((entry) => {
+    const data = calenderAll.filter((entry) => {
       const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-  
+
       return (
-        entry.date === formattedDate 
+        entry.date === formattedDate
       );
     });
-  
+
     for (let hour = 18; hour <= 23; hour++) {
       if (!data.some(reservation => {
         const startHour = parseInt(reservation.start.split(":")[0], 10);
@@ -167,32 +167,10 @@ const Calander = () => {
     }
     return true;
   }
-  const Oragen2 = (date) => {
-    const data =calenderAll.filter((entry) => {
-      const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-  
-      return (
-        entry.date === formattedDate 
-      );
-    });
-  
-    for (let hour = 0; hour <= 7; hour++) {
-      if (!data.some(reservation => {
-        const startHour = parseInt(reservation.start.split(":")[0], 10);
-        const endHour = parseInt(reservation.end.split(":")[0], 10);
-        return startHour <= hour && endHour >= hour;
-      })) {
-        return false; // At least one hour is not reserved
-      }
-    }
-    return true;
-  }
-  
 
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
   //     const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
-  
   //     return (
   //       dato.date === formattedDate &&
   //       (
@@ -205,7 +183,6 @@ const Calander = () => {
   //       )
   //     );
   //   });
-  
   //   for (let hora = 18; hora <= 30; hora++) { // Cambié el límite a 30 para incluir la hora 6 am del día siguiente
   //     if (!datos.some(reservacion => {
   //       const inicioHora = parseInt(reservacion.start.split(":")[0], 10);
@@ -229,6 +206,16 @@ const Calander = () => {
     }
   };
 
+  // const horasFormato24 = Array.from({ length: 24 }, (_, i) => {
+  //   const horaFormateada = i < 10 ? `0${i}` : `${i}`;
+  //   return `${horaFormateada}:00`;
+  // });
+
+  // // Eliminar la primera hora (00:00)
+  // const horasFormato24SinPrimeraHora = horasFormato24.slice(1);
+
+  // console.log(horasFormato24SinPrimeraHora);
+
   const handleLogout = (e) => {
     e.preventDefault()
     console.log("Logout")
@@ -246,7 +233,7 @@ const Calander = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoadingCalendar(false);
-    }, 1000); 
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -254,8 +241,9 @@ const Calander = () => {
   if (loadingCalendar) {
     return <Loader />;
   }
-  return (
 
+
+  return (
     <div
       ref={calendarRef}
       onTouchStart={handleTouchStart}
@@ -318,16 +306,16 @@ const Calander = () => {
           onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
         >
           <div
-
+            onClick={handleLogout}
             className="h-6 w-6  relative  rounded-full  bg-gray-200">
             <BsPersonCircle className="text-gray-500 w-full h-full" />
             <div
               style={open2 ? { display: 'block' } : { display: 'none' }}
               className="drop-down w-48 overflow-hidden bg-white shadow absolute top-12 right-3">
-              <ul onClick={handleLogout}>
+              <ul >
                 <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
                   <span
-                    className='hover:bg-gray-400'>
+                    className=''>
                     Log Out
                   </span>
                 </li>
@@ -336,7 +324,7 @@ const Calander = () => {
 
           </div>
           <div className="text-gray-900 font-medium">
-          {user && user.displayName}
+            {user && user.displayName}
           </div>
         </div>
 
@@ -372,8 +360,9 @@ const Calander = () => {
               <Link
                 to={`/hours/${date + 1}/${month}/${year}`}
                 className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
-               ${calenderAll.some((entry) => entry.date===`${year}-${(month + 1).toString().padStart(2, "0")}-${(date+1).toString().padStart(2, "0")}`)?
-               Green(date+1)===true&& Oragen(date+1)===true && Oragen2(date+1)===true?"bg-red-200":Green(date+1)===true?"bg-orange-200":"bg-green-200":""}
+               ${calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
+                    Green(date + 1) === true && Oragen(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
+
               
                 `}
               >

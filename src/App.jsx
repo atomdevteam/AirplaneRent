@@ -9,7 +9,7 @@ import Loader from './components/Loader/Loader';
 
 function App() {
   const { user } = useContextAir();
- const userisAuth  = localStorage.getItem("auth")
+  const userisAuth  = localStorage.getItem("Token")
 
   if (userisAuth) {
     return (
