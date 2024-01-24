@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-const ScheduleForm = ({ isOpen, setIsOpen, onSave, data }) => {
+import { format } from 'date-fns';
+const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, date }) => {
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -27,18 +28,40 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, data }) => {
         }
     }
 
+    const formattedMesActual = format(date, 'yyyy-MM-dd');
+
+    console.log("Fecha selecionada")
+    console.log(formattedMesActual)
+
     const handleSave = (e) => {
         e.preventDefault()
         const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
         const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
-        // const start = selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : null;
-        // const end = TimeEnd ? TimeEnd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }) : null;
 
+        const overlapsExistingReservation = reservations.some(reserva =>
+            (start >= reserva.start && start < reserva.end) ||
+            (end > reserva.start && end <= reserva.end) ||
+            (start <= reserva.start && end >= reserva.end)
+        );
+
+        const overlapsWithExistingDate = reservations.some(reserva =>
+            formattedMesActual === reserva.date &&
+            (
+                (start >= reserva.start && start < reserva.end) ||
+                (end > reserva.start && end <= reserva.end) ||
+                (start <= reserva.start && end >= reserva.end)
+            )
+        );
+        if (overlapsExistingReservation && overlapsWithExistingDate) {
+            console.log('La nueva reserva se superpone con una reserva existente en el mismo horario y fecha. Elige otro horario o fecha.');
+            return;
+        }
         const datos = {
             name: name,
             start: start,
             end: end,
             fuel: fuel,
+            date: formattedMesActual
         }
         console.log("Datos")
         console.log(datos)
@@ -49,6 +72,8 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, data }) => {
         setTimeEnd(null)
         setfuel("")
     }
+
+
 
 
 

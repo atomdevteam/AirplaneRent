@@ -14,6 +14,8 @@ function Hours() {
   fechaEspecifica.setMonth(datos.Month)
   const [horasDelDia, setHorasDelDia] = useState([]);
 
+  const [reservations, setReservations] = useState([]);
+
 
 
   const [mesActual, setMesActual] = useState(fechaEspecifica);
@@ -52,10 +54,9 @@ function Hours() {
   const dateSelect = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
   const handleSaveModalData = (data) => {
+    setReservations([...reservations, data]);
     setData(data);
     console.log('Datos recibidos en ParentComponent:', data);
-    console.log("Start: " + data.start)
-    console.log("End: " + data.end)
     setInicio(data.start)
     setFinal(data.end)
     setnombre(data.name)
@@ -90,13 +91,18 @@ function Hours() {
   }, [fechaEspecifica, mesActual]);
 
   const formattedMesActual = format(mesActual, 'yyyy-MM-dd');
-  console.log("Condicion" + formattedMesActual + " " + dateSelect)
+
+  reservations.map((r, i) => (
+    console.log("Condicion de reservation  " + formattedMesActual + " === " + r.date)
+  ))
+  console.log("Muchas resERVATION")
+  console.log(reservations)
 
 
   return (
     <>
 
-      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} data={Data} />
+      <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} date={mesActual} />
 
       <div className=' w-full h-[5rem] flex items-center border-b-2 '>
         <div className='flex items-center justify-between py-2 px-6'>
@@ -145,17 +151,20 @@ function Hours() {
       </div>
 
 
-      <div className="grid grid-rows-8 pl-10 ">
+      <div className="grid grid-rows-8 pl-10 mx-4">
         {/* gap-4 */}
         {/* `bg-${Color}` */}
         {/*  */}
         <div className="pt-4">Hora</div>
-        {horasDelDia.filter(hora => hora !== 0).map((hora, index) => {
-          const isStartHour = Inicio === hora;
+        {horasDelDia.map((hora, index) => {
+          const reservacionesEnEstaHora = reservations.filter(
+            reserva =>
+              reserva.start <= hora && reserva.end > hora &&
+              formattedMesActual === reserva.date
+          );
 
-          if (isStartHour) {
-            isFirstHour = true;
-          }
+          const isHoraReservada = reservacionesEnEstaHora.length > 0;
+          let bordeAplicado = false;
 
           return (
             <div key={index} className='flex h-[4rem]'>
@@ -163,29 +172,33 @@ function Hours() {
                 {hora}
               </span>
               <div
+                key={index}
+                className={` ${isHoraReservada ? 'flex-1  p-6 bg-green-500' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
+                  }`}
                 onClick={() => {
                   setIsOpen(true);
                 }}
-                className={` ${Inicio <= hora && Final >= hora &&  formattedMesActual === dateselect? `flex-1  p-6 bg-green-500` : "flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out"}`}>
+              >
+                {reservacionesEnEstaHora.map((reserva, reservaIndex) => (
+                  <div key={reservaIndex} className=''>
+                    {
+                      formattedMesActual === reserva.date && (
+                        reserva.start <= hora && reserva.end >= hora && (
+                          reserva.start === hora && (
+                            <div key={reservaIndex} className='text-xs text-white '>
+                              <p className='font-bold'>{reserva.name}</p>
+                              <p>{reserva.start >= "13:00" ? reserva.start + " pm" : reserva.start + " am"} - {reserva.end >= "13:00" ? reserva.end + " pm" : reserva.end + " am"}</p>
 
-                {/* {Inicio <= hora && Final >= hora &&
-                  isStartHour && isFirstHour && (
-                    <div className='text-xs  text-white'>
-                      <p className='font-bold'>{nombre}</p>
-                    
-                      <p>{Inicio >= "13:00" ? Inicio + " pm" : Inicio + " am"} - {Final >= "13:00" ? Inicio + " pm" : Final + " am"}</p>
-                    </div>
-                  )
-                } */}
-                {formattedMesActual === dateselect && ( // Condición para mostrar los datos si los meses son iguales
-                  Inicio <= hora && Final >= hora &&
-                  isStartHour && isFirstHour && (
-                    <div className='text-xs  text-white'>
-                      <p className='font-bold'>{nombre}</p>
-                      <p>{Inicio >= "13:00" ? Inicio + " pm" : Inicio + " am"} - {Final >= "13:00" ? Inicio + " pm" : Final + " am"}</p>
-                    </div>
-                  )
+                            </div>
+                          )
+                        )
+                      )
+                    }
+                  </div>
+
+                )
                 )}
+
               </div>
             </div>
           );
