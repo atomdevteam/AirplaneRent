@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
+import { useContextAir } from '../../Context';
 const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations, date, reservationEdit, setreservationEdit }) => {
+    const {SaveScheduledform} = useContextAir()
     const [showModal, setshowModal] = useState(false)
     const [name, setname] = useState("")
     const [fuel, setfuel] = useState("")
@@ -64,6 +66,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
             date: formattedMesActual
         }
         onSave(datos);
+        SaveScheduledform(datos)
         setIsOpen(false)
         setname("")
         setSelectedTime(null)
