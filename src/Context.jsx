@@ -170,31 +170,24 @@ export function ProviderContext({ children }) {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, datos.email, datos.password).then((userCredential) => {
-        const user = userCredential.user;
-        try {
-          const info = {
-            userId: user.uid,
-            name: datos.name,
-            role: "user",
-            phone: datos.phone,
-            email: datos.email,
-            password: datos.password,
-          }
-          const newRolesformRef = push(ref(db, 'Roles/'));
-          const newRolesformKey = newRolesformRef.key;
-          set(newRolesformRef, info);
+      await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+            user.getIdToken().then((value) => {
+              localStorage.setItem("Token", value)
+              localStorage.setItem("DisplayName", user.displayName)
+    
+            })
+          })
+    // Actualizar el perfil del usuario con el nombre
+          await updateProfile(auth.currentUser, { displayName: name });
+      await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        const user = userCredential.user
+        user.getIdToken().then((value) => {
+          localStorage.setItem("Token", value)
+          localStorage.setItem("DisplayName", user.displayName)
 
-        } catch (error) {
-          console.error("Error al guardar datos:", error);
-        }
-
-
+        })
       })
-      updateProfile(
-        auth.currentUser,
-        { displayName: datos.name }
-      )
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos
@@ -411,11 +404,7 @@ export function ProviderContext({ children }) {
         DeleteScheduleById,
         EditScheduleById,
         user,
-        GetAll,
-        CanReservation,
-        CanEdit,
-        CanDelete,
-        WhichRole
+        GetAll
       }}
     >
       {children}
