@@ -158,10 +158,7 @@ export function ProviderContext({ children }) {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      updateProfile(
-        auth.currentUser,
-        { displayName: name }
-      )
+      LogIn(email, password)
       console.log("Usuario registrado exitosamente");
     } catch (error) {
       // Manejar errores específicos

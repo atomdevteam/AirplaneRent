@@ -167,6 +167,26 @@ const Calander = () => {
     }
     return true;
   }
+  const Oragen2 = (date) => {
+    const data = calenderAll.filter((entry) => {
+      const formattedDate = `${year}-${(month + 1).toString().padStart(2, "0")}-${date.toString().padStart(2, "0")}`;
+
+      return (
+        entry.date === formattedDate
+      );
+    });
+
+    for (let hour = 0; hour <= 7; hour++) {
+      if (!data.some(reservation => {
+        const startHour = parseInt(reservation.start.split(":")[0], 10);
+        const endHour = parseInt(reservation.end.split(":")[0], 10);
+        return startHour <= hour && endHour >= hour;
+      })) {
+        return false; // At least one hour is not reserved
+      }
+    }
+    return true;
+  }
 
   // const todasLasHorasReservadas2 = (date) => {
   //   const datos = calenderAll.filter((dato) => {
@@ -361,8 +381,7 @@ const Calander = () => {
                 to={`/hours/${date + 1}/${month}/${year}`}
                 className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-200 hover:w-8 hover:h-8 transition ease-in-out 
                ${calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
-                    Green(date + 1) === true && Oragen(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
-
+                    Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
               
                 `}
               >
