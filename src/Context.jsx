@@ -160,10 +160,11 @@ export function ProviderContext({ children }) {
   }, [ReservationsForDate, AllReservations])
 
 
-  const signup = async (email, password, name) => {
+
+  const signup = async (datos) => {
     // Validar el formato del correo electrónico
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(datos.email)) {
       console.error("Error: El formato del correo electrónico no es válido");
       return;
     }
@@ -222,12 +223,10 @@ export function ProviderContext({ children }) {
             if (infoUsertype.hasOwnProperty('CanReservar') && infoUsertype.CanReservar === true) {
               setCanReservation(true);
             }
-
             if (infoUsertype.hasOwnProperty('CanEdit') && infoUsertype.CanEdit === true) {
               setCanEdit(true);
             }
           }
-
           localStorage.setItem("Rol", roleAsString)
         } else if (roleAsString === "admin") {
           console.log("es admin")
@@ -240,7 +239,6 @@ export function ProviderContext({ children }) {
             localStorage.setItem("Rol", roleAsString)
             setCanEditPermi(true)
             // EditPermission(roluser.userId, "CanEdit")
-
           }
           //El tipo de permiso asignado por el admin, se puede usar un Input select, ya con esto permisos
           //Tiene que tener su propio nombre ya asignado fijamente 
@@ -373,7 +371,6 @@ export function ProviderContext({ children }) {
   };
 
 
-
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log({ currentUser });
@@ -383,8 +380,13 @@ export function ProviderContext({ children }) {
     return () => unsubuscribe();
   }, [user]);
 
+  useEffect(() => {
+    if (user) {
+      ShowRoles(user.uid)
+    }
+  }, [user])
 
-
+  console.log("Pude reservar ? " + CanReservation)
 
 
   useEffect(() => {
