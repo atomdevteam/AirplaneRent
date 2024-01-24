@@ -6,13 +6,13 @@ import LogIn from './components/LogIn/LogIn';
 import { useContextAir } from './Context';
 import Signln from './Layout/Signln';
 import Loader from './components/Loader/Loader';
+import Navbar from './components/Navbar/Navbar'
 import Sidebar from './Layout/Sidebar/Sidebar';
 import Dashboard from './Layout/Dashboard/Dashboard';
 import DashboardLayout from './Layout/AdminDash';
 import AircraftDetailsForm from './components/AircraftDetailsForm/AircraftDetailsForm';
 import AddAircraftLayout from './Layout/AddAircraftLayout/AddAircraftLayout';
 import Logout from './Layout/Logout/Logout';
-import Navbar from './components/Navbar/Navbar';
 
 function App() {
   const { user, WhichRole } = useContextAir();
@@ -65,5 +65,6 @@ function App() {
     );
   }
 }
+
 
 export default App;
