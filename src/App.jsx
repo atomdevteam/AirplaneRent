@@ -17,6 +17,7 @@ import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
+import LayoutNotification from './Layout/LayoutNotification/LayoutNotification';
 
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
-              <Route path='/notificationsBlock' element={<NotificationsBlock/>} />
+              <Route path='/notificationsBlock' element={<LayoutNotification/>} />
               <Route path='/logout' element={<Logout />} />
               <Route path='/table' element={<Table />} />
               <Route path='/profileDetails' element={<ProfileDetails/>}/>
