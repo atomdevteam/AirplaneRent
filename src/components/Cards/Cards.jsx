@@ -27,13 +27,7 @@ function Cards() {
           <span className="block text-xs">Help & Support</span>
         </div>
       </div>
-    </div>
-    
-      
-
-
-      
-
+    </div>  
     )
 }
 
