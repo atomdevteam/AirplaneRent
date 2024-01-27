@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import { useContextAir } from '../../Context';
 const LogIn = () => {
     const { LogIn } = useContextAir()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate();
     const handlerLogIn = (e) => {
         e.preventDefault()
 
@@ -15,6 +16,7 @@ const LogIn = () => {
             return; // Detener la ejecución del formulario si el campo está vacío
         }else {
             LogIn(email, password)
+            navigate('/', { replace: true });
         }
     }
     return (
