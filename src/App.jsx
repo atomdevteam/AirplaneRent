@@ -16,6 +16,7 @@ import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
+import ProfileSettings from "./components/ProfileSettings/ProfileSettings"
 import Dashboard1 from './Layout/Dashboard/Dashboard1';
 import Sidebar1 from './Layout/Sidebar/Sidebar1';
 function App() {
@@ -49,7 +50,7 @@ function App() {
           <Sidebar1 />
           <div className="flex-1 p-4 bg-black">
             <Routes>
-              <Route path="/" element={<Dashboard1 />} />
+              <Route path="/" element={<ProfileSettings />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
               <Route path='/notificationsBlock' element={<NotificationsBlock/>} />
               <Route path='/logout' element={<Logout />} />
