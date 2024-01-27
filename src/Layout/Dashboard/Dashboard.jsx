@@ -8,7 +8,7 @@ const Dashboard = () => {
   return (
     <div className=''>
       <Navbar />
-      <div className="flex flex-row w-1/2">
+      <div className="flex flex-row w-1/2 mb-8">
         <div className='flex flex-col ml-[1rem] '>
           <UserProfile />
           <AircraftReserves />

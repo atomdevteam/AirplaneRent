@@ -65,11 +65,12 @@ function App() {
   } else {
     return (
       <>
-      <HomeScreen/>
-        {/* <Routes>
-          <Route path="/" element={<LogIn />} />
+      {/* <HomeScreen/> */}
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/LogIn" element={<LogIn />} />
           <Route path="/Signln" element={<Signln />} />
-        </Routes> */}
+        </Routes>
       </>
 
     );

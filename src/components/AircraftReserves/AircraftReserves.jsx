@@ -75,12 +75,12 @@ const Boxes2 = ({ actReserves }) => {
                 <div className='flex flex-col mt-2 ml-[1rem]'>
                     <h1 className='text-white mt-4'> {actReserves} Active reserves</h1>
                     <span className='text-gray-500 mt-[1rem] text-xs'></span>
-                    <div className="container mx-auto mt-8">
+                    <div className="container mx-auto mt-4">
                         <table className="min-w-full  text-gray-300 text-xs">
                             <tbody>
                                 {reservations.map((rese, index) => (
                                     <tr key={index} className="">
-                                        <td className="flex items-center p-4">
+                                        <td className="flex items-center p-2">
                                             <img src={rese.avatar} alt="Avatar" className="w-8 h-8 rounded-full mr-2" />
                                             <span>{rese.name}</span>
                                         </td>
@@ -181,7 +181,7 @@ const Chart2 = () => {
     };
 
     return (
-        <div className=" max-w-screen-lg mx-auto mt-8">
+        <div className=" max-w-screen-lg mx-auto mt-4">
             <div className="mb-4">
                 <h2 className="text-xl text-white font-bold leading-tight">Total Reserves</h2>
             </div>

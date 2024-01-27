@@ -150,12 +150,12 @@ function ReserveDetails() {
 
             {/* Visually appealing calendar */}
             <div className="p-4 rounded-lg">
-                <div className="mb-4 text-2xl  text-white">{currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)} {currentYear}</div>
+                <div className="mb-6 mt-4 text-2xl  text-white">{currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)} {currentYear}</div>
 
-                <div className="grid grid-cols-7 gap-4 text-gray-400 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7">
+                <div className="grid grid-cols-7  gap-4 text-gray-400 sm:grid-cols-7 md:grid-cols-7 lg:grid-cols-7">
                     {/* Days of the week */}
                     {['Sunday', 'Monday', 'Tuesday', 'Wednesd', 'Thursday', 'Friday', 'Saturday'].map((day) => (
-                        <div key={day} className="text-center ">
+                        <div key={day} className="text-center">
                             {day}
                         </div>
                     ))}

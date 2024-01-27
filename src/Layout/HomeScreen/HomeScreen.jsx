@@ -11,7 +11,7 @@ import Footer from '../../components/Footer/Footer';
 
 const HomeScreen = () => {
   return (
-    <div className='min-h-screen bg-black'>
+    <div className='bg-black'>
       <NavBar />
       <div className='flex flex-col mt-6 mx-12 w-auto'>
         <CardExplore />
