@@ -134,7 +134,7 @@ const Signln = () => {
                     <div className="py-5">
 
                         <div className="text-center text-xs">
-                            Do you have an account?<Link to="/" className=" hover:underline transition-all underline ">Log in</Link>
+                            Do you have an account?<Link to="/LogIn" className=" hover:underline transition-all underline ">Log in</Link>
                         </div>
 
                         {/* <div className="grid grid-cols-2 gap-1">
