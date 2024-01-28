@@ -48,15 +48,15 @@ function App() {
       <>
         <div className="flex bg-[#2c2c2c]">
           <Sidebar />
-          
+
           <div className="flex-1  bg-black">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
-              <Route path='/notificationsBlock' element={<LayoutNotification/>} />
+              <Route path='/notificationsBlock' element={<LayoutNotification />} />
               <Route path='/logout' element={<Logout />} />
               <Route path='/table' element={<Table />} />
-              <Route path='/profileDetails' element={<ProfileDetails/>}/>
+              <Route path='/profileDetails' element={<ProfileDetails />} />
             </Routes>
           </div>
         </div>
@@ -65,7 +65,7 @@ function App() {
   } else {
     return (
       <>
-      {/* <HomeScreen/> */}
+        {/* <HomeScreen/> */}
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/LogIn" element={<LogIn />} />
