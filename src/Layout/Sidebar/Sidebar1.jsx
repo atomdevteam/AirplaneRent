@@ -40,13 +40,13 @@ const generalRoutes = [
     {
         name: 'Add addtional passengers',
         icon: <  MdPersonAddAlt1 size={25} />,
-        route: '/airdetails'
+        route: '/ProfileSettings'
     },
 
     {
         name: 'Profiles Setting',
         icon: <IoPersonSharp size={20} color='white' />,
-        route: '/airdetails'
+        route: '/'
     }
 ]
 
@@ -81,7 +81,7 @@ const Sidebar1 = () => {
             <div className="w-full md:w-[18rem] bg-[#2C2C2C] rounded-tr-[1.5rem] rounded-br-[1.5rem]">
 
                 <div className="mt-10 pr-10 pb-6 text-center">
-                    <button className='pr-40 pb-8'><FaArrowLeft size={40} color='white'></FaArrowLeft></button>
+                    <Link to={"/"} className='pr-40 pb-6 mb-4 inline-block'><FaArrowLeft size={30} color='white'></FaArrowLeft></Link>
                     <p className="text-white font-bold text-3xl">Airplane Rent</p>
                 </div>
 
