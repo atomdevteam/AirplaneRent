@@ -285,6 +285,7 @@ const ActionButtons = () => {
         </div>
     )
 }
+
 const NavBar = () => {
     return (
         <div>
