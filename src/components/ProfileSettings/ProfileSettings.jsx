@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { FaHandPaper } from "react-icons/fa";
 function ProfileSettings() {
     const [aircraftDetails, setAircraftDetails] = useState({
         title: '',
@@ -45,7 +45,7 @@ function ProfileSettings() {
 
     return (
 
-        <div className='flex flex-row'>
+        <div className='flex flex-row pl-20'>
             <div className='mt-[2rem]'>
                 <div className='bg-[#2c2c2c] rounded-xl mr-6 h-full'>
                     <div className='flex flex-col mt-2 ml-[1rem]'>
@@ -159,13 +159,56 @@ function ProfileSettings() {
                                         </div>
                                     </div>
                                 </div>
+                                <label className='block text-lg lg:text-xl font-bold ml-1 mb-2 text-white'>Login settings</label>
+
+                                <div>
+                                    <label className='block text-sm font-bold ml-1 mb-2 text-white'>Old password</label>
+                                    <div className='relative'>
+                                        <input
+                                            type='text'
+                                            name='title'
+                                            value={aircraftDetails.title}
+                                            onChange={handleChange}
+                                            placeholder='Enter your old password'
+                                            className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
+                                        />
+                                    </div>
+                                </div>
+                                <div className='flex flex-row'>
+                                    <div>
+                                        <label className='block text-sm font-bold ml-1 mb-2 text-white'>New password</label>
+                                        <div className='relative'>
+                                            <input
+                                                type='text'
+                                                name='title'
+                                                value={aircraftDetails.title}
+                                                onChange={handleChange}
+                                                placeholder='Enter your new password'
+                                                className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className='block text-sm font-bold ml-10 mb-2 text-white'>Confirm new password</label>
+                                        <div className='relative'>
+                                            <input
+                                                type='text'
+                                                name='title'
+                                                value={aircraftDetails.title}
+                                                onChange={handleChange}
+                                                placeholder='Confirm your new password'
+                                                className='py-3 px-4 block w-full text-white text-sm  ml-10 focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div>
                                     <div className='my-8'>
                                         <button
                                             type='submit'
-                                            className='w-full bg-[#0d7ca8] py-3 px-6 font-sans text-xs font-bold uppercase text-white rounded-lg shadow-md transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+                                            className=' bg-white py-3 px-6 font-sans text-xs font-bold uppercase text-black rounded-lg shadow-md transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
                                         >
-                                            Save
+                                            Update password
                                         </button>
                                     </div>
                                 </div>
@@ -174,9 +217,9 @@ function ProfileSettings() {
                     </div>
                 </div>
             </div>
-        <div className='flex flex-col w-[18rem]'>
-                    <ActionButtons />
-        </div>
+            <div className='flex flex-col w-[18rem]'>
+                <ActionButtons />
+            </div>
 
         </div>
     );
@@ -222,25 +265,15 @@ const Card = ({ imagen }) => {
 
 const ActionButtons = () => {
     return (
-        <div className='mt-[2rem]'>
-            <div className='bg-[#2c2c2c] rounded-xl   h-auto'>
-                <div className='flex flex-col mt-2 '>
-                    {/* <h1 className='text-white mt-4'>Aircraft Price</h1>
-                    <span className='text-white mt-[1rem] text-lg'>Amount</span> */}
-                    <div className="container mx-auto mt-8">
-                        <div className='flex flex-col mx-8'>
-                            <button className='bg-orange-400 mb-4 text-white rounded-full h-12 '>
-                                Publish Now
-                            </button>
-                            <button className='bg-white mb-8 text-black rounded-full h-12'>
-                                Schedule Aircraft
-                            </button>
-                            <button className='bg-transparent mb-8 text-white rounded-full h-12'>
-                                Save Draft
-                            </button>
-                        </div>
-
+        <div className='mt-10 flex justify-center'>
+            <div className='bg-[#2c2c2c] rounded-xl px-8 py-6 shadow-md'>
+                <div className='flex flex-col items-center'>
+                    <div className="container mx-auto text-center">
+                        <FaHandPaper color='white' size={50}></FaHandPaper>
+                        <h1 className='text-white text-3xl font-bold mt-6 mb-4'>Exclusive Offer!</h1>
+                        <p className='text-gray-300 mt-2 mb-6'>Join our Travel Club to receive secret offers and the best prices for amazing airplane rentals!</p>
                     </div>
+                    <button className='bg-white text-gray-900 rounded-lg py-2 px-6 font-semibold shadow-md hover:bg-gray-200 transition duration-300'>Sign up now</button>
                 </div>
             </div>
         </div>
