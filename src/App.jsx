@@ -12,6 +12,7 @@ import DashboardLayout from './Layout/AdminDash';
 import AircraftDetailsForm from './components/AircraftDetailsForm/AircraftDetailsForm';
 import AddAircraftLayout from './Layout/AddAircraftLayout/AddAircraftLayout';
 import NotificationsBlock from './components/NotificationsBlock/NotificationsBlock';
+import Notifications from './components/Notifications/Notifications'
 import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
@@ -30,7 +31,8 @@ function App() {
   const [showSidebar1, setShowSidebar1] = useState(false);
 
   useEffect(() => {
-    setShowSidebar1(location.pathname !== '/useDashboard' && location.pathname !== '/ProfileSettings');
+    setShowSidebar1(location.pathname !== '/useDashboard' && location.pathname !== '/ProfileSettings'
+    && location.pathname !== '/Notifications');
   }, [location.pathname]);
 
   // useEffect(() => {
@@ -60,6 +62,7 @@ function App() {
           <div className="flex-1 p-4 bg-black">
             <Routes>
               <Route path="/" element={<Dashboard/>} />
+              <Route path="/Notifications" element={<Notifications/>}/>
               <Route path="/ProfileSettings" element={<ProfileSettings/>} />
               <Route path="/useDashboard" element={<Dashboard1/>} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
