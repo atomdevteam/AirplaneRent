@@ -19,10 +19,10 @@ const Bar = () => {
                         </div>
                     </div>
                     <div className='border-l border-gray-700 pl-4 flex flex-row items-center mx-4'>
-                        <div className='flex flex-col'>
-                            <Link to='/AirplaneRent' className='text-white'>Airplane Rentals</Link>
+                        <Link to='/AirplaneRent' className='flex flex-col'>
+                            <span to='/AirplaneRent' className='text-white'>Airplane Rentals</span>
                             <span className='text-gray-500'>Rent a Plane to fly</span>
-                        </div>
+                        </Link>
 
                         <div className='ml-8'>
                             <button className='bg-orange-500 rounded-2xl p-4'>
