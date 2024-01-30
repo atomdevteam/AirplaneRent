@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-
+import { Link } from 'react-router-dom';
 const Bar = () => {
 
     return (
@@ -20,7 +20,7 @@ const Bar = () => {
                     </div>
                     <div className='border-l border-gray-700 pl-4 flex flex-row items-center mx-4'>
                         <div className='flex flex-col'>
-                            <span className='text-white'>Airplane Rentals</span>
+                            <Link to='/AirplaneRent' className='text-white'>Airplane Rentals</Link>
                             <span className='text-gray-500'>Rent a Plane to fly</span>
                         </div>
 

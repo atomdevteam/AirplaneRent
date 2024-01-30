@@ -18,7 +18,9 @@ import Navbar from './components/Navbar/Navbar';
 import ProfileDetails from "./components/ProfileDetails/ProfileDetails"
 import LayoutNotification from './Layout/LayoutNotification/LayoutNotification';
 import HomeScreen from './Layout/HomeScreen/HomeScreen';
-
+import AirplaneRent from './Layout/AirplaneRent/AirplaneRent';
+import SidebarRent from "./Layout/AirplaneRent/Sidebar/Sidebar"
+import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
 function App() {
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
@@ -30,6 +32,12 @@ function App() {
   //     navigate('/', { replace: true });
   //   }
   // }, [userisAuth, navigate]);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   if (userisAuth) {
     if (WhichRole === null) {
@@ -65,8 +73,45 @@ function App() {
   } else {
     return (
       <>
-        {/* <HomeScreen/> */}
+        {/* <div className='flex bg-[#2c2c2c]'>
+          <div className='hidden md:block'>
+            <SidebarRent />
+          </div>
+          {isSidebarOpen && (
+            <div className='md:hidden '>
+              <SidebarRent />
+            </div>
+          )}
+          <div className='flex-1  bg-black'>
+            <NavBarRent toggleSidebar={toggleSidebar} />
+            <Routes>
+              <Route path='/' element={<AirplaneRent />} />
+            </Routes>
+          </div>
+        </div> */}
+
         <Routes>
+          <Route
+            path="/AirplaneRent"
+            element={
+              <div className='flex bg-[#2c2c2c]'>
+                <div className='hidden md:block'>
+                  <SidebarRent />
+                </div>
+                {isSidebarOpen && (
+                  <div className='md:hidden '>
+                    <SidebarRent />
+                  </div>
+                )}
+                <div className='flex-1  bg-black'>
+                  <NavBarRent toggleSidebar={toggleSidebar} />
+                  <Routes>
+                    <Route path='/' element={<AirplaneRent />} />
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
           <Route path="/" element={<HomeScreen />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/Signln" element={<Signln />} />
