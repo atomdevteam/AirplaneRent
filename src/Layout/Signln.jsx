@@ -19,23 +19,66 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
     //     setPassword(e.target.value);
     //     console.log(password)
     // };
+    // const signInHandler = (e) => {
+    //     e.preventDefault();
+    //     if (name && phonenumber && email && password && confirmPassword) {
+    //         if (password.length >= 8) {
+    //             if (password == confirmPassword) {
+    //                 if (signup(email, password, name)) {
+    //                     toast.success("Successfully Saved Record", {
+    //                         theme: "dark"
+    //                     });
+    //                     history('/');
+    //                 } else {
+    //                     toast.error("Unable to save data", {
+    //                         theme: "dark"
+    //                     });
+    //                 }
+
+
+    //             } else {
+    //                 toast.error("Passwords Are Not Equal",
+    //                     {
+    //                         theme: "dark"
+    //                     }
+    //                 )
+
+    //             }
+    //         } else {
+    //             toast.error("The password length cannot be less than 8",
+    //                 {
+    //                     theme: "dark"
+    //                 }
+    //             )
+
+    //         }
+    //     } else {
+    //         toast.error("All fields are empty",
+    //             {
+    //                 theme: "dark"
+    //             }
+    //         )
+
+    //     }
+
+
+
+
+    // };
+
     const signInHandler = (e) => {
         e.preventDefault();
         if (name && phonenumber && email && password && confirmPassword) {
             if (password.length >= 8) {
                 if (password == confirmPassword) {
-                    if (signup(email, password, name)) {
-                        toast.success("Successfully Saved Record", {
-                            theme: "dark"
-                        });
-                        history('/calender');
-                    } else {
-                        toast.error("Unable to save data", {
-                            theme: "dark"
-                        });
+                    const datos = {
+                        name: name,
+                        phone: phonenumber,
+                        email: email,
+                        password: password
                     }
-
-
+                    signup(datos)
+                    history('/', { replace: true });
                 } else {
                     toast.error("Passwords Are Not Equal",
                         {

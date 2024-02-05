@@ -31,11 +31,10 @@ export function ProviderContext({ children }) {
   const [WhichRole, setWhichRole] = useState(null)
 
   //Funtions
-  const LogIn = async (email, password) => {
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        const user = userCredential.user
+  const LogIn = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
         user.getIdToken().then((value) => {
           localStorage.setItem("Token", value)
           localStorage.setItem("DisplayName", user.displayName)
@@ -43,11 +42,11 @@ export function ProviderContext({ children }) {
 
         })
       })
-    } catch (error) {
-      toast.error('Failed to start session!', {
-        theme: 'dark',
+      .catch((error) => {
+        toast.error('Failed to start session!', {
+          theme: 'dark',
+        });
       });
-    }
   }
 
   const logout = async () => {
@@ -160,47 +159,47 @@ export function ProviderContext({ children }) {
   }, [ReservationsForDate, AllReservations])
 
 
-  const signup = async (email, password, name) => {
-    // Validar el formato del correo electrónico
+  const signup = (datos) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(datos.email)) {
       console.error("Error: El formato del correo electrónico no es válido");
       return;
     }
-
-    try {
-      await createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        const user = userCredential.user
-        user.getIdToken().then((value) => {
-          localStorage.setItem("Token", value)
-          localStorage.setItem("DisplayName", user.displayName)
-
-        })
+    createUserWithEmailAndPassword(auth, datos.email, datos.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        updateProfile(
+          auth.currentUser,
+          { displayName: datos.name }
+        )
+        const info = {
+          userId: user.uid,
+          name: datos.name,
+          role: "user",
+          phone: datos.phone,
+          email: datos.email,
+          password: datos.password,
+        }
+        const newRolesformRef = push(ref(db, 'Roles/'));
+        const newRolesformKey = newRolesformRef.key;
+        set(newRolesformRef, info);
+        toast.success("Successfully Saved Record", {
+          theme: "dark"
+        });
+        LogIn(datos.email, datos.password)
       })
-      // Actualizar el perfil del usuario con el nombre
-      await updateProfile(auth.currentUser, { displayName: name });
-      await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-        const user = userCredential.user
-        user.getIdToken().then((value) => {
-          localStorage.setItem("Token", value)
-          localStorage.setItem("DisplayName", user.displayName)
-
-        })
-      })
-      console.log("Usuario registrado exitosamente");
-    } catch (error) {
-      // Manejar errores específicos
-      if (error.code === "auth/weak-password") {
-        console.error("Error: La contraseña es débil. Debe tener al menos 6 caracteres");
-      } else if (error.code === "auth/email-already-in-use") {
-        console.error("Error: El correo electrónico ya está en uso. Prueba con otro");
-      } else if (error.code === "auth/invalid-email") {
-        console.error("Error: El formato del correo electrónico no es válido");
-      } else {
-        console.error("Error al registrar usuario:", error.message);
-      }
-    }
-  }
+      .catch((error) => {
+        if (error.code === "auth/weak-password") {
+          console.error("Error: La contraseña es débil. Debe tener al menos 6 caracteres");
+        } else if (error.code === "auth/email-already-in-use") {
+          console.error("Error: El correo electrónico ya está en uso. Prueba con otro");
+        } else if (error.code === "auth/invalid-email") {
+          console.error("Error: El formato del correo electrónico no es válido");
+        } else {
+          console.error("Error al registrar usuario:", error.message);
+        }
+      });
+  };
 
 
   const ShowRoles = async (id) => {
