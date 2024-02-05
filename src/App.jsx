@@ -41,7 +41,6 @@ function App() {
 
   if (userisAuth) {
     if (WhichRole === null) {
-      // Muestra un indicador de carga mientras se obtiene la información del usuario
       return <Loader />;
     }
 
