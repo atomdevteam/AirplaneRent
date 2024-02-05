@@ -78,7 +78,7 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
                         password: password
                     }
                     signup(datos)
-                    history('/', { replace: true });
+                    // history('/', { replace: true });
                 } else {
                     toast.error("Passwords Are Not Equal",
                         {

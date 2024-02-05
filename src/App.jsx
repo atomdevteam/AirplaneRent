@@ -47,7 +47,8 @@ function App() {
     return WhichRole === "user" ? (
 
       <Routes>
-        <Route path="/" element={<Calander />} />
+          <Route path="/" element={<HomeScreen />} />
+        {/* <Route path="/" element={<Calander />} /> */}
         <Route path="/calender" element={<Calander />} />
         <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
       </Routes>
@@ -72,23 +73,6 @@ function App() {
   } else {
     return (
       <>
-        {/* <div className='flex bg-[#2c2c2c]'>
-          <div className='hidden md:block'>
-            <SidebarRent />
-          </div>
-          {isSidebarOpen && (
-            <div className='md:hidden '>
-              <SidebarRent />
-            </div>
-          )}
-          <div className='flex-1  bg-black'>
-            <NavBarRent toggleSidebar={toggleSidebar} />
-            <Routes>
-              <Route path='/' element={<AirplaneRent />} />
-            </Routes>
-          </div>
-        </div> */}
-
         <Routes>
           <Route
             path="/AirplaneRent"
