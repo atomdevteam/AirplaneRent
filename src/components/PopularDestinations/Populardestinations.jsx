@@ -3,7 +3,7 @@ import card1 from '../../assets/card1.jpg';
 
 const PopularDestinations = () => {
     return (
-        <div className='mt-[1rem] mb-[1rem] p-4'>
+        <div className='mt-[4rem] mb-[1rem] p-4'>
             {/* <div className="text-white mb-[1rem]">
                 Popular destinations
             </div> */}
