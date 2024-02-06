@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useContextAir } from '../../Context';
 const Bar = () => {
-
+const {user} = useContextAir()
     return (
         <div className=''>
             <div className='bg-[#2c2c2c] w-auto h-auto hidden items-center justify-center rounded-full p-4 md:flex'>
@@ -19,20 +20,22 @@ const Bar = () => {
                         </div>
                     </div>
                     <div className='border-l border-gray-700 pl-4 flex flex-row items-center mx-4'>
-                        <Link to='/AirplaneRent' className='flex flex-col items-center'>
-                            <span to='/AirplaneRent' className='text-white'>Airplane Rentals</span>
+                        <div  className='flex flex-col items-center'>
+                            <span  className='text-white'>Airplane Rentals</span>
                             <span className='text-gray-500'>Rent a Plane to fly</span>
-                        </Link>
+                        </div>
 
                         <div className='ml-8'>
                             <button className='bg-orange-500 rounded-2xl p-4'>
-                                <FaArrowRight />
+                                <Link to={user !== null ? '/AirplaneRent' : ''}>
+                                    <FaArrowRight />
+                                </Link>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-         
+
         </div>
     );
 };
