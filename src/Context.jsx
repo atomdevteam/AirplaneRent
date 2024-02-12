@@ -39,6 +39,10 @@ export function ProviderContext({ children }) {
           localStorage.setItem("Token", value)
           localStorage.setItem("DisplayName", user.displayName)
           setisAuth(true)
+          toast.success("Session started successfully!",
+          {
+            theme: "dark"
+          })
 
         })
       })
