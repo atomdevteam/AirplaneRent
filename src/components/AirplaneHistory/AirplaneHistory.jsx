@@ -6,7 +6,7 @@ function AirplaneHistory() {
     const estado = ['Active', "Inactive", 'Active', "Inactive"]; // Puedes cambiar el estado según tus necesidades
 
     return (
-        <div class="container mx-auto my-8 px-4 lg:px-8  ">
+        <div class="container mx-auto my-8 px-4  lg:px-4  ">
             <div class="overflow-x-auto rounded-lg">
                 <table class="w-full lg:max-w-3xl bg-[#2C2C2C] rounded-lg shadow-md">
                     <thead>

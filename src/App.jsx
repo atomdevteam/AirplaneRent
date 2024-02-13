@@ -12,6 +12,7 @@ import DashboardLayout from './Layout/AdminDash';
 import AircraftDetailsForm from './components/AircraftDetailsForm/AircraftDetailsForm';
 import AddAircraftLayout from './Layout/AddAircraftLayout/AddAircraftLayout';
 import NotificationsBlock from './components/NotificationsBlock/NotificationsBlock';
+import Notifications from './components/Notifications/Notifications'
 import Table from './components/Table/Table';
 import Logout from './Layout/Logout/Logout';
 import Navbar from './components/Navbar/Navbar';
@@ -24,10 +25,23 @@ import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
 //User
 import Dashboard1 from './Layout/Dashboard/Dashboard1';
 import Sidebar1 from './Layout/Sidebar/Sidebar1'
+import ProfileSettings from "./components/ProfileSettings/ProfileSettings"
+import Dashboard1 from './Layout/Dashboard/Dashboard1';
+import Sidebar1 from './Layout/Sidebar/Sidebar1';
+import { useLocation } from 'react-router-dom';
+
 function App() {
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
   const navigate = useNavigate();
+   
+  const location = useLocation();
+  const [showSidebar1, setShowSidebar1] = useState(false);
+
+  useEffect(() => {
+    setShowSidebar1(location.pathname !== '/useDashboard' && location.pathname !== '/ProfileSettings'
+    && location.pathname !== '/Notifications');
+  }, [location.pathname]);
 
   // useEffect(() => {
   //   if (!userisAuth) {
@@ -80,11 +94,13 @@ function App() {
     ) : (
       <>
         <div className="flex bg-[#2c2c2c]">
-          <Sidebar />
-
-          <div className="flex-1  bg-black">
+        {showSidebar1 ? <Sidebar /> : <Sidebar1 />}
+          <div className="flex-1 p-4 bg-black">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard/>} />
+              <Route path="/Notifications" element={<Notifications/>}/>
+              <Route path="/ProfileSettings" element={<ProfileSettings/>} />
+              <Route path="/useDashboard" element={<Dashboard1/>} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
               <Route path='/notificationsBlock' element={<LayoutNotification />} />
               <Route path='/logout' element={<Logout />} />
