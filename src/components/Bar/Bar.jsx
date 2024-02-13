@@ -27,7 +27,7 @@ const {user} = useContextAir()
 
                         <div className='ml-8'>
                             <button className='bg-orange-500 rounded-2xl p-4'>
-                                <Link to={user !== null ? '/AirplaneRent' : ''}>
+                                <Link to={user !== null ? '/useDashboard' : ''}>
                                     <FaArrowRight />
                                 </Link>
                             </button>

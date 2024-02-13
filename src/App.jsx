@@ -26,21 +26,19 @@ import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
 import Dashboard1 from './Layout/Dashboard/Dashboard1';
 import Sidebar1 from './Layout/Sidebar/Sidebar1'
 import ProfileSettings from "./components/ProfileSettings/ProfileSettings"
-import Dashboard1 from './Layout/Dashboard/Dashboard1';
-import Sidebar1 from './Layout/Sidebar/Sidebar1';
 import { useLocation } from 'react-router-dom';
 
 function App() {
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
   const navigate = useNavigate();
-   
+
   const location = useLocation();
   const [showSidebar1, setShowSidebar1] = useState(false);
 
   useEffect(() => {
     setShowSidebar1(location.pathname !== '/useDashboard' && location.pathname !== '/ProfileSettings'
-    && location.pathname !== '/Notifications');
+      && location.pathname !== '/Notifications');
   }, [location.pathname]);
 
   // useEffect(() => {
@@ -66,7 +64,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route
-          path="/AirplaneRent/*"
+          path="/useDashboard/*"
           element={
             <div className='flex bg-[#2c2c2c]'>
               <div className='hidden md:block'>
@@ -82,6 +80,9 @@ function App() {
                 <Routes>
                   <Route path='/' element={<Dashboard1 />} />
                   <Route path='/rent' element={<AirplaneRent />} />
+                  <Route path="/ProfileSettings" element={<ProfileSettings />} />
+                  {/* <Route path="/useDashboard" element={<Dashboard1 />} /> */}
+                  <Route path="/Notifications" element={<Notifications />} />
                 </Routes>
               </div>
             </div>
@@ -94,13 +95,13 @@ function App() {
     ) : (
       <>
         <div className="flex bg-[#2c2c2c]">
-        {showSidebar1 ? <Sidebar /> : <Sidebar1 />}
+          {showSidebar1 ? <Sidebar /> : <Sidebar1 />}
           <div className="flex-1 p-4 bg-black">
             <Routes>
-              <Route path="/" element={<Dashboard/>} />
-              <Route path="/Notifications" element={<Notifications/>}/>
-              <Route path="/ProfileSettings" element={<ProfileSettings/>} />
-              <Route path="/useDashboard" element={<Dashboard1/>} />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/Notifications" element={<Notifications />} />
+              <Route path="/ProfileSettings" element={<ProfileSettings />} />
+              <Route path="/useDashboard" element={<Dashboard1 />} />
               <Route path='/airdetails' element={<AddAircraftLayout />} />
               <Route path='/notificationsBlock' element={<LayoutNotification />} />
               <Route path='/logout' element={<Logout />} />
@@ -117,7 +118,7 @@ function App() {
     return (
       <>
         <Routes>
-          <Route
+          {/* <Route
             path="/AirplaneRent"
             element={
               <div className='flex bg-[#2c2c2c]'>
@@ -138,7 +139,7 @@ function App() {
                 </div>
               </div>
             }
-          />
+          /> */}
           <Route path="/" element={<HomeScreen />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/Signln" element={<Signln />} />

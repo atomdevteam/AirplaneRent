@@ -4,8 +4,8 @@ import { AiFillMessage } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { FaHandPaper } from "react-icons/fa";
-
 import { FaPlane } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const datos = [
     {
         id: 1,
@@ -41,15 +41,21 @@ function Notifications() {
 
     return (
 
-        <div>
+        <div className=''>
             <NavBar></NavBar>
-            <div className='flex flex-row'>
+            <div className='flex flex-row items-center justify-center '>
+                
                 <div className='w-[58rem]'>
                     <div className='mt-[2rem] pl-10 mb-[1rem]'>
+                    
+                    <div className='flex flex-col mb-4'>
+                               <h1 className='text-white text-xl '>Manage Notifications</h1>
+                               <span className='text-gray-300 mt-4'>View and Manage all notifications in one place</span>
+                        </div>
                         <div className='bg-[#2c2c2c] rounded-xl mr-6  h-auto'>
                             <div className='flex flex-col mt-2 ml-[1rem]'>
                                 <div className="flex justify-between mt-4">
-                                    <h1 className='text-white mt-4'>New Update</h1>
+                                    <h1 className='text-white text-xl mt-4'>New</h1>
                                     <select
                                         value={selectedOption}
                                         onChange={(e) => setSelectedOption(e.target.value)}
@@ -146,7 +152,7 @@ function Filter() {
     };
 
     return (
-        <div className='mt-[2rem]  mb-[1rem]'>
+        <div className='mt-[6rem]  mb-[1rem]'>
             <div className="original-container-style bg-[#2c2c2c] rounded-xl">
                 <div className="p-4   ">
                     <div className="mb-4">
@@ -208,7 +214,7 @@ function Filter() {
 const NavBar = () => {
     return (
         <div>
-            <nav className="bg-black  p-4">
+            <nav className="bg-[#2c2c2c]  p-4">
                 <div className="mx-auto max-w-9xl px-2 sm:px-4 lg:px-6">
                     <div className="relative flex h-16 items-center justify-between">
                         
@@ -228,9 +234,10 @@ const NavBar = () => {
 
                         <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
-                            <button type="button" className="relative bg-orange-500 items-center justify-center  rounded-full p-1 text-white hover:text-white focus:outline-none focus:ring-2 pr-8 mr-10 pl-8 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            {/* <button type="button" className="relative bg-orange-500 items-center justify-center  rounded-full p-1 text-white hover:text-white focus:outline-none focus:ring-2 pr-8 mr-10 pl-8 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 Rent
-                            </button>
+                            </button> */}
+                            <Link to='/useDashboard/rent' className="relative bg-orange-500 items-center justify-center  rounded-full p-1 text-white hover:text-white focus:outline-none focus:ring-2 pr-8 mr-10 pl-8 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">Rent</Link>
 
                             <button type="button" className="relative rounded-full bg-white-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 pr-10 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <FaPlane color='white' className="h-6 w-6" />
