@@ -19,7 +19,7 @@ const LogIn = ({ isOpen, setIsOpen, setIsSignUp }) => {
             return;
         } else {
             LogIn(email, password)
-            navigate('/', { replace: true });
+            // navigate('/', { replace: true });
         }
     }
 

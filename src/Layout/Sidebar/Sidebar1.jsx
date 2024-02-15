@@ -13,8 +13,8 @@ import { FaArrowLeft } from "react-icons/fa";
 const generalRoutes = [
     {
         name: 'Dashboard',
-        icon: <MdSpaceDashboard size={20} color='white'/>,
-        route: '/'
+        icon: <MdSpaceDashboard size={20} color='white' />,
+        route: '/AirplaneRent'
     },
     {
         name: 'Manage payment information',
@@ -53,7 +53,7 @@ const generalRoutes = [
 const personalRoutes = [
     {
         name: 'Log out',
-        icon: <BiLogOut size={20}/>,
+        icon: <BiLogOut size={20} />,
         route: '/notificationsBlock'
     },
 
@@ -81,7 +81,12 @@ const Sidebar1 = () => {
             <div className="w-full md:w-[18rem] bg-[#2C2C2C] rounded-tr-[1.5rem] rounded-br-[1.5rem]">
 
                 <div className="mt-10 pr-10 pb-6 text-center">
-                    <button className='pr-40 pb-8'><FaArrowLeft size={40} color='white'></FaArrowLeft></button>
+                    <button className='pr-40 pb-8'>
+                        <Link to='/'>
+                         <FaArrowLeft size={40} color='white'></FaArrowLeft>
+                        </Link>
+                       
+                    </button>
                     <p className="text-white font-bold text-3xl">Airplane Rent</p>
                 </div>
 

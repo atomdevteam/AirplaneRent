@@ -22,6 +22,10 @@ import AirplaneRent from './Layout/AirplaneRent/AirplaneRent';
 import SidebarRent from "./Layout/AirplaneRent/Sidebar/Sidebar"
 import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
 
+//User
+import Dashboard1 from './Layout/Dashboard/Dashboard1';
+import Sidebar1 from './Layout/Sidebar/Sidebar1'
+
 function App() {
   
   const { user, WhichRole } = useContextAir();
@@ -49,7 +53,30 @@ function App() {
     return WhichRole === "user" ? (
 
       <Routes>
-        <Route path="/" element={<Calander />} />
+          <Route path="/" element={<HomeScreen />} />
+          <Route
+            path="/AirplaneRent/*"
+            element={
+              <div className='flex bg-[#2c2c2c]'>
+                <div className='hidden md:block'>
+                  <Sidebar1 />
+                </div>
+                {/* {isSidebarOpen && (
+                  <div className='md:hidden '>
+                    <SidebarRent />
+                  </div>
+                )} */}
+                <div className='flex-1  bg-black'>
+                  {/* <NavBarRent toggleSidebar={toggleSidebar} /> */}
+                  <Routes>
+                    <Route path='/' element={<Dashboard1 />} />
+                    <Route path='/rent' element={<AirplaneRent />} />
+                  </Routes>
+                </div>
+              </div>
+            }
+          />
+        {/* <Route path="/" element={<Calander />} /> */}
         <Route path="/calender" element={<Calander />} />
         <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
       </Routes>
@@ -74,23 +101,6 @@ function App() {
   } else {
     return (
       <>
-        {/* <div className='flex bg-[#2c2c2c]'>
-          <div className='hidden md:block'>
-            <SidebarRent />
-          </div>
-          {isSidebarOpen && (
-            <div className='md:hidden '>
-              <SidebarRent />
-            </div>
-          )}
-          <div className='flex-1  bg-black'>
-            <NavBarRent toggleSidebar={toggleSidebar} />
-            <Routes>
-              <Route path='/' element={<AirplaneRent />} />
-            </Routes>
-          </div>
-        </div> */}
-
         <Routes>
           <Route
             path="/AirplaneRent"
@@ -108,6 +118,7 @@ function App() {
                   <NavBarRent toggleSidebar={toggleSidebar} />
                   <Routes>
                     <Route path='/' element={<AirplaneRent />} />
+                    <Route path='/airdetails' element={<AddAircraftLayout />} />
                   </Routes>
                 </div>
               </div>

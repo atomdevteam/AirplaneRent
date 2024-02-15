@@ -19,16 +19,16 @@ const sidebarItems = [
     { icon: <FaBell color='white' />, text: 'Manage notifications' },
     { icon: <BsFillPersonPlusFill color='white' />, text: 'Add additional passengers' },
     { icon: <FaUser color='white' />, text: 'Profile Settings' },
-    
+
 ];
 
 const Sidebar = () => {
     return (
         <div className="bg-[#2C2C2C] h-screen w-[21rem] text-white p-4">
             <div className="flex flex-col ml-8  mb-8">
-                <div className='mb-8 mt-4'>
+                <Link to='/' className='mb-8 mt-4 hover:bg-gray-400 rounded-full p-4 w-12 h-12'>
                     <FaArrowLeft />
-                </div>
+                </Link>
 
                 <span className="text-lg font-bold">Airplane Rent</span>
             </div>
@@ -38,18 +38,18 @@ const Sidebar = () => {
             </div>
 
             <ul className='ml-8'>
-                
+
                 {sidebarItems.map((item, index) => (
-                    <li key={index} className="flex items-center mb-4">
+                    <Link to='/AirplaneRent/airdetails' key={index} className="flex items-center mb-4">
                         {item.icon}
                         <span className='ml-4 text-sm text-gray-400'>{item.text}</span>
-                    </li>
+                    </Link>
                 ))}
                 <li className='flex items-center mt-[8rem]'>
-                    <IoLogOutSharp color='white'/>
+                    <IoLogOutSharp color='white' />
                     <Link to='/' className='ml-4 text-sm text-gray-400'>Log Out</Link>
                 </li>
-                
+
             </ul>
         </div>
     );

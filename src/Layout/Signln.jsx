@@ -27,17 +27,15 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
         if (name && phonenumber && email && password && confirmPassword) {
             if (password.length >= 8) {
                 if (password == confirmPassword) {
-                    if (signup(email, password, name)) {
-                        toast.success("Successfully Saved Record", {
-                            theme: "dark"
-                        });
-                        history('/calender');
-                    } else {
-                        toast.error("Unable to save data", {
-                            theme: "dark"
-                        });
+                    const datos = {
+                        name: name,
+                        phone: phonenumber,
+                        email: email,
+                        password: password
                     }
 
+                    signup(datos)
+                    // history('/', { replace: true });
                 } else {
                     toast.error("Passwords Are Not Equal",
                         {
