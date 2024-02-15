@@ -9,8 +9,9 @@ import FlightStatistics from "../../components/FlightStatistics/FlightStatistics
 import AdditionalPersonalInformation from "../../components/AdditionalPersonalInformation/AdditionalPersonalInformation"
 import AirplaneHistory from "../../components/AirplaneHistory/AirplaneHistory"
 import Logbook from "../../components/Logbook/Logbook"
+import ProfileSettings from '../../components/ProfileSettings/ProfileSettings'
 
-const Dashboard1 = () => {
+const Dashboard2 = () => {
   return (
     <div className=''>
 
@@ -19,18 +20,9 @@ const Dashboard1 = () => {
       <div className="flex flex-col">
 
         <div className="flex flex-col pt-10 sm:flex-row ">
-          <PersonalDetails />
-          <FlightStatistics />
+          <ProfileSettings/>
         </div>
 
-        <div className="flex flex-col pt-10 sm:flex-row flex items-center justify-center ">
-          <AdditionalPersonalInformation />
-        </div>
-
-        <div className="flex flex-col  sm:flex-row ">
-          <AirplaneHistory />
-          <Logbook />
-        </div>
 
       </div>
     </div>
