@@ -21,7 +21,9 @@ import HomeScreen from './Layout/HomeScreen/HomeScreen';
 import AirplaneRent from './Layout/AirplaneRent/AirplaneRent';
 import SidebarRent from "./Layout/AirplaneRent/Sidebar/Sidebar"
 import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
+
 function App() {
+  
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
   const navigate = useNavigate();

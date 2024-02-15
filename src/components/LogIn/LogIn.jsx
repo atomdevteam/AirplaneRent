@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContextAir } from '../../Context';
+
 const LogIn = ({ isOpen, setIsOpen, setIsSignUp }) => {
+
     const { LogIn } = useContextAir()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -21,7 +23,6 @@ const LogIn = ({ isOpen, setIsOpen, setIsSignUp }) => {
         }
     }
 
-
     const handleCloseModal = (e) => {
         e.preventDefault()
         setIsOpen(false)
@@ -34,6 +35,7 @@ const LogIn = ({ isOpen, setIsOpen, setIsSignUp }) => {
         setIsSignUp(true)
         setIsBackgroundBlurred(false);
     }
+
     return (
         <div className=''>
 

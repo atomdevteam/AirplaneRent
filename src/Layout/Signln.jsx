@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useContextAir } from '../Context';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify"
+
 const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
+
     const history = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -19,6 +21,7 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
     //     setPassword(e.target.value);
     //     console.log(password)
     // };
+
     const signInHandler = (e) => {
         e.preventDefault();
         if (name && phonenumber && email && password && confirmPassword) {
@@ -34,7 +37,6 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
                             theme: "dark"
                         });
                     }
-
 
                 } else {
                     toast.error("Passwords Are Not Equal",
@@ -61,9 +63,6 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
 
         }
 
-
-
-
     };
 
     const handleCloseModal = (e) => {
@@ -76,7 +75,6 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
         setIsOpen(false)
         setIsLogIn(true)
     }
-
 
     return (
         <div className={``}>
