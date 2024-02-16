@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 function Logbook() {
-  
+
     return (
-        <div class="container mx-auto my-8 px-4 lg:px-4  pb-20 ">
-            <div class="overflow-x-auto rounded-lg flex bg-[#2C2C2C] pt-2 pb-6 items-center justify-center">
-                <h1 class="text-white bg-orange-500 rounded-md px-4">More personal information</h1>
+        <div className="w-1/2 rounded-xl overflow-hidden shadow-md   ">
+            <div className="flex items-center justify-center w-full rounded-t-lg  bg-[#2C2C2C] p-4">
+                <div className="text-white bg-orange-400 rounded-full px-4">More personal information</div>
             </div>
-            <div class="mt-4  p-4 rounded-lg h-full">
-              
+            <div className="w-full flex bg-black pt-2 pb-6  items-center justify-center h-1/2 rounded-none">
+
             </div>
-            
+            <div className="w-full rounded-b-lg flex bg-[#2C2C2C] p-6  items-center justify-center mt-6">
+                {/* <div className="text-white bg-orange-500 rounded-md px-4 flex items-center justify-center">More personal information</div> */}
+            </div>
+
+
         </div>
 
 

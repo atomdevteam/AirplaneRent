@@ -84,7 +84,7 @@ function FlightStatistics() {
   };
 
   return (
-    <div className="w-full max-w-screen-sm mx-auto bg-[#2C2C2C] rounded-xl p-4">
+    <div className="w-1/2 bg-[#2C2C2C] rounded-xl p-4">
       <div className="flex justify-between ">
         <div className="mb-4">
           <h2 className="text-xl text-white font-bold leading-tight">Flight Statistics</h2>
@@ -105,8 +105,8 @@ function FlightStatistics() {
         </select>
       </div>
       <div className="w-full">
-        <div className="h-72 w-full lg:mx-4 xl:mx-8">
-          <Bar data={data} options={options} />
+        <div className="h-72 w-auto lg:mx-4 xl:mx-8">
+          <Bar data={data} options={options}/>
         </div>
       </div>
     </div>
