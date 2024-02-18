@@ -22,13 +22,13 @@ import HomeScreen from './Layout/HomeScreen/HomeScreen';
 import AirplaneRent from './Layout/AirplaneRent/AirplaneRent';
 import SidebarRent from "./Layout/AirplaneRent/Sidebar/Sidebar"
 import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
+
 //User
 import Dashboard1 from './Layout/Dashboard/Dashboard1';
 import Sidebar1 from './Layout/Sidebar/Sidebar1'
-import ProfileSettings from "./components/ProfileSettings/ProfileSettings"
-import { useLocation } from 'react-router-dom';
 
 function App() {
+  
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
   const navigate = useNavigate();
