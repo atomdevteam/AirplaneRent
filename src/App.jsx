@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Calander from './components/Calander/Calander';
 import Hours from './components/Hours/Hours';
 import LogIn from './components/LogIn/LogIn';
@@ -22,6 +22,7 @@ import HomeScreen from './Layout/HomeScreen/HomeScreen';
 import AirplaneRent from './Layout/AirplaneRent/AirplaneRent';
 import SidebarRent from "./Layout/AirplaneRent/Sidebar/Sidebar"
 import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
+import ProfileSettings from './components/ProfileSettings/ProfileSettings'
 
 //User
 import Dashboard1 from './Layout/Dashboard/Dashboard1';
