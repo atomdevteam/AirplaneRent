@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -11,7 +11,9 @@ import {
     Legend,
     Filler,
 } from 'chart.js';
-
+import { Link } from 'react-router-dom';
+import Calander from '../Calander/Calander';
+import HoursComp from '../Hours/Hours';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -69,8 +71,38 @@ const AircraftReserves = () => {
 }
 
 const Boxes2 = ({ actReserves }) => {
+
+    const [isOpenCalander, setIsOpenCalander] = useState(false)
+    const [openHourModal, setOpenHourModal] = useState(false)
+    const [DateH, setDate] = useState("")
+    const [Month, setMonthH] = useState("")
+    const [years, setYears] = useState("")
+
+    const handleOpenModalCalander = (e) => {
+        e.preventDefault()
+        setIsOpenCalander(true)
+    }
+
+
     return (
         <>
+            <Calander
+                isOpenCalander={isOpenCalander}
+                setIsOpenCalander={setIsOpenCalander}
+                openHourModal={openHourModal}
+                setOpenHourModal={setOpenHourModal}
+                setDate={setDate}
+                setMonthH={setMonthH}
+                setYears={setYears}
+            />
+            <HoursComp
+                openHourModal={openHourModal}
+                setOpenHourModal={setOpenHourModal}
+                setIsOpenCalander={setIsOpenCalander}
+                DateH={DateH}
+                monthH={Month}
+                yearH={years}
+            />
             <div className='bg-[#2c2c2c] rounded-xl mr-6  h-full'>
                 <div className='flex flex-col mt-2 ml-[1rem]'>
                     <h1 className='text-white mt-4'> {actReserves} Active reserves</h1>
@@ -100,7 +132,7 @@ const Boxes2 = ({ actReserves }) => {
                             </tbody>
                         </table>
                         <div className="mt-[2rem] mb-4 flex items-center justify-center">
-                            <button className="w-[140px] h-[40px] p-[16px, 0px] rounded-full bg-white hover:bg-gray-400 text-black text-sm">
+                            <button onClick={(e) => handleOpenModalCalander(e)} className="w-[140px] h-[40px] p-[16px, 0px] rounded-full bg-white hover:bg-gray-400 text-black text-sm">
                                 View All Reserves
                             </button>
                         </div>
@@ -185,7 +217,7 @@ const Chart2 = () => {
             <div className="mb-4">
                 <h2 className="text-xl text-white font-bold leading-tight">Total Reserves</h2>
             </div>
-            <Bar data={data} options={options} width={640}  height={200}/>
+            <Bar data={data} options={options} width={640} height={200} />
         </div>
     );
 }

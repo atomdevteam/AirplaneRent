@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { FaPlane } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 import { useContextAir } from '../../Context';
 import Loader from '../Loader/Loader';
-const Calander = () => {
+import HoursComp from '../Hours/Hours';
+const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHourModal, setDate, setMonthH, setYears }) => {
   const [calenderAll, setCalenderAll] = useState([])
   const { ShowListHours, ReservationsForDate, GetAll, user, logout } = useContextAir()
   const [open2, setOpen2] = useState(false);
   const calendarRef = useRef(null);
   let initialX = null;
   const [touchAnimation, setTouchAnimation] = useState(false);
-  const [month1, setMonth1] = useState(new Date().getMonth()+1);
+  const [month1, setMonth1] = useState(new Date().getMonth() + 1);
   const [year1, setYear1] = useState(new Date().getFullYear());
   const [day1, setDay1] = useState(new Date().getDate());
-  
+
   const handleTouchStart = (e) => {
     initialX = e.touches[0].clientX;
   };
@@ -264,148 +266,193 @@ const Calander = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // const [openHourModal, setOpenHourModal] = useState(false)
+  const [Hours, setHours] = useState()
+  // const [DateH, setDate] = useState(new Date())
+  // const [Month, setMonthH] = useState(new Date())
+  // const [years, setYears] = useState(new Date())
+  const navigate = useNavigate();
+  const handleCloseModalCalander = (e) => {
+    e.preventDefault()
+    setIsOpenCalander(false)
+  }
+
+  const handleHour = (e, date) => {
+    e.preventDefault()
+    setOpenHourModal(true)
+    setDate(date)
+    setMonthH(month)
+    setYears(year)
+  }
+
+  useEffect(() => {
+    console.log("Modal Hurs " + openHourModal)
+  }, [openHourModal])
+
+
+
+
   if (loadingCalendar) {
     return <Loader />;
   }
 
   return (
-    <div
-      ref={calendarRef}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      style={{ touchAction: 'none' }}
-      className='relative bg-[#070d16] text-white'
-    >
-      {touchAnimation && (
-        <FaPlane
-          className="absolute top-1/2 left-full transform -translate-y-1/2 animate-flyLeft text-blue-500"
-          onAnimationEnd={() => setTouchAnimation(false)} // Oculta el avión al finalizar la animación
-        />
-      )}
-      <div className=' flex items-center relative justify-between  px-5 py-6 w-full'>
-        <div className='flex items-center justify-between py-2 px-6'>
-          <div className='px-1 flex items-center'>
-
-            <div className=' mx-4'>
-              <button
-                type='button'
-                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
-                onClick={decreaseMonth}
-              >
-                <svg
-                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
-                </svg>
-              </button>
-              <div className=' inline-flex h-6'></div>
-              <button
-                type='button'
-                className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
-                onClick={increaseMonth}
-              >
-                <svg
-                  className='h-6 w-6 text-gray-500 inline-flex leading-none'
-                  fill='none'
-                  viewBox='0 0 24 24'
-                  stroke='currentColor'
-                >
-                  <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
-                </svg>
-              </button>
-            </div>
-
-
-            <div className='text-white'>
-              <span className="text-lg   mr-1">{MONTH_NAMES[month]}</span>
-              <span className="text-lg  font-normal">{year}</span>
-            </div>
-
-          </div>
-
-        </div>
-        <div className="flex gap-3 items-center  user cursor-pointer"
-          onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
-        >
+    <>
+      {isOpenCalander && (
+        <div className='fixed inset-0'>
           <div
-            
-            className="h-6 w-6  relative  rounded-full  bg-gray-200">
-            <BsPersonCircle className="text-gray-500 w-full h-full" />
-            <div
-            onClick={handleLogout}
-              style={open2 ? { display: 'block' } : { display: 'none' }}
-              className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3">
-              <ul >
-                <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
-                  <span
-                    className=''>
-                    Log Out
-                  </span>
-                </li>
-              </ul>
-            </div>
+            ref={calendarRef}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            style={{ touchAction: 'none' }}
+            className='relative bg-[#070d16] text-white'
+          >
+            {touchAnimation && (
+              <FaPlane
+                className="absolute top-1/2 left-full transform -translate-y-1/2 animate-flyLeft text-blue-500"
+                onAnimationEnd={() => setTouchAnimation(false)}
+              />
+            )}
+            <div className=''>
 
-          </div>
-          <div className="text-white font-medium">
-            {user && user.displayName}
-          </div>
-        </div>
+              <div className=' flex items-center relative justify-between w-full  px-5 py-6'>
+
+                <div className='flex items-center justify-between py-2 px-6'>
+                  <div className='px-1 flex items-center'>
+
+                    <div className=' mx-4'>
+                      <button
+                        type='button'
+                        className='leading-none rounded-full transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center'
+                        onClick={decreaseMonth}
+                      >
+                        <svg
+                          className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='currentColor'
+                        >
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7'></path>
+                        </svg>
+                      </button>
+                      <div className=' inline-flex h-6'></div>
+                      <button
+                        type='button'
+                        className='leading-none rounded-full transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1'
+                        onClick={increaseMonth}
+                      >
+                        <svg
+                          className='h-6 w-6 text-gray-500 inline-flex leading-none'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='currentColor'
+                        >
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 5l7 7-7 7'></path>
+                        </svg>
+                      </button>
+                    </div>
 
 
-      </div>
-      <div>
-        <div className='grid grid-cols-7'>
-          {DAYS.map((day, index) => (
-            <div key={index} className='px-4 py-2 text-center text-white text-sm uppercase tracking-wide font-bold border-r border-t'>
-              {day}
-            </div>
+                    <div className='text-white'>
+                      <span className="text-lg   mr-1">{MONTH_NAMES[month]}</span>
+                      <span className="text-lg  font-normal">{year}</span>
+                    </div>
 
-          ))}
+                  </div>
+
+                </div>
+                <div className="flex gap-3 items-center  user cursor-pointer"
+                  onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
+                >
+                  <div
+
+                    className="h-6 w-6  relative  rounded-full  bg-gray-200">
+                    <BsPersonCircle className="text-gray-500 w-full h-full" />
+                    <div
+                      onClick={handleLogout}
+                      style={open2 ? { display: 'block' } : { display: 'none' }}
+                      className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3">
+                      <ul >
+                        <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
+                          <span
+                            className=''>
+                            Log Out
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+                  <div className="text-white font-medium">
+                    {user && user.displayName}
+                  </div>
+
+                  <button onClick={(e) => handleCloseModalCalander(e)} className='hover:bg-red-500 p-2 rounded-full'>
+                    <IoMdClose size={25} color='white' />
+                  </button>
+                </div>
 
 
-          {[...Array(firstDayOfMonth).keys()].map((_, index) => (
-            <div
-              key={index}
-              className=" border-r border-b flex justify-center "
-              style={{ height: "120px" }}
-            >
-              <div className='text-gray-400 text-sm uppercase tracking-wide  text-center'>
-                {numberOfDaysPrevMonth - firstDayOfMonth + index + 1}
               </div>
             </div>
-          ))}
-          {[...Array(numberOfDays).keys()].map((date) => (
-            <div
-              key={date}
-              className="border-r border-b flex justify-center"
-              style={{ height: "120px" }}
-            >
-               
-              <Link
-                to={`/hours/${date + 1}/${month}/${year}`}
-                className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-400 hover:w-8 hover:h-8 hover:text-white transition ease-in-out 
+
+
+            <div>
+              <div className='grid grid-cols-7'>
+                {DAYS.map((day, index) => (
+                  <div key={index} className='px-4 py-2 text-center text-white text-sm uppercase tracking-wide font-bold border-r border-t'>
+                    {day}
+                  </div>
+
+                ))}
+
+
+                {[...Array(firstDayOfMonth).keys()].map((_, index) => (
+                  <div
+                    key={index}
+                    className=" border-r border-b flex justify-center "
+                    style={{ height: "120px" }}
+                  >
+                    <div className='text-gray-400 text-sm uppercase tracking-wide  text-center'>
+                      {numberOfDaysPrevMonth - firstDayOfMonth + index + 1}
+                    </div>
+                  </div>
+                ))}
+                {[...Array(numberOfDays).keys()].map((date) => (
+                  <div
+                    key={date}
+                    className="border-r border-b flex justify-center"
+                    style={{ height: "120px" }}
+                  >
+
+                    <button
+                      onClick={(e) => handleHour(e, date + 1)}
+                      // to={`/hours/${date + 1}/${month}/${year}`}
+                      className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-400 hover:w-8 hover:h-8 hover:text-white transition ease-in-out 
                ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
-                    Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
+                          Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
                 `}
-              >
-               {date+1}
-          
-              </Link>
-             
+                    >
+                      {date + 1}
+
+                    </button>
 
 
 
 
+
+                  </div>
+                ))}
+
+
+              </div>
             </div>
-          ))}
-
-
+          </div>
         </div>
-      </div>
-    </div>
+
+      )}
+
+    </>
 
   );
 };
