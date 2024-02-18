@@ -167,11 +167,12 @@ function ReserveDetails() {
                         const currentDay = new Date(firstDayOfWeek);
                         currentDay.setDate(firstDayOfWeek.getDate() + day);
                         return (
-                            <div key={day} className="text-center rounded-full py-2 relative">
-                                {day > 0 && (
+                            <div key={day} className="text-center rounded-full py-2 border-r-4 ">
+                                {/* {day > 0 && (
                                     <div className="absolute h-4 w-px bg-gray-600 left-0 top-1/2 transform -translate-y-1/2"></div>
-                                )}
-                                <span className={`rounded-full ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(currentDay.getDate()).toString().padStart(2, "0")}`)} `}>{currentDay.getDate()}</span>
+                                )} */}
+                                <span className={`rounded-full `}>{currentDay.getDate()}</span>
+                                <div className=''></div>
                             </div>
                         );
                     })}
