@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MdOutlineSort } from "react-icons/md";
 import { BsPersonCircle } from "react-icons/bs"
+import { IoAirplaneSharp } from 'react-icons/io5';
 import LogIn from '../../../components/LogIn/LogIn';
 import Signln from '../../Signln';
 import { useContextAir } from '../../../Context';
 
-const NavBar = ({open2,setOpen2 }) => {
+const NavBar = ({ open2, setOpen2 }) => {
   const { user } = useContextAir()
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isOpenLogIn, setIsOpenLogIn] = useState(false)
@@ -26,7 +27,7 @@ const NavBar = ({open2,setOpen2 }) => {
   };
 
 
- 
+
 
   return (
     <nav className="bg-[#2c2c2c] p-4 flex justify-between items-center">
@@ -45,6 +46,14 @@ const NavBar = ({open2,setOpen2 }) => {
               onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
               className='flex flex-row mx-8 cursor-pointer'
             >
+
+              <Link to={user !== null ? '/AirplaneRent' : ''} className=" mr-4">
+                <span className="absolute -inset-1.5"></span>
+
+                <div className='relative'>
+                  <IoAirplaneSharp color='white' className="h-6 w-6" />
+                </div>
+              </Link>
               <BsPersonCircle size={25} color='white' />
               <div className="ml-4 text-white font-medium">
                 {user && user.displayName}
