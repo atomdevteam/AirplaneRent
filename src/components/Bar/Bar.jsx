@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useContextAir } from '../../Context';
-const Bar = () => {
+const Bar = ({setIsOpenLogIn}) => {
     const { user } = useContextAir()
     return (
         <div className=''>
@@ -25,9 +25,9 @@ const Bar = () => {
                             <span className='text-gray-500'>Rent a Plane to fly</span>
                         </div>
 
-                        <Link to={user !== null ? '/AirplaneRent' : ''} className='ml-8 bg-orange-500 rounded-2xl p-4'>
+                        <button onClick={() => setIsOpenLogIn(true)} className='ml-8 bg-orange-500 rounded-2xl p-4'>
                             <FaArrowRight />
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>

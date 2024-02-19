@@ -48,35 +48,38 @@ function App() {
     }
 
     return WhichRole === "user" ? (
-
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route
-          path="/AirplaneRent/*"
-          element={
-            <div className='flex bg-[#2c2c2c]'>
-              <div className='hidden md:block'>
-                <Sidebar1 />
-              </div>
-              {/* {isSidebarOpen && (
-                  <div className='md:hidden '>
-                    <SidebarRent />
-                  </div>
-                )} */}
-              <div className='flex-1  bg-black'>
-                {/* <NavBarRent toggleSidebar={toggleSidebar} /> */}
-                <Routes>
-                  <Route path='/' element={<Dashboard1 />} />
-                  <Route path='/rent' element={<AirplaneRent />} />
-                </Routes>
-              </div>
-            </div>
-          }
-        />
-        {/* <Route path="/" element={<Calander />} /> */}
-        <Route path="/calender" element={<Calander />} />
-        <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
-      </Routes>
+      <>
+        <div className="flex bg-[#2c2c2c]">
+          <Sidebar1 />
+          <div className="flex-1  bg-black">
+            <Routes>
+              <Route path='/' element={<Dashboard1 />} />
+              <Route path='/rent' element={<AirplaneRent />} />
+            </Routes>
+          </div>
+        </div>
+      </>
+      // <Routes>
+      //   <Route path="/" element={<HomeScreen />} />
+      //   <Route
+      //     path="/AirplaneRent/*"
+      //     element={
+      //       <div className='flex bg-[#2c2c2c]'>
+      //         <div className='hidden md:block'>
+      //           <Sidebar1 />
+      //         </div>
+      //         <div className='flex-1  bg-black'>
+      //           <Routes>
+      //             <Route path='/' element={<Dashboard1 />} />
+      //             <Route path='/rent' element={<AirplaneRent />} />
+      //           </Routes>
+      //         </div>
+      //       </div>
+      //     }
+      //   />
+      //   <Route path="/calender" element={<Calander />} />
+      //   <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+      // </Routes>
     ) : (
       <>
         <div className="flex bg-[#2c2c2c]">
@@ -101,7 +104,7 @@ function App() {
     return (
       <>
         <Routes>
-          <Route
+          {/* <Route
             path="/AirplaneRent"
             element={
               <div className='flex bg-[#2c2c2c]'>
@@ -122,7 +125,7 @@ function App() {
                 </div>
               </div>
             }
-          />
+          /> */}
           <Route path="/" element={<HomeScreen />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/Signln" element={<Signln />} />

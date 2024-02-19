@@ -7,14 +7,13 @@ import LogIn from '../../../components/LogIn/LogIn';
 import Signln from '../../Signln';
 import { useContextAir } from '../../../Context';
 
-const NavBar = ({ open2, setOpen2 }) => {
+const NavBar = ({ open2, setOpen2, isOpenLogIn, isOpenSignUp, setIsOpenLogIn, setIsOpenSignUp }) => {
   const { user } = useContextAir()
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isOpenLogIn, setIsOpenLogIn] = useState(false)
-  const [isOpenSignUp, setIsOpenSignUp] = useState(false)
+  // const [isOpenLogIn, setIsOpenLogIn] = useState(false)
+  // const [isOpenSignUp, setIsOpenSignUp] = useState(false)
 
-  console.log("Changes")
-  console.log(isOpenSignUp)
+
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
