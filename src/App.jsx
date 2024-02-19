@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import Calander from './components/Calander/Calander';
+import Calander from './components/Calendar/Calendar';
 import Hours from './components/Hours/Hours';
 import LogIn from './components/LogIn/LogIn';
 import { useContextAir } from './Context';
@@ -74,8 +74,8 @@ function App() {
           }
         />
         {/* <Route path="/" element={<Calander />} /> */}
-        <Route path="/calender" element={<Calander />} />
-        <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+        {/* <Route path="/calender" element={<Calander />} />
+        <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} /> */}
       </Routes>
     ) : (
       <>
@@ -90,8 +90,8 @@ function App() {
               <Route path='/logout' element={<Logout />} />
               <Route path='/table' element={<Table />} />
               <Route path='/profileDetails' element={<ProfileDetails />} />
-              <Route path="/calender" element={<Calander />} />
-              <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+              {/* <Route path="/calender" element={<Calander />} /> */}
+              {/* <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} /> */}
             </Routes>
           </div>
         </div>

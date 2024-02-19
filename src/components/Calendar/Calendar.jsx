@@ -266,11 +266,9 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
     return () => clearTimeout(timer);
   }, []);
 
-  // const [openHourModal, setOpenHourModal] = useState(false)
+
   const [Hours, setHours] = useState()
-  // const [DateH, setDate] = useState(new Date())
-  // const [Month, setMonthH] = useState(new Date())
-  // const [years, setYears] = useState(new Date())
+
   const navigate = useNavigate();
   const handleCloseModalCalander = (e) => {
     e.preventDefault()
@@ -280,6 +278,7 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
   const handleHour = (e, date) => {
     e.preventDefault()
     setOpenHourModal(true)
+    setIsOpenCalander(false)
     setDate(date)
     setMonthH(month)
     setYears(year)
@@ -289,9 +288,6 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
     console.log("Modal Hurs " + openHourModal)
   }, [openHourModal])
 
-
-
-
   if (loadingCalendar) {
     return <Loader />;
   }
@@ -299,23 +295,18 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
   return (
     <>
       {isOpenCalander && (
-        <div className='fixed inset-0'>
+        <div className='fixed inset-0 backdrop-blur-md  flex flex-col justify-center items-center' onClick={(e) => handleCloseModalCalander(e)}>
           <div
             ref={calendarRef}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             style={{ touchAction: 'none' }}
-            className='relative bg-[#070d16] text-white'
+            className=' bg-[#070d16] overflow-auto text-white w-5/6  px-10 my-10'
+            onClick={(e) => e.stopPropagation()}
           >
-            {touchAnimation && (
-              <FaPlane
-                className="absolute top-1/2 left-full transform -translate-y-1/2 animate-flyLeft text-blue-500"
-                onAnimationEnd={() => setTouchAnimation(false)}
-              />
-            )}
             <div className=''>
 
-              <div className=' flex items-center relative justify-between w-full  px-5 py-6'>
+              <div className='w-full  flex items-center  justify-between  px-5 py-6'>
 
                 <div className='flex items-center justify-between py-2 px-6'>
                   <div className='px-1 flex items-center'>
@@ -352,7 +343,6 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
                       </button>
                     </div>
 
-
                     <div className='text-white'>
                       <span className="text-lg   mr-1">{MONTH_NAMES[month]}</span>
                       <span className="text-lg  font-normal">{year}</span>
@@ -362,26 +352,11 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
 
                 </div>
                 <div className="flex gap-3 items-center  user cursor-pointer"
-                  onClick={() => !open2 ? setOpen2(true) : setOpen2(false)}
                 >
                   <div
 
                     className="h-6 w-6  relative  rounded-full  bg-gray-200">
                     <BsPersonCircle className="text-gray-500 w-full h-full" />
-                    <div
-                      onClick={handleLogout}
-                      style={open2 ? { display: 'block' } : { display: 'none' }}
-                      className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3">
-                      <ul >
-                        <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
-                          <span
-                            className=''>
-                            Log Out
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-
                   </div>
                   <div className="text-white font-medium">
                     {user && user.displayName}
@@ -392,25 +367,22 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
                   </button>
                 </div>
 
-
               </div>
             </div>
 
-
-            <div>
+            <div className=''>
               <div className='grid grid-cols-7'>
                 {DAYS.map((day, index) => (
-                  <div key={index} className='px-4 py-2 text-center text-white text-sm uppercase tracking-wide font-bold border-r border-t'>
+                  <div key={index} className='px-4 py-2 text-center text-white text-sm uppercase tracking-wide font-bold border-l border-r border-t'>
                     {day}
                   </div>
 
                 ))}
 
-
                 {[...Array(firstDayOfMonth).keys()].map((_, index) => (
                   <div
                     key={index}
-                    className=" border-r border-b flex justify-center "
+                    className="border-l border-r border-b flex justify-center "
                     style={{ height: "120px" }}
                   >
                     <div className='text-gray-400 text-sm uppercase tracking-wide  text-center'>
@@ -421,29 +393,21 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
                 {[...Array(numberOfDays).keys()].map((date) => (
                   <div
                     key={date}
-                    className="border-r border-b flex justify-center"
+                    className="border-l border-r border-b flex justify-center"
                     style={{ height: "120px" }}
                   >
-
                     <button
                       onClick={(e) => handleHour(e, date + 1)}
-                      // to={`/hours/${date + 1}/${month}/${year}`}
                       className={`mt-2 inline-flex w-6 h-6 justify-center items-center cursor-pointer text-center leading-none rounded-full hover:bg-gray-400 hover:w-8 hover:h-8 hover:text-white transition ease-in-out 
                ${calenderAll && calenderAll.some((entry) => entry.date === `${year}-${(month + 1).toString().padStart(2, "0")}-${(date + 1).toString().padStart(2, "0")}`) ?
-                          Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200" : Green(date + 1) === true ? "bg-orange-200" : "bg-green-200" : ""}
+                          Green(date + 1) === true && Oragen(date + 1) === true && Oragen2(date + 1) === true ? "bg-red-200 text-black" : Green(date + 1) === true ? "bg-orange-200 text-black" : "bg-green-200 text-black" : ""}
                 `}
                     >
                       {date + 1}
 
                     </button>
-
-
-
-
-
                   </div>
                 ))}
-
 
               </div>
             </div>

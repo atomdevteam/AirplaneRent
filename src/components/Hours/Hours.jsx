@@ -6,7 +6,7 @@ import { useContextAir } from '../../Context';
 import { FaRegCalendarAlt } from "react-icons/fa";
 import iconCalendar from "../../Icon/icon_cal.png"
 import { IoMdClose } from "react-icons/io";
-function Hours({ openHourModal, setOpenHourModal,setIsOpenCalander, DateH, monthH, yearH }) {
+function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, monthH, yearH }) {
   const datos = useParams();
   const {
     ShowListHours,
@@ -128,8 +128,8 @@ function Hours({ openHourModal, setOpenHourModal,setIsOpenCalander, DateH, month
   return (
     <div>
       {openHourModal && (
-        <div className='fixed inset-0 overflow-auto'>
-          <div className="bg-[#070d16] text-white">
+        <div className='fixed inset-0 backdrop-blur-md w-full h-full  flex justify-center ' onClick={(e) => handleCloseModalHour(e)}>
+          <div className="bg-[#070d16] overflow-auto text-white w-5/6 my-10" onClick={(e) => e.stopPropagation()}>
 
             <ScheduleForm isOpen={isOpen} setIsOpen={setIsOpen} onSave={handleSaveModalData} reservations={reservations} setReservations={setReservations} date={mesActual} reservationEdit={reservationEdit} setreservationEdit={setreservationEdit} />
 
@@ -192,7 +192,7 @@ function Hours({ openHourModal, setOpenHourModal,setIsOpenCalander, DateH, month
             </div>
 
 
-            <div className="grid grid-rows-8 pl-10 mx-4">
+            <div className="grid grid-rows-8 pl-10 pr-10 bg-[#070d16]">
               {/* gap-4 */}
               {/* `bg-${Color}` */}
               {/*  */}
