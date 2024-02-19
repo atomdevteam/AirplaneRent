@@ -78,11 +78,11 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
         <div className={``}>
             {isOpen &&
 
-                <div className='fixed inset-0 flex items-center justify-center z-50 mx-8 sm:mx-0 my-4 sm:my-0'>
+                <div className='fixed inset-0 flex items-center justify-center z-50 mx-8 sm:mx-0 my-4 sm:my-0' onClick={handleCloseModal}>
                     <div className="min-h-screen w-full backdrop-blur-md flex flex-col justify-center sm:py-12">
                         <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
 
-                            <div className="bg-white shadow w-full rounded-lg ">
+                            <div className="bg-white shadow w-full rounded-lg " onClick={(e) => e.stopPropagation()}>
                                 <div className=' px-5 py-7 font-bold'>
                                     <div className='flex justify-between items-center '>
                                         <h2 className="text-2xl font-semibold">Sign in with</h2>
@@ -158,7 +158,7 @@ const Signln = ({ isOpen, setIsOpen, setIsLogIn }) => {
                                 <div className="py-5">
 
                                     <div className="text-center text-xs">
-                                        Do you have an account?<Link to="/" className=" hover:underline transition-all underline ">Log in</Link>
+                                        Do you have an account?<button onClick={(e) => handleOpenLogIn(e)} to="/" className=" hover:underline transition-all underline ">Log in</button>
                                     </div>
                                 </div>
                             </div>
