@@ -20,14 +20,19 @@ const Dashboard1 = () => {
 
             <div className="flex flex-col">
 
-                <div className="flex flex-col pt-10 sm:flex-row ">
+                <div className="flex flex-col pt-10 sm:flex-row mx-8">
                     <PersonalDetails />
                     <FlightStatistics />
                 </div>
+{/*  pl-4 pr-4 pt-10*/}
+                <div className="flex flex-col pt-10 mx-8  sm:flex-row  items-center justify-center ">
+                    <AdditionalPersonalInformation />
+                </div>
 
-        <div className="flex flex-col pt-10 sm:flex-row  items-center justify-center ">
-          <AdditionalPersonalInformation />
-        </div>
+                <div className="flex flex-col pt-10  sm:flex-row mx-8 my-8">
+                    <AirplaneHistory />
+                    <Logbook />
+                </div>
 
             </div>
         </div>
