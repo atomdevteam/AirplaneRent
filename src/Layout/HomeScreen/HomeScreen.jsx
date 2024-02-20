@@ -13,6 +13,9 @@ const HomeScreen = () => {
   const { logout } = useContextAir()
   const [open2, setOpen2] = useState(false);
 
+  const [isOpenLogIn, setIsOpenLogIn] = useState(false)
+  const [isOpenSignUp, setIsOpenSignUp] = useState(false)
+
   const handleLogout = (e) => {
     e.preventDefault()
     console.log("Logout")
@@ -26,9 +29,16 @@ const HomeScreen = () => {
   }
   return (
     <div className="bg-black relative">
-      <NavBar open2={open2} setOpen2={setOpen2} />
+      <NavBar
+        open2={open2}
+        setOpen2={setOpen2}
+        isOpenLogIn={isOpenLogIn}
+        isOpenSignUp={isOpenSignUp}
+        setIsOpenLogIn={setIsOpenLogIn}
+        setIsOpenSignUp={setIsOpenSignUp}
+      />
       <div className="flex flex-col mt-6 mx-12 w-auto">
-        <CardExplore />
+        <CardExplore   setIsOpenLogIn={setIsOpenLogIn}/>
         <Populardestinations />
         <Topairplanes />
         <ExclusiveDeals />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import Calander from './components/Calander/Calander';
 import Hours from './components/Hours/Hours';
 import LogIn from './components/LogIn/LogIn';
@@ -22,6 +22,8 @@ import HomeScreen from './Layout/HomeScreen/HomeScreen';
 import AirplaneRent from './Layout/AirplaneRent/AirplaneRent';
 import SidebarRent from "./Layout/AirplaneRent/Sidebar/Sidebar"
 import NavBarRent from "./Layout/AirplaneRent/NavBar/NavBar"
+import ProfileSettings from './components/ProfileSettings/ProfileSettings'
+
 //User
 import Dashboard1 from './Layout/Dashboard/Dashboard1';
 import Sidebar1 from './Layout/Sidebar/Sidebar1'
@@ -29,6 +31,7 @@ import ProfileSettings from "./components/ProfileSettings/ProfileSettings"
 import { useLocation } from 'react-router-dom';
 
 function App() {
+  
   const { user, WhichRole } = useContextAir();
   const userisAuth = localStorage.getItem("Token");
   const navigate = useNavigate();
@@ -60,38 +63,38 @@ function App() {
     }
 
     return WhichRole === "user" ? (
-
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route
-          path="/useDashboard/*"
-          element={
-            <div className='flex bg-[#2c2c2c]'>
-              <div className='hidden md:block'>
-                <Sidebar1 />
-              </div>
-              {/* {isSidebarOpen && (
-                  <div className='md:hidden '>
-                    <SidebarRent />
-                  </div>
-                )} */}
-              <div className='flex-1  bg-black'>
-                {/* <NavBarRent toggleSidebar={toggleSidebar} /> */}
-                <Routes>
-                  <Route path='/' element={<Dashboard1 />} />
-                  <Route path='/rent' element={<AirplaneRent />} />
-                  <Route path="/ProfileSettings" element={<ProfileSettings />} />
-                  {/* <Route path="/useDashboard" element={<Dashboard1 />} /> */}
-                  <Route path="/Notifications" element={<Notifications />} />
-                </Routes>
-              </div>
-            </div>
-          }
-        />
-        {/* <Route path="/" element={<Calander />} /> */}
-        <Route path="/calender" element={<Calander />} />
-        <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
-      </Routes>
+      <>
+        <div className="flex bg-[#2c2c2c]">
+          <Sidebar1 />
+          <div className="flex-1  bg-black">
+            <Routes>
+              <Route path='/' element={<Dashboard1 />} />
+              <Route path='/rent' element={<AirplaneRent />} />
+            </Routes>
+          </div>
+        </div>
+      </>
+      // <Routes>
+      //   <Route path="/" element={<HomeScreen />} />
+      //   <Route
+      //     path="/AirplaneRent/*"
+      //     element={
+      //       <div className='flex bg-[#2c2c2c]'>
+      //         <div className='hidden md:block'>
+      //           <Sidebar1 />
+      //         </div>
+      //         <div className='flex-1  bg-black'>
+      //           <Routes>
+      //             <Route path='/' element={<Dashboard1 />} />
+      //             <Route path='/rent' element={<AirplaneRent />} />
+      //           </Routes>
+      //         </div>
+      //       </div>
+      //     }
+      //   />
+      //   <Route path="/calender" element={<Calander />} />
+      //   <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+      // </Routes>
     ) : (
       <>
         <div className="flex bg-[#2c2c2c]">
