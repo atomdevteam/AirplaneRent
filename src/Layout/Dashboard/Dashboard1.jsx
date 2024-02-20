@@ -76,11 +76,13 @@ function Navbar() {
 
                         <div className="flex items-center justify-end sm:justify-start">
                             <div className=" hidden sm:flex">
-                                <div className="relative">
+                                <div className="relative ">
+                                    {/*border border-black text-white bg-transparent shadow-md px-6 py-2 rounded-full focus:outline-none  */}
                                     <input
                                         type="text"
                                         placeholder="Search for aiplanes"
-                                        className="border border-black text-white bg-gray-600 px-6 py-2 rounded-full focus:outline-none"
+                                        className="py-3 px-4 block w-[18rem] placeholder-white text-white text-sm  shadow-xl bg-transparent border-b border-r border-l border-gray-500 rounded-full"
+                                      
                                     />
                                 </div>
                             </div>
