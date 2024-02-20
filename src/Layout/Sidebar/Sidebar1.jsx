@@ -81,7 +81,12 @@ const Sidebar1 = () => {
             <div className="w-full md:w-[18rem] bg-[#2C2C2C] rounded-tr-[1.5rem] rounded-br-[1.5rem]">
 
                 <div className="mt-10 pr-10 pb-6 text-center">
-                    <Link to={"/"} className='pr-40 pb-6 mb-4 inline-block'><FaArrowLeft size={30} color='white'></FaArrowLeft></Link>
+                    <button className='pr-40 pb-8'>
+                        <Link to='/'>
+                            <FaArrowLeft size={40} color='white'></FaArrowLeft>
+                        </Link>
+
+                    </button>
                     <p className="text-white font-bold text-3xl">Airplane Rent</p>
                 </div>
 
@@ -97,15 +102,22 @@ const Sidebar1 = () => {
                         ))}
                     </div>
 
+                    <div className='flex-grow mt-8'>
+                        <button onClick={(e) => handleLogout(e)} className="w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
+                            <BiLogOut size={20} />
+                            <span className="mx-4 font-medium">Log out</span>
+                        </button>
+                    </div>
+
                     {/* Personal Routes */}
-                    <div className="flex-grow mt-8">
+                    {/* <div className="flex-grow mt-8">
                         {personalRoutes.map((route) => (
                             <Link to={route.route} key={route.name} className="w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
                                 {route.icon}
                                 <span className="mx-4 font-medium">{route.name}</span>
                             </Link>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

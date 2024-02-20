@@ -25,14 +25,9 @@ const Dashboard1 = () => {
                     <FlightStatistics />
                 </div>
 
-                <div className="flex flex-col pl-4 pr-4 pt-10 sm:flex-row flex items-center justify-center ">
-                    <AdditionalPersonalInformation />
-                </div>
-
-                <div className="flex flex-col sm:flex-row ">
-                    <AirplaneHistory />
-                    <Logbook />
-                </div>
+        <div className="flex flex-col pt-10 sm:flex-row  items-center justify-center ">
+          <AdditionalPersonalInformation />
+        </div>
 
             </div>
         </div>
