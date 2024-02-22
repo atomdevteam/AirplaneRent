@@ -156,10 +156,10 @@ export function ProviderContext({ children }) {
   };
 
   useEffect(() => {
-    console.log("Reservaciones")
-    console.log(ReservationsForDate)
-    console.log("Todas....")
-    console.log(AllReservations)
+    // console.log("Reservaciones")
+    // console.log(ReservationsForDate)
+    // console.log("Todas....")
+    // console.log(AllReservations)
   }, [ReservationsForDate, AllReservations])
 
 
@@ -218,7 +218,7 @@ export function ProviderContext({ children }) {
         const infoUsertype = Object.values(data || {}).find(rolUser => rolUser.userId === id)
 
         if (roleAsString === "user") {
-          console.log("Es user")
+          // console.log("Es user")
           setWhichRole(roleAsString)
           //CanReservar
           if (infoUsertype) {
@@ -379,7 +379,7 @@ export function ProviderContext({ children }) {
 
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log({ currentUser });
+      // console.log({ currentUser });
       setUser(currentUser);
       localStorage.setItem("auth", currentUser)
     });
@@ -399,7 +399,7 @@ export function ProviderContext({ children }) {
   }, [user])
 
 
-  console.log("Pude reservar ? " + CanReservation)
+  // console.log("Pude reservar ? " + CanReservation)
 
 
   return (

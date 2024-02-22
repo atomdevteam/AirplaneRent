@@ -94,7 +94,7 @@ function FlightStatistics() {
           onChange={(e) => setSelectedOption(e.target.value)}
           className="py-3 px-4 mr-[2rem] block  pb-2 text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
         >
-          <option value="" disabled selected hidden>
+          <option value="" disabled hidden>
             Filter by date
           </option>
           {optionss.map((option) => (
