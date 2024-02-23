@@ -1,8 +1,9 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+import Logout from '../../../Layout/Logout/Logout'
 import Table from '../../../components/Table/Table'
 import Sidebar from '../../../Layout/Sidebar/Sidebar'
 import Dashboard from '../../../Layout/Dashboard/Dashboard'
-import Dashboard1 from '../../../Layout/Dashboard/Dashboard1'
 import AirplaneRent from '../../../Layout/AirplaneRent/AirplaneRent'
 import AddAircraftLayout from '../../../Layout/AddAircraftLayout/AddAircraftLayout'
 import LayoutNotification from '../../../Layout/LayoutNotification/LayoutNotification'
@@ -11,18 +12,19 @@ import LayoutNotification from '../../../Layout/LayoutNotification/LayoutNotific
 function index() {
 
     console.log('OwnerScreen')
-    
+
     return (
         <div className="flex bg-[#2c2c2c]">
             <Sidebar />
             <div className="flex-1 p-4 bg-black">
                 <Routes>
-                    <Route path="/" element={<Dashboard />} /> 
-                    <Route path='/' element={<Dashboard1 />} />
-                    <Route path='/table' element={<Table />} /> 
-                    <Route path='/rent' element={<AirplaneRent />} />
-                    <Route path='/airdetails' element={<AddAircraftLayout />} /> 
-                    <Route path='/notificationsBlock' element={<LayoutNotification />} /> 
+                    <Route exact path="/" element={<Dashboard />} />
+                    <Route exact path='/table' element={<Table />} />
+                    <Route exact path='/logout' element={<Logout />} />
+                    <Route exact path='/rent' element={<AirplaneRent />} />
+                    <Route exact path='/airdetails' element={<AddAircraftLayout />} />
+                    <Route exact path='/notificationsBlock' element={<LayoutNotification />} />
+                    <Route path='*' element={<Navigate to='/'/>}/> {/* When none of the permited routes is selected it will redirect to the main route */}
                 </Routes>
             </div>
         </div>

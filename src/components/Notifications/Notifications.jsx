@@ -1,11 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import FilterBlock from '../FilterBlock/FilterBlock'
-import { AiFillMessage } from "react-icons/ai";
-import { IoMdNotifications } from "react-icons/io";
-import { HiMagnifyingGlass } from "react-icons/hi2";
-import { FaHandPaper } from "react-icons/fa";
-import { FaPlane } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { useState } from 'react'
+
 const datos = [
     {
         id: 1,
@@ -29,7 +23,6 @@ const datos = [
 ];
 function Notifications() {
 
-
     const [selectedOption, setSelectedOption] = useState('');
 
     const options = [
@@ -38,11 +31,10 @@ function Notifications() {
         { value: 'option3', label: 'Option 3' },
     ];
 
-
     return (
 
         <div className=''>
-            <NavBar></NavBar>
+            {/* <NavBar></NavBar> */}
             <div className='flex flex-row items-center justify-center '>
                 
                 <div className='w-[58rem]'>
@@ -62,7 +54,7 @@ function Notifications() {
                                         className="py-3 px-4 mr-[2rem] block  text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
                                     >
 
-                                        <option value="" disabled selected hidden>
+                                        <option value="" disabled hidden>
                                             Filter by date
                                         </option >
                                         {options.map((option) => (
@@ -76,7 +68,7 @@ function Notifications() {
                                 <div className=' mt-[1rem] mx-[0.5rem]'>
                                     <ul className="list-none" >
                                         {datos.map((item) => (
-                                            <div className=' pb-6'>
+                                            <div className=' pb-6' key={item.id}>
 
                                                 <li key={item.id} className="flex flex-col lg:flex-row items-start lg:items-center space-y-2 lg:space-y-0 lg:space-x-4 mb-4">
                                                     <img
@@ -122,7 +114,6 @@ function Notifications() {
                 <div>
                     <Filter />
                 </div>
-
 
             </div>
         </div>
@@ -210,6 +201,5 @@ function Filter() {
         </div>
     );
 }
-
 
 export default Notifications

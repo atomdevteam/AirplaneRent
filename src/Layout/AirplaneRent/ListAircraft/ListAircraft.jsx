@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import CardRent from '../../../components/CardRent/CardRent';
 
 const cardData = [
@@ -77,26 +77,27 @@ const cardData = [
 ];
 
 const ListAircraft = () => {
+    
     const [selectedOption, setSelectedOption] = useState('');
 
     const options = [
         { value: 'option1', label: 'Option 1' },
         { value: 'option2', label: 'Option 2' },
         { value: 'option3', label: 'Option 3' },
-    ];
+    ]
+
     return (
         <div className='mx-4'>
-            <div className='flex flex-col  w-full'>
+            <div className='flex-grow flex flex-col'>
                 <div className='flex flex-col mb-8 mt-8  sm:flex-row sm:justify-between '>
                     <span className='text-white ml-4'>All Aircraft</span>
                     <div className='mt-4 sm:mt-0'>
                         <select
                             value={selectedOption}
                             onChange={(e) => setSelectedOption(e.target.value)}
-                            className="py-3 px-4  mr-[2rem] block  text-white text-sm  shadow-sm bg-[#2C2C2C]  rounded-full"
+                            className="py-3 px-4 mr-[1rem] block text-white text-sm shadow-sm bg-[#2C2C2C] rounded-full"
                         >
-
-                            <option value="" disabled  hidden>
+                            <option value="" disabled hidden>
                                 Filter by company or owner
                             </option >
                             {options.map((option) => (
@@ -108,15 +109,13 @@ const ListAircraft = () => {
                     </div>
 
                 </div>
-         
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3">
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                     {cardData.map((card) => (
                         <CardRent key={card.id} title={card.title} content={card.description} imageUrl={card.imageUrl} />
                     ))}
                 </div>
             </div>
-
 
         </div>
     )

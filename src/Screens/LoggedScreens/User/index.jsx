@@ -1,35 +1,41 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+import Navbar from './navbar/Navbar'
+import Sidebar from './Sidebar/Sidebar'
 import Logout from '../../../Layout/Logout/Logout'
 import Hours from '../../../components/Hours/Hours'
-import Sidebar1 from '../../../Layout/Sidebar/Sidebar1'
+import Dashboard from './Dashboard/Dashboard'
 import Calander from '../../../components/Calander/Calander'
-import Dashboard1 from '../../../Layout/Dashboard/Dashboard1'
+import AirplaneRent from '../../../Layout/AirplaneRent/AirplaneRent'
 import Notifications from '../../../components/Notifications/Notifications'
 import ProfileDetails from '../../../components/ProfileDetails/ProfileDetails'
 import ProfileSettings from '../../../components/ProfileSettings/ProfileSettings'
-import Navbar from './navbar/Navbar'
 
 //Entry point of the screen that the USER will always see
 function index() {
 
     console.log('UserScreen')
-    
+
     return (
-        <div className="flex bg-[#2c2c2c]">
-            <Sidebar1 />
-            <div className="flex-1  bg-[#161616]">
-                <Navbar />
-                <Routes>
-                    <Route path='/logout' element={<Logout />} />
-                    <Route path="/calender" element={<Calander />} />
-                    <Route path="/useDashboard" element={<Dashboard1 />} />
-                    <Route path="/Notifications" element={<Notifications />} />
-                    <Route path='/profileDetails' element={<ProfileDetails />} />
-                    <Route path="/ProfileSettings" element={<ProfileSettings />} />
-                    <Route path="/hours/:Dia/:Month/:Year" element={<Hours />} />
-                </Routes>
+        <>
+            <div className="flex bg-[#2c2c2c]" style={{ flexGrow: 1 }}>
+                <Sidebar />
+                <div className="flex-grow flex flex-col bg-[#161616]">
+                    <Navbar />
+                    <Routes>
+                        <Route exact path='/logout' element={<Logout />} />
+                        <Route exact path='/rent' element={<AirplaneRent />} />
+                        <Route exact path="/calender" element={<Calander />} />
+                        <Route exact path="/useDashboard" element={<Dashboard />} />
+                        <Route exact path="/Notifications" element={<Notifications />} />
+                        <Route exact path='/profileDetails' element={<ProfileDetails />} /> {/* As a user i want to be able to see the profile of different users if they allow it */}
+                        <Route exact path="/ProfileSettings" element={<ProfileSettings />} />
+                        <Route exact path="/hours/:Dia/:Month/:Year" element={<Hours />} />
+                        <Route path='*' element={<Navigate to='/useDashboard'/>}/> {/* When none of the permited routes is selected it will redirect to the main route */}
+                    </Routes>
+                </div>
             </div>
-        </div>
+        </>
     )
 
 }
