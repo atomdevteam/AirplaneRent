@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import { FaHandPaper } from "react-icons/fa";
-
-import { IoMdNotifications } from "react-icons/io";
-import { FaPlane } from "react-icons/fa";
+import { useState } from 'react'
+import { FaPlane } from "react-icons/fa"
+import { FaHandPaper } from "react-icons/fa"
+import { IoMdNotifications } from "react-icons/io"
 
 function ProfileSettings() {
+
     const [aircraftDetails, setAircraftDetails] = useState({
         title: '',
         description: '',
         features: ['', '', '', ''],
-    });
+    })
 
     const handleChange = (e, index) => {
+
         const { name, value } = e.target;
 
         if (name.startsWith('features')) {
@@ -26,12 +27,11 @@ function ProfileSettings() {
                 [name]: value,
             }));
         }
-    };
-
+    }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
 
+        e.preventDefault();
 
         if (
             aircraftDetails.title.trim() === '' ||
@@ -46,13 +46,11 @@ function ProfileSettings() {
         console.log('Saved data:', aircraftDetails);
     };
 
-
     return (
         <>
-            <NavBar></NavBar>
-            <div className='flex flex-row pl-20'>
-                <div className='mt-[2rem]'>
-                    <div className='bg-[#2c2c2c] rounded-xl mr-6 h-full'>
+            <div className='flex flex-row mx-8'>
+                <div className='my-[2rem]'>
+                    <div className='bg-[#2c2c2c] rounded-xl mr-6'>
                         <div className='flex flex-col mt-2 ml-[1rem]'>
                             <h1 className='text-white mt-4'>Profile information</h1>
                             <div className='flex items-center mt-4 pl-6'>
@@ -231,7 +229,6 @@ function ProfileSettings() {
     );
 }
 
-
 const Card = ({ imagen }) => {
     const [image, setimage] = useState(null);
 
@@ -240,7 +237,6 @@ const Card = ({ imagen }) => {
         console.log("Image select")
         console.log(selectedImage)
     };
-
 
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -305,8 +301,6 @@ const NavBar = () => {
                             </div>
                         </div>
 
-
-
                         <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
                             <button type="button" className="relative bg-orange-500 items-center justify-center  rounded-full p-1 text-white hover:text-white focus:outline-none focus:ring-2 pr-8 mr-10 pl-8 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -341,7 +335,5 @@ const NavBar = () => {
         </div>
     )
 }
-
-
 
 export default ProfileSettings
