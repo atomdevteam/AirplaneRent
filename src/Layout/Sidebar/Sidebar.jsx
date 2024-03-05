@@ -17,7 +17,7 @@ const generalRoutes = [
     {
         name: 'My Aircrafts',
         icon: <FaPlane size={20}/>,
-        route: '/'
+        route: '/MyAircrafts'
     },
     {
         name: 'Maintenance',

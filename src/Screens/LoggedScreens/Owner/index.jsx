@@ -7,6 +7,7 @@ import Dashboard from '../../../Layout/Dashboard/Dashboard'
 import AirplaneRent from '../../../Layout/AirplaneRent/AirplaneRent'
 import AddAircraftLayout from '../../../Layout/AddAircraftLayout/AddAircraftLayout'
 import LayoutNotification from '../../../Layout/LayoutNotification/LayoutNotification'
+import MyAircrafts from '../../../Layout/MyAircrafts/MyAircrafts'
 
 //Entry point of the screen that the OWNER will always see
 function index() {
@@ -24,6 +25,7 @@ function index() {
                     <Route exact path='/rent' element={<AirplaneRent />} />
                     <Route exact path='/airdetails' element={<AddAircraftLayout />} />
                     <Route exact path='/notificationsBlock' element={<LayoutNotification />} />
+                    <Route exact path='/MyAircrafts' element={<MyAircrafts />} />
                     <Route path='*' element={<Navigate to='/'/>}/> {/* When none of the permited routes is selected it will redirect to the main route */}
                 </Routes>
             </div>
