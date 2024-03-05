@@ -8,10 +8,17 @@ import card2 from "../../assets/card2.jpg"
 import card3 from "../../assets/card3.jpg"
 import card4 from "../../assets/card4.jpg"
 import card5 from "../../assets/card5.jpg"
-
+import AircraftsCards from '../components/AircraftsCards';
+// Cambie la A por a porque asi se llama el Layout
+// Ahora map esa variable
 let Myaircrafts = [
-
+    { id: 1, image: cabin, name: "Luxury Jet 50", tipo: "Private Jet", precioH: "5000/hour" },
+    { id: 2, image: card2, name: "Luxury Jet 50", tipo: "Private Jet", precioH: "5000/hour" },
+    { id: 3, image: card3, name: "Luxury Jet 50", tipo: "Private Jet", precioH: "5000/hour" },
+    { id: 4, image: card4, name: "Luxury Jet 50", tipo: "Private Jet", precioH: "5000/hour" },
+    { id: 5, image: card5, name: "Luxury Jet 50", tipo: "Private Jet", precioH: "5000/hour" },
 ]
+
 
 const MyAircrafts = () => {
     return (
@@ -21,93 +28,12 @@ const MyAircrafts = () => {
             </div>
             <div className=''>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4">
-                    {/* Crear un Componente que se llame AircraftsCard y dentro del Map los datos agregalos en un variable
-                        de tipo de areglo por ejemplo: let MyAircrafts = [
-                            {id: 1, image: card2, nome: "Luxury Jet 50", tipo: "Private Jet", precioH: "5000/hour"},
-                        ] crear 5 items para los cARD
-                    */}
-
-                    {/* Copiar este codigo y llevarlo al Card y pasarle los datos por parametro, desde aqui */}
-                    <div className="bg-[#2c2c2c] relative  rounded-2xl  p-4">
-                        <img src={card2} alt="Placeholder Image" className="w-full h-48 rounded-md object-cover" />
-
-                        <button className='bg-white text-black p-1 rounded-full absolute top-0 right-0 m-6'><FaHeart /></button>
-                        <div className="px-1 py-4">
-                            <div className="text-white">Luxury Jet 50</div>
-                            <p className="text-gray-400 text-base">
-                                Private Jet
-                            </p>
+                   
+                    {Myaircrafts.map((data, index) => (
+                        <div key={index}>
+                            <AircraftsCards name={data.name} tipo={data.tipo} image={data.image} precioH = {data.precioH} />
                         </div>
-                        <div className="px-1 flex items-center justify-between">
-                            <span className='text-white'>from $5000/hour</span>
-                            <button className=''>< IoIosArrowForward className="text-sm text-gray-500" size={15} color='white' /></button>
-                        </div>
-                    </div>
-                    {/* Hasta aqui */}
-
-                    {/* Borra desde aqui */}
-
-                    <div className="bg-[#2c2c2c] relative  rounded-2xl  p-4">
-                        <img src={cabin} alt="Placeholder Image" className="w-full h-48 rounded-md object-cover" />
-                        <button className='bg-white text-black p-1 rounded-full absolute top-0 right-0 m-6'><FaHeart /></button>
-                        <div className="px-1 py-4">
-                            <div className="text-white">Luxury Jet 50</div>
-                            <p className="text-gray-400 text-base">
-                                Private Jet
-                            </p>
-                        </div>
-                        <div className="px-1 flex items-center justify-between">
-                            <span className='text-white'>from $5000/hour</span>
-                            <button className=''>< IoIosArrowForward className="text-sm text-gray-500" size={15} color='white' /></button>
-                        </div>
-
-
-                    </div>
-                    <div className="bg-[#2c2c2c] relative  rounded-2xl  p-4">
-                        <img src={card4} alt="Placeholder Image" className="w-full h-48 rounded-md object-cover" />
-                        <button className='bg-white text-black p-1 rounded-full absolute top-0 right-0 m-6'><FaHeart /></button>
-                        <div className="px-1 py-4">
-                            <div className="text-white">Luxury Jet 50</div>
-                            <p className="text-gray-400 text-base">
-                                Private Jet
-                            </p>
-                        </div>
-                        <div className="px-1 flex items-center justify-between">
-                            <span className='text-white'>from $5000/hour</span>
-                            <button className=''>< IoIosArrowForward className="text-sm text-gray-500" size={15} color='white' /></button>
-                        </div>
-                    </div>
-                    <div className="bg-[#2c2c2c] relative  rounded-2xl  p-4">
-                        <img src={card3} alt="Placeholder Image" className="w-full h-48 rounded-md object-cover" />
-                        <button className='bg-white text-black p-1 rounded-full absolute top-0 right-0 m-6'><FaHeart /></button>
-                        <div className="px-1 py-4">
-                            <div className="text-white">Luxury Jet 50</div>
-                            <p className="text-gray-400 text-base">
-                                Private Jet
-                            </p>
-                        </div>
-                        <div className="px-1 flex items-center justify-between">
-                            <span className='text-white'>from $5000/hour</span>
-                            <button className=''>< IoIosArrowForward className="text-sm text-gray-500" size={15} color='white' /></button>
-                        </div>
-                    </div>
-                    <div className="bg-[#2c2c2c] relative  rounded-2xl  p-4">
-                        <img src={card5} alt="Placeholder Image" className="w-full h-48 rounded-md object-cover" />
-                        <button className='bg-white text-black p-1 rounded-full absolute top-0 right-0 m-6'><FaHeart /></button>
-                        <div className="px-1 py-4">
-                            <div className="text-white">Luxury Jet 50</div>
-                            <p className="text-gray-400 text-base">
-                                Private Jet
-                            </p>
-                        </div>
-                        <div className="px-1 flex items-center justify-between">
-                            <span className='text-white'>from $5000/hour</span>
-                            <button className=''>< IoIosArrowForward className="text-sm text-gray-500" size={15} color='white' /></button>
-                        </div>
-                    </div>
-                    {/* Hasta aqui */}
-
-                    {/* Add Aircrafts "Esto no va en el map" */}
+                    ))}
                     <div className="bg-[#2c2c2c] relative rounded-2xl p-4">
                         <Link to='/airdetails' className='w-full h-48 rounded-md object-cover bg-gray-400 flex items-center justify-center'>
                             <IoMdAddCircle size={90} />
