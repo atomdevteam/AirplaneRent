@@ -5,8 +5,9 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import { Link } from 'react-router-dom';
 import Cards from '../Cards/Cards'
 import ReserveDetails from '../ReserveDetails/ReserveDetails'
+import { useContextAir } from '../../Context';
 function Navbar() {
-
+const {user} = useContextAir()
     return (
         <>
             <nav className="bg-black border-gray-800 border-b-2 ">
@@ -56,7 +57,7 @@ function Navbar() {
 
 
                         <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
-                            <Link to='/AirplaneRent/rent' className="bg-orange-400 text-white px-6 py-2 rounded-full hidden md:inline">Rent</Link>
+                          
 
                             <button type="button" className="relative rounded-full bg-white-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <span className="absolute -inset-1.5"></span>
@@ -80,7 +81,7 @@ function Navbar() {
                                         <span className="sr-only">Open user menu</span>
 
                                         <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-                                        <span className="ml-2 pt-2 text-white">Your Name</span>
+                                        <span className="ml-2 pt-2 text-white">{user && user.displayName}</span>
                                     </button>
                                 </div>
                             </div>

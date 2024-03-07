@@ -4,7 +4,7 @@ import Bar from '../Bar/Bar';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const CardExplore = () => {
+const CardExplore = ({setIsOpenLogIn}) => {
     return (
         <div>
             <div className='relative mt-[2rem]'>
@@ -26,7 +26,7 @@ const CardExplore = () => {
 
                     </div>
                     <div className='hidden md:flex justify-center items-center absolute -bottom-12 inset-x-0'>
-                        <Bar />
+                        <Bar setIsOpenLogIn={setIsOpenLogIn}/>
                     </div>
                 </div>
 
