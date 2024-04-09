@@ -205,38 +205,34 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
                       key={index}
                       className={` ${isHoraReservada ? 'flex-1  p-6 bg-[#0d7ca8]' : 'flex-1 border p-6 cursor-pointer  hover:bg-gray-200  transition ease-in-out'
                         }`}
-                      onClick={() => {
-                        if (reservaMostrar) {
-                          if (CanEdit === true) {
-                            if (WhichRole === "user") {
-                              if (user && user.uid === reservaMostrar.id_user) {
+                        onClick={() => {
+                          if (reservaMostrar) {
+                            if (CanEdit === true) {
+                              if (WhichRole === "user") {
+                                if (user && user.uid === reservaMostrar.id_user) {
+                                  setIsOpen(true);
+                                  setreservationEdit(reservaMostrar)
+                                }
+                              } else {
                                 setIsOpen(true);
-                                console.log("Reservar mostrar")
-                                console.log(reservaMostrar)
                                 setreservationEdit(reservaMostrar)
                               }
+  
                             } else {
-                              setIsOpen(true);
-                              console.log("Reservar mostrar")
-                              console.log(reservaMostrar)
-                              setreservationEdit(reservaMostrar)
+                              window.confirm('You do not have permission to edit or delete!');
                             }
-
+  
+  
                           } else {
-                            window.confirm('You do not have permission to edit or delete!');
+                            if (CanReservation === true) {
+                              setIsOpen(true);
+                            } else {
+                              window.confirm('You do not have permission to reserve!');
+                            }
+  
                           }
-
-
-                        } else {
-                          if (CanReservation === true) {
-                            setIsOpen(true);
-                          } else {
-                            window.confirm('You do not have permission to reserve!');
-                          }
-
-                        }
-
-                      }}
+  
+                        }}
                     >
                       {reservacionesEnEstaHora.map((reserva, reservaIndex) => (
                         <div key={reservaIndex} className=''>
