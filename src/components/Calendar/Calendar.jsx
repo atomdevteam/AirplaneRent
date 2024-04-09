@@ -65,9 +65,7 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
     const fetchData = async () => {
       try {
         const partnersData = await GetAll();
-        console.log("Hola", partnersData)
         setCalenderAll(partnersData)
-        console.log(GetAll())
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -285,7 +283,7 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
   }
 
   useEffect(() => {
-    console.log("Modal Hurs " + openHourModal)
+   
   }, [openHourModal])
 
   if (loadingCalendar) {
@@ -351,17 +349,7 @@ const Calander = ({ isOpenCalander, setIsOpenCalander, openHourModal, setOpenHou
                   </div>
 
                 </div>
-                <div className="flex gap-3 items-center  user cursor-pointer"
-                >
-                  <div
-
-                    className="h-6 w-6  relative  rounded-full  bg-gray-200">
-                    <BsPersonCircle className="text-gray-500 w-full h-full" />
-                  </div>
-                  <div className="text-white font-medium">
-                    {user && user.displayName}
-                  </div>
-
+                <div className="flex gap-3 items-center  user cursor-pointer">
                   <button onClick={(e) => handleCloseModalCalander(e)} className='hover:bg-red-500 p-2 rounded-full'>
                     <IoMdClose size={25} color='white' />
                   </button>

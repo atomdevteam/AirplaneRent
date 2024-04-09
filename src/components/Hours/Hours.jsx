@@ -17,11 +17,8 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
     CanDelete,
     WhichRole
   } = useContextAir()
-  // const fechaEspecifica = new Date()
+
   const [fechaEspecifica, setFechaEspecifica] = useState(new Date());
-  // fechaEspecifica.setDate(datos.Dia)
-  // fechaEspecifica.setFullYear(datos.Year)
-  // fechaEspecifica.setMonth(datos.Month)
   fechaEspecifica.setDate(DateH)
   fechaEspecifica.setFullYear(yearH)
   fechaEspecifica.setMonth(monthH)
@@ -36,17 +33,7 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
   const [Inicio, setInicio] = useState(0)
   const [Final, setFinal] = useState(0)
 
-  // const horas = Array.from({ length: 24 }, (_, i) => {
-  //   const hour = (i === 0) ? 12 : (i > 12) ? i - 12 : i;
-
-  //   const timeString = new Date().setHours(i, 0, 0);
-  //   const formattedTime = new Date(timeString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  //   return `${formattedTime}`;
-  // });
-
   const horas = Array.from({ length: 24 }, (_, i) => i);
-
-
 
   const irAlMesSiguiente = () => {
     setMesActual(new Date(mesActual.getFullYear(), mesActual.getMonth(), mesActual.getDate() + 1));
@@ -96,7 +83,7 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
     ShowListHours(formattedMesActual);
   }, [formattedMesActual])
   useEffect(() => {
-    ShowListHours(formattedMesActual); // Ejecutar ShowListHours al iniciar el componente
+    ShowListHours(formattedMesActual); 
   }, []);
 
 
@@ -105,8 +92,6 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
 
   useEffect(() => {
     setreservationsA(ReservationsForDate)
-    console.log("hoursss")
-    console.log(reservationsA)
   }, [ReservationsForDate])
 
 
@@ -193,9 +178,7 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
 
 
             <div className="grid grid-rows-8 pl-10 pr-10 bg-[#070d16]">
-              {/* gap-4 */}
-              {/* `bg-${Color}` */}
-              {/*  */}
+
               <div className="pt-4">Hora</div>
               {horasDelDia.map((hora, index) => {
                 const reservacionesEnEstaHora = reservationsA.filter(
@@ -228,10 +211,14 @@ function Hours({ openHourModal, setOpenHourModal, setIsOpenCalander, DateH, mont
                             if (WhichRole === "user") {
                               if (user && user.uid === reservaMostrar.id_user) {
                                 setIsOpen(true);
+                                console.log("Reservar mostrar")
+                                console.log(reservaMostrar)
                                 setreservationEdit(reservaMostrar)
                               }
                             } else {
                               setIsOpen(true);
+                              console.log("Reservar mostrar")
+                              console.log(reservaMostrar)
                               setreservationEdit(reservaMostrar)
                             }
 

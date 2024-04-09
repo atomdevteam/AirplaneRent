@@ -2,49 +2,109 @@ import { useState } from 'react'
 import { FaPlane } from "react-icons/fa"
 import { FaHandPaper } from "react-icons/fa"
 import { IoMdNotifications } from "react-icons/io"
-
+import { FaUserCircle } from "react-icons/fa";
 function ProfileSettings() {
+    const [image, setimage] = useState(null)
+    const [imageLic, setimageLic] = useState(null)
+    const [imageMedical, setimageMedical] = useState(null)
 
-    const [aircraftDetails, setAircraftDetails] = useState({
-        title: '',
-        description: '',
-        features: ['', '', '', ''],
+    const [Picture, setPicture] = useState(null)
+    const [Perfil, setPerfil] = useState({
+        Name: '',
+        Email: '',
+        Photo: '',
+        Location: '',
+        Nationality: '',
+        Birthday: '',
+        Bio: '',
+        Logbook: null,
+        Licence: null,
+        MedicalCertificate: null
     })
 
-    const handleChange = (e, index) => {
-
+    const handleChangePerfil = (e) => {
         const { name, value } = e.target;
+        setPerfil(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
-        if (name.startsWith('features')) {
-            setAircraftDetails((prevDetails) => {
-                const newFeatures = [...prevDetails.features];
-                newFeatures[index] = value;
-                return { ...prevDetails, features: newFeatures };
-            });
-        } else {
-            setAircraftDetails((prevDetails) => ({
-                ...prevDetails,
-                [name]: value,
-            }));
+    const [LoginSetting, setLoginSetting] = useState({
+        Oldpassword: '',
+        Newpassword: '',
+        Confirmpassword: '',
+    })
+
+    const handleChangeLoginSetting = (e) => {
+        const { name, value } = e.target;
+        setLoginSetting(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+
+    const handlechangeImg = (e) => {
+        const selectedImage = e.target.files[0];
+        if (selectedImage) {
+            const reader = new FileReader()
+            reader.onload = function (e) {
+                const imageUrl = e.target.result
+                setPicture(imageUrl)
+            }
+            reader.readAsDataURL(selectedImage)
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleDeleteIMg = () => {
+        setPicture(null)
+    }
 
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        Perfil.Logbook = image
+        Perfil.Licence = imageLic,
+            Perfil.MedicalCertificate = imageMedical
+        Perfil.Photo = Picture
+
+        if (
+            Perfil.Name.trim() === '' ||
+            Perfil.Email.trim() === '' ||
+            Perfil.Location.trim() === '' ||
+            Perfil.Nationality.trim() === '' ||
+            Perfil.Birthday.trim() === '' ||
+            Perfil.Bio.trim() === '' ||
+            Perfil.Logbook === null ||
+            Perfil.Licence === null ||
+            Perfil.MedicalCertificate === null
+        ) {
+            console.log('Please fill out all fields.');
+            return;
+        } else {
+            console.log('Saved data:', Perfil);
+        }
+
+    }
+
+    const UpdatePassword = (e) => {
         e.preventDefault();
 
         if (
-            aircraftDetails.title.trim() === '' ||
-            aircraftDetails.description.trim() === '' ||
-            aircraftDetails.features.some((feature) => feature.trim() === '')
+            LoginSetting.Oldpassword.trim() === '' ||
+            LoginSetting.Newpassword.trim() === "" ||
+            LoginSetting.Confirmpassword.trim() === ""
         ) {
-
-            console.log('Please complete all fields.');
-            return;
+            window.alert("All fields are required!");
+        } else {
+            if (LoginSetting.Newpassword !== LoginSetting.Confirmpassword) {
+                window.alert("Password does not match!");
+            } else {
+                window.alert("Password has been updated!");
+            }
         }
-
-        console.log('Saved data:', aircraftDetails);
-    };
+    }
 
     return (
         <>
@@ -53,17 +113,23 @@ function ProfileSettings() {
                     <div className='bg-[#2c2c2c] rounded-xl mr-6'>
                         <div className='flex flex-col mt-2 ml-[1rem]'>
                             <h1 className='text-white mt-4'>Profile information</h1>
-                            <div className='flex items-center mt-4 pl-6'>
-                                <img
-                                    src='https://th.bing.com/th/id/R.abb5e2f3a89fe5f1871d9e13555a4cfb?rik=Gw6033iUygmZPQ&riu=http%3a%2f%2fcdn.marketing4ecommerce.net%2fwp-content%2fuploads%2f2017%2f01%2f02204956%2fqu%c3%a9-es-una-imagen-vectorial.jpg&ehk=HTmTsIAUN71R1e1kAp3MB6q0dm57GQVLk2TwmRfmuds%3d&risl=&pid=ImgRaw&r=0'
-                                    alt='Profile'
-                                    className='rounded-full h-28 w-28 mr-4'
-                                />
+                            <div className='flex items-center mt-4 pl-6 '>
+                                {Picture === null ? (
+                                    <FaUserCircle color='gray' className='rounded-full h-28 w-28 mr-4' />
+                                ) : (
+                                    <img
+                                        src={Picture}
+                                        alt='Profile'
+                                        className='rounded-full h-28 w-28 mr-4 text-white'
+                                    />
+                                )}
+
                                 <div className='flex justify-start pl-2'>
-                                    <button className='bg-[#0d7ca8] text-white py-2 px-4 bg-orange-500 rounded-lg mr-8'>Upload new profile picture</button>
-                                    <button className='bg-[#0d7ca8] text-black py-2 px-4 bg-white  rounded-lg ml-8 mr-2'>Remove picture</button>
+                                    <label htmlFor="file-upload-picture" className="text-white py-2 px-4 bg-orange-500 rounded-lg mr-8 cursor-pointer">Upload new profile picture</label>
+                                    <input id="file-upload-picture" type="file" onChange={handlechangeImg} className="hidden" />
+                                    <button onClick={handleDeleteIMg} className=' text-black py-2 px-4 bg-white  rounded-lg ml-8 mr-2'>Remove picture</button>
                                 </div>
-                                <button className='bg-[#0d7ca8] text-white bg-orange-500 py-2 px-4 rounded-lg ml-auto mr-6'>Save</button>
+                                <button onClick={handleSubmit} className=' text-white bg-orange-500 py-2 px-4 rounded-lg ml-auto mr-6'>Save</button>
                             </div>
                             <span className='text-gray-500 mt-[1rem] text-xs'></span>
                             <div className='container mx-auto mt-8'>
@@ -73,9 +139,9 @@ function ProfileSettings() {
                                         <div className='relative'>
                                             <input
                                                 type='text'
-                                                name='title'
-                                                value={aircraftDetails.title}
-                                                onChange={handleChange}
+                                                name='Name'
+                                                value={Perfil.Name}
+                                                onChange={handleChangePerfil}
                                                 placeholder='Your full name'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
@@ -85,10 +151,10 @@ function ProfileSettings() {
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Email</label>
                                         <div className='relative'>
                                             <input
-                                                type='text'
-                                                name='description'
-                                                value={aircraftDetails.description}
-                                                onChange={handleChange}
+                                                type='email'
+                                                name='Email'
+                                                value={Perfil.Email}
+                                                onChange={handleChangePerfil}
                                                 placeholder='Your email address'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
@@ -99,9 +165,9 @@ function ProfileSettings() {
                                         <div className='relative'>
                                             <input
                                                 type='text'
-                                                name='description'
-                                                value={aircraftDetails.description}
-                                                onChange={handleChange}
+                                                name='Location'
+                                                value={Perfil.Location}
+                                                onChange={handleChangePerfil}
                                                 placeholder='Your location'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
@@ -112,9 +178,9 @@ function ProfileSettings() {
                                         <div className='relative'>
                                             <input
                                                 type='text'
-                                                name='description'
-                                                value={aircraftDetails.description}
-                                                onChange={handleChange}
+                                                name='Nationality'
+                                                value={Perfil.Nationality}
+                                                onChange={handleChangePerfil}
                                                 placeholder='American'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
@@ -124,10 +190,10 @@ function ProfileSettings() {
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Date Of Birth</label>
                                         <div className='relative'>
                                             <input
-                                                type='text'
-                                                name='description'
-                                                value={aircraftDetails.description}
-                                                onChange={handleChange}
+                                                type='date'
+                                                name='Birthday'
+                                                value={Perfil.Birthday}
+                                                onChange={handleChangePerfil}
                                                 placeholder='01/01/1990'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
@@ -136,29 +202,30 @@ function ProfileSettings() {
                                     <div>
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Bio</label>
                                         <div className='relative'>
-                                            <input
-                                                type='text'
-                                                name='description'
-                                                value={aircraftDetails.description}
-                                                onChange={handleChange}
-                                                placeholder='Tell us about yourself'
-                                                className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
-                                            />
+                                            <textarea 
+                                            id="Bio" 
+                                            name="Bio" 
+                                            rows="4" 
+                                            value={Perfil.Bio}  
+                                            onChange={handleChangePerfil}
+                                            placeholder="Tell us about yourself" 
+                                            required
+                                            className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black "></textarea>
                                         </div>
                                     </div>
                                     <div className="rounded-lg bg-[#2C2C2C] p-4">
                                         <div className="flex flex-col sm:flex-row">
                                             <div className="mb-6 sm:mb-0">
                                                 <h1 className="text-xl font-bold text-white mb-4">Logbook</h1>
-                                                <Card imagen={"https://imgv2-2-f.scribdassets.com/img/document/374883636/original/6640e45e4a/1604851331?v=1"} />
+                                                <Card id={1} imagen={image} setimage={setimage} />
                                             </div>
                                             <div className="pl-4 sm:pl-10">
                                                 <h1 className="text-xl font-bold text-white mb-4">Licence</h1>
-                                                <Card imagen={"https://th.bing.com/th/id/R.3310e2cbafdad69a3ba763b96f3b2f77?rik=IHyFU810gVG%2b%2fA&pid=ImgRaw&r=0"} />
+                                                <Card id={2} imagen={imageLic} setimage={setimageLic} />
                                             </div>
                                             <div className="pl-4 sm:pl-10">
                                                 <h1 className="text-xl font-bold text-white mb-4">Medical Certificate</h1>
-                                                <Card imagen={"https://th.bing.com/th/id/OIP.XKCn6qtMi4AAusMjT3mTdAHaFL?rs=1&pid=ImgDetMain"} />
+                                                <Card id={3} imagen={imageMedical} setimage={setimageMedical} />
                                             </div>
                                         </div>
                                     </div>
@@ -168,10 +235,10 @@ function ProfileSettings() {
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Old password</label>
                                         <div className='relative'>
                                             <input
-                                                type='text'
-                                                name='title'
-                                                value={aircraftDetails.title}
-                                                onChange={handleChange}
+                                                type='password'
+                                                name='Oldpassword'
+                                                value={LoginSetting.Oldpassword}
+                                                onChange={handleChangeLoginSetting}
                                                 placeholder='Enter your old password'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
@@ -182,10 +249,10 @@ function ProfileSettings() {
                                             <label className='block text-sm font-bold ml-1 mb-2 text-white'>New password</label>
                                             <div className='relative'>
                                                 <input
-                                                    type='text'
-                                                    name='title'
-                                                    value={aircraftDetails.title}
-                                                    onChange={handleChange}
+                                                    type='password'
+                                                    name='Newpassword'
+                                                    value={LoginSetting.Newpassword}
+                                                    onChange={handleChangeLoginSetting}
                                                     placeholder='Enter your new password'
                                                     className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                                 />
@@ -195,10 +262,10 @@ function ProfileSettings() {
                                             <label className='block text-sm font-bold ml-10 mb-2 text-white'>Confirm new password</label>
                                             <div className='relative'>
                                                 <input
-                                                    type='text'
-                                                    name='title'
-                                                    value={aircraftDetails.title}
-                                                    onChange={handleChange}
+                                                    type='password'
+                                                    name='Confirmpassword'
+                                                    value={LoginSetting.Confirmpassword}
+                                                    onChange={handleChangeLoginSetting}
                                                     placeholder='Confirm your new password'
                                                     className='py-3 px-4 block w-full text-white text-sm  ml-10 focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                                 />
@@ -209,6 +276,7 @@ function ProfileSettings() {
                                         <div className='my-8'>
                                             <button
                                                 type='submit'
+                                                onClick={(e) => UpdatePassword(e)}
                                                 className=' bg-white py-3 px-6 font-sans text-xs font-bold uppercase text-black rounded-lg shadow-md transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
                                             >
                                                 Update password
@@ -229,30 +297,27 @@ function ProfileSettings() {
     );
 }
 
-const Card = ({ imagen }) => {
-    const [image, setimage] = useState(null);
+const Card = ({ id, imagen, setimage }) => {
 
     const handlechangeImg = (e) => {
         const selectedImage = e.target.files[0];
-        console.log("Image select")
-        console.log(selectedImage)
+        if (selectedImage) {
+            const reader = new FileReader()
+            reader.onload = function (e) {
+                const imageUrl = e.target.result
+                setimage(imageUrl)
+            }
+            reader.readAsDataURL(selectedImage)
+        }
     };
-
-    const [selectedOption, setSelectedOption] = useState('');
-
-    const options = [
-        { value: 'option1', label: 'Option 1' },
-        { value: 'option2', label: 'Option 2' },
-        { value: 'option3', label: 'Option 3' },
-    ];
 
     return (
         <div className="m-2 p-4 bg-black rounded-lg border border-orange-500 max-w-md">
             <div className='flex items-center justify-center'>
-                <div className='flex items-center justify-center w-full max-w-md h-48 bg-black rounded-lg'>
-                    <label htmlFor="file-upload" className="px-3 py-2 text-right text-xs leading-4">
+                <div className='flex items-center justify-center w-full max-w-md h-48 rounded-lg' style={{ backgroundImage: imagen ? `url(${imagen})` : 'none', backgroundColor: imagen ? 'transparent' : 'black', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                    <label htmlFor={`file-upload-${id}`} className="px-3 py-2 text-right text-xs leading-4">
                         <div className="bg-white text-black px-4 py-2 rounded-full mb-6 max-w-md text-center cursor-pointer">
-                            <input id="file-upload" type="file" onChange={handlechangeImg} className="hidden" />
+                            <input id={`file-upload-${id}`} type="file" onChange={handlechangeImg} className="hidden" />
                             <span className=''>
                                 Click or Draw Image
                             </span>
@@ -288,7 +353,7 @@ const NavBar = () => {
             <nav className="bg-black  p-4">
                 <div className="mx-auto max-w-9xl px-2 sm:px-4 lg:px-6">
                     <div className="relative flex h-16 items-center justify-between">
-                        
+
                         <div className="flex items-center justify-end sm:justify-start">
                             <div className=" hidden sm:flex">
                                 <div className="relative">

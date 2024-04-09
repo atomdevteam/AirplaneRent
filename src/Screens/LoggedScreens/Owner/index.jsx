@@ -12,8 +12,6 @@ import MyAircrafts from '../../../Layout/MyAircrafts/MyAircrafts'
 //Entry point of the screen that the OWNER will always see
 function index() {
 
-    console.log('OwnerScreen')
-
     return (
         <div className="flex bg-[#2c2c2c]">
             <Sidebar />

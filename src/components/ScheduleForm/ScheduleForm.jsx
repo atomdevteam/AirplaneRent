@@ -37,7 +37,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
     }
 
     const formattedMesActual = format(date, 'yyyy-MM-dd');
-    console.log("hhaaaa",formattedMesActual)
+   
 
     const handleSave = (e) => {
         e.preventDefault()
@@ -98,6 +98,7 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
     }
 
     useEffect(() => {
+      
         if (reservationEdit) {
             setidreservation(reservationEdit.id)
             setname(reservationEdit.name)
@@ -211,23 +212,6 @@ const ScheduleForm = ({ isOpen, setIsOpen, onSave, reservations, setReservations
         }
       
     }
-
-    useEffect(() => {
-
-        // {user && user.displayName}
-
-        if (user) {
-            // setname(user.displayName)
-            setname(localStorage.getItem("DisplayName"))
-        }
-
-    }, [user, isOpen])
-
-
-
-
-
-
 
     const handleCloseModal = (e) => {
         e.preventDefault()

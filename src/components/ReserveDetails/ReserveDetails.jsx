@@ -68,9 +68,9 @@ function ReserveDetails() {
         const fetchData = async () => {
             try {
                 const partnersData = await GetAll();
-                console.log("Hola", partnersData)
+            
                 setCalenderAll(partnersData)
-                console.log(GetAll())
+            
             } catch (error) {
                 console.error("Error fetching data:", error);
             }

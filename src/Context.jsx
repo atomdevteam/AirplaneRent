@@ -319,12 +319,11 @@ export function ProviderContext({ children }) {
           }
         } else if (roleAsString === "manager") {
 
-          console.log("Es manager")
           setWhichRole(roleAsString)
           //Allpermission
           if (infoUsertype) {
             if (infoUsertype.Allpermission) {
-              console.log("Todos los permisos permitidos")
+             
               localStorage.setItem("Rol", roleAsString)
               setCanReservation(true)
               setCanEdit(true)

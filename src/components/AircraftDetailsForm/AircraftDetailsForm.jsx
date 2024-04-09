@@ -102,12 +102,6 @@ const AircraftDetailsForm = () => {
 
                             <div>
                                 <div className='my-8'>
-                                    <button
-                                        type='submit'
-                                        className="middle w-full none center mr-4 rounded-lg bg-[#0d7ca8] py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                                    >
-                                        Save
-                                    </button>
                                 </div>
                             </div>
                         </form>

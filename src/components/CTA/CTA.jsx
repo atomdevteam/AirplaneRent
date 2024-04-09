@@ -3,12 +3,19 @@ const CTA = () => {
     const [image, setimage] = useState(null);
 
     const handlechangeImg = (e) => {
-        const selectedImage = e.target.files[0];
-        console.log("Image select")
-        console.log(selectedImage)
+        const selectedImage = e.target.files[0]
+
+        if (selectedImage) {
+            const reader = new FileReader()
+            reader.onload = function (e) {
+                const imageUrl = e.target.result
+                setimage(imageUrl)
+            }
+            reader.readAsDataURL(selectedImage)
+        }
     };
 
-   
+
     const [selectedOption, setSelectedOption] = useState('');
 
     const options = [
@@ -25,8 +32,8 @@ const CTA = () => {
                     <span className='text-white mt-[1rem] text-lg'>Cover Image</span>
                     <div className="container mx-auto mt-8">
                         <div className='flex items-center justify-center'>
-                            <div className='flex items-center justify-center w-[45rem] h-[15rem] bg-black rounded-lg'>
-                                <label htmlFor="file-upload" className="px-3 py-2 text-right  text-xs leading-4">
+                            <div className='flex items-center justify-center w-[45rem] h-[15rem] rounded-lg' style={{ backgroundImage: image ? `url(${image})` : 'none', backgroundColor: image ? 'transparent' : 'black', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                                <label htmlFor="file-upload" className="px-3 py-2 text-right text-xs leading-4">
                                     <div className="bg-white text-black px-4 py-2 rounded-full mb-6 w-60 text-center cursor-pointer">
                                         <input id="file-upload" type="file" onChange={handlechangeImg} className="hidden" />
                                         <span className=''>
@@ -35,6 +42,18 @@ const CTA = () => {
                                     </div>
                                 </label>
                             </div>
+
+
+                            {/* <div className='flex items-center justify-center w-[45rem] h-[15rem] bg-black rounded-lg'>
+                                <label htmlFor="file-upload" className="px-3 py-2 text-right  text-xs leading-4">
+                                    <div className="bg-white text-black px-4 py-2 rounded-full mb-6 w-60 text-center cursor-pointer">
+                                        <input id="file-upload" type="file" onChange={handlechangeImg} className="hidden" />
+                                        <span className=''>
+                                            Click or Draw Image
+                                        </span>
+                                    </div>
+                                </label>
+                            </div> */}
                         </div>
 
 
@@ -48,7 +67,7 @@ const CTA = () => {
                                     value={selectedOption}
                                     onChange={(e) => setSelectedOption(e.target.value)}
                                     className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full"
-                                  
+
                                 >
                                     <option className='' value="" disabled>Select an option</option>
                                     {options.map((option) => (
