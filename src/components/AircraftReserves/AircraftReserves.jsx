@@ -12,7 +12,7 @@ import {
     Filler,
 } from 'chart.js';
 import { Link } from 'react-router-dom';
-import Calander from '../Calendar/Calendar';
+import Calander from '../Calender/Calender';
 import HoursComp from '../Hours/Hours';
 ChartJS.register(
     CategoryScale,

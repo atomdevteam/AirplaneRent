@@ -19,7 +19,7 @@ const datos = [
         hora: "1 hour ago",
         isEnable: false,
     },
- 
+
 ];
 function Notifications() {
 
@@ -35,14 +35,14 @@ function Notifications() {
 
         <div className=''>
             {/* <NavBar></NavBar> */}
-            <div className='flex flex-row items-center justify-center '>
-                
+            <div className='flex flex-row items-center justify-center h-screen '>
+
                 <div className='w-[58rem]'>
-                    <div className='mt-[2rem] pl-10 mb-[1rem]'>
-                    
-                    <div className='flex flex-col mb-4'>
-                               <h1 className='text-white text-xl '>Manage Notifications</h1>
-                               <span className='text-gray-300 mt-4'>View and Manage all notifications in one place</span>
+                    <div className='-mt-[6rem] pl-10 mb-[1rem]'>
+
+                        <div className='flex flex-col mb-4'>
+                            <h1 className='text-white text-xl '>Manage Notifications</h1>
+                            <span className='text-gray-300 mt-4'>View and Manage all notifications in one place</span>
                         </div>
                         <div className='bg-[#2c2c2c] rounded-xl mr-6  h-auto'>
                             <div className='flex flex-col mt-2 ml-[1rem]'>
@@ -89,14 +89,14 @@ function Notifications() {
 
                                                             </div>
                                                         </div>
-                                                        {item.isEnable === true ? 
-                                                        <div className="flex mt-2 space-x-2">
-                                                            <button className="text-white">Like</button>
-                                                            <button className="text-white">Reply</button>
-                                                        </div> : <div className="flex mt-2 space-x-2">
-                                                            <button className="text-white">Appro</button>
-                                                            <button className="text-white">Reject</button>
-                                                        </div>}
+                                                        {item.isEnable === true ?
+                                                            <div className="flex mt-2 space-x-2">
+                                                                <button className="text-white">Like</button>
+                                                                <button className="text-white">Reply</button>
+                                                            </div> : <div className="flex mt-2 space-x-2">
+                                                                <button className="text-white">Appro</button>
+                                                                <button className="text-white">Reject</button>
+                                                            </div>}
 
                                                     </div>
 
@@ -143,7 +143,7 @@ function Filter() {
     };
 
     return (
-        <div className='mt-[6rem]  mb-[1rem]'>
+        <div className='-mt-[2rem]  mb-[1rem]'>
             <div className="original-container-style bg-[#2c2c2c] rounded-xl">
                 <div className="p-4   ">
                     <div className="mb-4">

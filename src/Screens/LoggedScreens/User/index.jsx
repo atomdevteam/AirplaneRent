@@ -5,12 +5,11 @@ import Sidebar from './Sidebar/Sidebar'
 import Logout from '../../../Layout/Logout/Logout'
 import Hours from '../../../components/Hours/Hours'
 import Dashboard from './Dashboard/Dashboard'
-import Calander from '../../../components/Calendar/Calendar'
+import Calander from '../../../components/Calender/Calender'
 import AirplaneRent from '../../../Layout/AirplaneRent/AirplaneRent'
 import Notifications from '../../../components/Notifications/Notifications'
 import ProfileDetails from '../../../components/ProfileDetails/ProfileDetails'
 import ProfileSettings from '../../../components/ProfileSettings/ProfileSettings'
-
 //Entry point of the screen that the USER will always see
 function index() {
 

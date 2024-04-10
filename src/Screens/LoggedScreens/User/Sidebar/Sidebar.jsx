@@ -100,7 +100,7 @@ const Sidebar = () => {
                             
                             // className="w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none"
                             className={`w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none ${
-                                location.pathname === route.route ? 'text-green-500' : ''
+                                location.pathname === route.route ? 'text-orange-400' : ''
                             }`}
                             
                             >
