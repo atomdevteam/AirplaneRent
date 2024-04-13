@@ -29,9 +29,6 @@ const CardExplore = ({setIsOpenLogIn}) => {
                         <Bar setIsOpenLogIn={setIsOpenLogIn}/>
                     </div>
                 </div>
-
-
-
             </div>
             <div className='md:hidden mt-[2rem]'>
                 <BarMobile />

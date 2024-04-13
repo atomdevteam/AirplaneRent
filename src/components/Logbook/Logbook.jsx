@@ -10,10 +10,8 @@ function Logbook() {
 
             </div>
             <div className="w-full rounded-b-lg flex bg-[#2C2C2C] p-6  items-center justify-center mt-6">
-                {/* <div className="text-white bg-orange-500 rounded-md px-4 flex items-center justify-center">More personal information</div> */}
+
             </div>
-
-
         </div>
 
 

@@ -10,10 +10,6 @@ import { useContextAir } from '../../../Context';
 const NavBar = ({ open2, setOpen2, isOpenLogIn, isOpenSignUp, setIsOpenLogIn, setIsOpenSignUp }) => {
   const { user } = useContextAir()
   const [isMenuOpen, setMenuOpen] = useState(false);
-  // const [isOpenLogIn, setIsOpenLogIn] = useState(false)
-  // const [isOpenSignUp, setIsOpenSignUp] = useState(false)
-
-
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
@@ -24,9 +20,6 @@ const NavBar = ({ open2, setOpen2, isOpenLogIn, isOpenSignUp, setIsOpenLogIn, se
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-
-
-
 
   return (
     <nav className="bg-[#2c2c2c] p-4 flex justify-between items-center">

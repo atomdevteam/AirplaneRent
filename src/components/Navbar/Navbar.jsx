@@ -28,18 +28,6 @@ const {user} = useContextAir()
                                 </svg>
                             </button>
                         </div>
-                        {/* <div className="flex items-center   justify-end sm:justify-start mb-4">
-                            <div className=" hidden sm:flex ">
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        placeholder="Search..."
-                                        className="border border-black text-white bg-gray-600 px-6 py-2 rounded-full focus:outline-none w-[20rem]"
-                                    />
-                                    <HiMagnifyingGlass color='white' className="absolute right-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400" />
-                                </div>
-                            </div>
-                        </div> */}
 
                         <div className="flex items-center justify-end sm:justify-start">
                             <div className=" hidden sm:flex">
@@ -53,8 +41,6 @@ const {user} = useContextAir()
                                 </div>
                             </div>
                         </div>
-
-
 
                         <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                           

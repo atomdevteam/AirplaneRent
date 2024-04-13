@@ -22,8 +22,6 @@ function AirplaneHistory() {
                             <tr key={index} className={index % 2 === 1 ? 'bg-[#2C2C2C]' : 'bg-black'}>
                                 <td className="py-3 px-6 text-white">{nombre}</td>
                                 <td className="py-3 px-6 text-right">
-                                    {/*bg-orange-500 text-white font-bold py-2 px-4 rounded-full  */}
-                                    {/* estado[index] === 'Active' ? 'bg-orange-500' : 'bg-white' */}
                                     <button className={`px-2 py-1 text-sm text-black font-bold rounded-full ${estado[index] === 'Active' ? 'bg-orange-500' : 'bg-white'}`}>
                                         {estado[index]}
                                     </button>
@@ -34,11 +32,6 @@ function AirplaneHistory() {
                 </table>
             </div>
         </div>
-
-
-
-
-
     );
 };
 

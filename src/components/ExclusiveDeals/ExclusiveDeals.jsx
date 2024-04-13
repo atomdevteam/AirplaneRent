@@ -23,8 +23,6 @@ const ExclusiveDeals = () => {
           </div>
         </div>
       </div>
-      
-
     )
 }
 

@@ -1,9 +1,13 @@
 import { createContext, useContext, useState, useEffect } from "react"
 import { db, auth } from "./firebase/firebase"
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "firebase/auth"
+import {
+  signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  signOut, onAuthStateChanged, updateProfile, reauthenticateWithCredential, updatePassword,
+  EmailAuthProvider
+} from "firebase/auth"
 import { toast } from "react-toastify"
 import { set, ref, query, orderByChild, equalTo, onValue, get, update, push, remove } from "firebase/database"
-
+import { getStorage, ref as storageref, uploadBytes, getDownloadURL } from "firebase/storage"
 
 const Context = createContext()
 //123456789
@@ -29,6 +33,7 @@ export function ProviderContext({ children }) {
   const [CanChangeImg, setCanChangeImg] = useState(false)
   const [CanChanInfoAer, setCanChanInfoAer] = useState(false)
   const [WhichRole, setWhichRole] = useState(null)
+  const [InforPerfil, setInforPerfil] = useState(null)
 
   //Funtions
   const LogIn = (email, password) => {
@@ -40,9 +45,9 @@ export function ProviderContext({ children }) {
           localStorage.setItem("DisplayName", user.displayName)
           setisAuth(true)
           toast.success("Session started successfully!",
-          {
-            theme: "dark"
-          })
+            {
+              theme: "dark"
+            })
 
         })
       })
@@ -216,7 +221,7 @@ export function ProviderContext({ children }) {
           .map(rol => rol.role);
         const roleAsString = loggedInUserRole.join('');
         const infoUsertype = Object.values(data || {}).find(rolUser => rolUser.userId === id)
-
+        setInforPerfil(infoUsertype)
         if (roleAsString === "user") {
           // console.log("Es user")
           setWhichRole(roleAsString)
@@ -323,7 +328,7 @@ export function ProviderContext({ children }) {
           //Allpermission
           if (infoUsertype) {
             if (infoUsertype.Allpermission) {
-             
+
               localStorage.setItem("Rol", roleAsString)
               setCanReservation(true)
               setCanEdit(true)
@@ -374,8 +379,6 @@ export function ProviderContext({ children }) {
     }
   };
 
-
-
   useEffect(() => {
     const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
       // console.log({ currentUser });
@@ -385,10 +388,6 @@ export function ProviderContext({ children }) {
     return () => unsubuscribe();
   }, [user]);
 
-
-
-
-
   useEffect(() => {
     if (user) {
       ShowRoles(user.uid)
@@ -397,9 +396,78 @@ export function ProviderContext({ children }) {
 
   }, [user])
 
+  const UploadImagePerfil = (file, userId, setPicture) => {
+    const storage = getStorage()
+    const storageRef = storageref(storage, `Perfil/${userId}/${file.name}`)
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Imagen subida correctamente')
+      getDownloadURL(storageRef)
+        .then((url) => {
+          console.log(url)
+          setPicture(url)
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+    }).catch((error) => {
+      console.error('Error al subir la imagen:', error);
+    });
+  }
 
-  // console.log("Pude reservar ? " + CanReservation)
+  const updatePerfil = (newPerfilData) => {
+    let idkey = null
+    let updateP = 0
+    try {
+      const fetchData = ref(db, 'Roles/');
+      onValue(fetchData, (snapshot) => {
+        const data = snapshot.val();
+        const infoUsertype = Object.entries(data || {}).find(([key, value]) => {
+          if (value.userId === newPerfilData.userId) {
+            idkey = key
+            try {
+              if (idkey) {
+                const perfilRef = ref(db, `Roles/${idkey}`);
+                update(perfilRef, newPerfilData);
+                updateP = 1
 
+
+              } else {
+                toast.error("User ID not found.");
+              }
+            } catch (error) {
+              toast.error("Error updating profile:", error);
+            }
+
+          }
+          return null;
+        });
+
+      });
+    } catch (error) {
+      console.error("Error al obtener datos:", error);
+    }
+
+    if (updateP === 1) {
+      toast.success("Profile updated successfully!",
+        {
+          theme: "dark"
+        })
+    }
+  }
+
+  const UpdatePassword = (email, password, Newpassword) => {
+    const credential = EmailAuthProvider.credential(email, password);
+    reauthenticateWithCredential(user, credential)
+      .then(() => {
+        return updatePassword(user, Newpassword);
+      })
+      .then(() => {
+        toast.success("Password has been updated!");
+      })
+      .catch((error) => {
+        toast.error("The current password you entered does not match our records!")
+      });
+  }
 
   return (
     <Context.Provider
@@ -419,7 +487,11 @@ export function ProviderContext({ children }) {
         CanReservation,
         CanEdit,
         CanDelete,
-        WhichRole
+        WhichRole,
+        InforPerfil,
+        updatePerfil,
+        UploadImagePerfil,
+        UpdatePassword
       }}
     >
       {children}

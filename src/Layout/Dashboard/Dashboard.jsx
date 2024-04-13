@@ -19,17 +19,6 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    // <div className='flex flex-col'>
-    //     <Navbar/>
-
-    //     <UserProfile />
-    //     <AircraftReserves />
-    // </div>
-    // <div className='flex flex-col'>
-    //     <Navbar/>
-    //     <UserProfile />
-    //     <AircraftReserves />
-    // </div>
   )
 }
 

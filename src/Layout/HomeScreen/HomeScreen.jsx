@@ -45,15 +45,11 @@ const HomeScreen = () => {
       </div>
       <Footer />
       <div
-        className="absolute top-6 right-3"
-      >
-        <div className="flex gap-3 items-center user cursor-pointer"
-
-        >
+        className="absolute top-6 right-3">
+        <div className="flex gap-3 items-center user cursor-pointer">
           <div
             style={open2 ? { display: 'block' } : { display: 'none' }}
-            className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3"
-          >
+            className="drop-down w-48 overflow-hidden bg-black border-solid border-2 border-sky-500 drop-shadow-md absolute top-12 right-3">
             <ul>
               <li className="px-3 py-3 text-md font-medium flex items-center space-x-2 hover:bg-slate-400">
                 <span
@@ -68,16 +64,6 @@ const HomeScreen = () => {
         </div>
       </div>
     </div>
-    // <div className='bg-black'>
-    //   <NavBar />
-    //   <div className='flex flex-col mt-6 mx-12 w-auto'>
-    //     <CardExplore />
-    //     <Populardestinations />
-    //     <Topairplanes />
-    //     <ExclusiveDeals />
-    //   </div>
-    //   <Footer />
-    // </div>
   );
 };
 

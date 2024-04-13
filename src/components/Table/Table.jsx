@@ -208,19 +208,10 @@ function Table() {
                         &#9656;
                         </button>
                 </div>
-
-
-
-
             </div>
         </>
 
     );
-
-
-
-
-
 }
 
 export default Table

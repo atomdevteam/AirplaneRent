@@ -1,25 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaPlane } from "react-icons/fa"
 import { FaHandPaper } from "react-icons/fa"
 import { IoMdNotifications } from "react-icons/io"
 import { FaUserCircle } from "react-icons/fa";
-function ProfileSettings() {
-    const [image, setimage] = useState(null)
-    const [imageLic, setimageLic] = useState(null)
-    const [imageMedical, setimageMedical] = useState(null)
+import { useContextAir } from '../../Context';
+import { toast } from "react-toastify"
 
-    const [Picture, setPicture] = useState(null)
+function ProfileSettings() {
+    const { user, InforPerfil, UploadImagePerfil, updatePerfil, UpdatePassword } = useContextAir()
+    const [image, setimage] = useState(InforPerfil?.Logbook)
+    const [imageLic, setimageLic] = useState(InforPerfil?.Licence)
+    const [imageMedical, setimageMedical] = useState(InforPerfil?.MedicalCertificate)
+
+    const [Picture, setPicture] = useState(InforPerfil?.Photo)
     const [Perfil, setPerfil] = useState({
-        Name: '',
-        Email: '',
-        Photo: '',
-        Location: '',
-        Nationality: '',
-        Birthday: '',
-        Bio: '',
-        Logbook: null,
-        Licence: null,
-        MedicalCertificate: null
+        Name: InforPerfil?.name,
+        Email: InforPerfil?.email,
+        Photo: Picture,
+        Location: InforPerfil?.location,
+        Nationality: InforPerfil?.nationality,
+        Birthday: InforPerfil?.birthday,
+        Bio: InforPerfil?.bio,
+        Logbook: image,
+        Licence: imageLic,
+        MedicalCertificate: imageMedical
     })
 
     const handleChangePerfil = (e) => {
@@ -48,12 +52,14 @@ function ProfileSettings() {
     const handlechangeImg = (e) => {
         const selectedImage = e.target.files[0];
         if (selectedImage) {
-            const reader = new FileReader()
-            reader.onload = function (e) {
-                const imageUrl = e.target.result
-                setPicture(imageUrl)
-            }
-            reader.readAsDataURL(selectedImage)
+            UploadImagePerfil(selectedImage, InforPerfil.userId, setPicture)
+
+            // const reader = new FileReader()
+            // reader.onload = function (e) {
+            //     const imageUrl = e.target.result
+            //     setPicture(imageUrl)
+            // }
+            // reader.readAsDataURL(selectedImage)
         }
     }
 
@@ -68,10 +74,10 @@ function ProfileSettings() {
         Perfil.Licence = imageLic,
             Perfil.MedicalCertificate = imageMedical
         Perfil.Photo = Picture
-
         if (
             Perfil.Name.trim() === '' ||
             Perfil.Email.trim() === '' ||
+            Perfil.Photo === null ||
             Perfil.Location.trim() === '' ||
             Perfil.Nationality.trim() === '' ||
             Perfil.Birthday.trim() === '' ||
@@ -83,12 +89,27 @@ function ProfileSettings() {
             console.log('Please fill out all fields.');
             return;
         } else {
-            console.log('Saved data:', Perfil);
+
+            updatePerfil({
+                ...InforPerfil,
+                name: Perfil.Name,
+                email: Perfil.Email,
+                Photo: Perfil.Photo,
+                location: Perfil.Location,
+                nationality: Perfil.Nationality,
+                birthday: Perfil.Birthday,
+                bio: Perfil.Bio,
+                Logbook: Perfil.Logbook,
+                Licence: Perfil.Licence,
+                MedicalCertificate: Perfil.MedicalCertificate,
+
+
+            });
         }
 
     }
 
-    const UpdatePassword = (e) => {
+    const Updatepassword = (e) => {
         e.preventDefault();
 
         if (
@@ -96,15 +117,20 @@ function ProfileSettings() {
             LoginSetting.Newpassword.trim() === "" ||
             LoginSetting.Confirmpassword.trim() === ""
         ) {
-            window.alert("All fields are required!");
+            toast.warn("All fields are required!")
         } else {
-            if (LoginSetting.Newpassword !== LoginSetting.Confirmpassword) {
-                window.alert("Password does not match!");
-            } else {
-                window.alert("Password has been updated!");
-            }
+         
+                if (LoginSetting.Newpassword !== LoginSetting.Confirmpassword) {
+                    toast.warn("Password does not match!");
+                } else {
+                    UpdatePassword(user.email, LoginSetting.Oldpassword, LoginSetting.Newpassword)
+                }
+            
+
         }
     }
+
+  
 
     return (
         <>
@@ -202,30 +228,30 @@ function ProfileSettings() {
                                     <div>
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Bio</label>
                                         <div className='relative'>
-                                            <textarea 
-                                            id="Bio" 
-                                            name="Bio" 
-                                            rows="4" 
-                                            value={Perfil.Bio}  
-                                            onChange={handleChangePerfil}
-                                            placeholder="Tell us about yourself" 
-                                            required
-                                            className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black "></textarea>
+                                            <textarea
+                                                id="Bio"
+                                                name="Bio"
+                                                rows="4"
+                                                value={Perfil.Bio}
+                                                onChange={handleChangePerfil}
+                                                placeholder="Tell us about yourself"
+                                                required
+                                                className="py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black "></textarea>
                                         </div>
                                     </div>
                                     <div className="rounded-lg bg-[#2C2C2C] p-4">
                                         <div className="flex flex-col sm:flex-row">
                                             <div className="mb-6 sm:mb-0">
                                                 <h1 className="text-xl font-bold text-white mb-4">Logbook</h1>
-                                                <Card id={1} imagen={image} setimage={setimage} />
+                                                <Card id={1} imagen={InforPerfil?.Logbook} setimage={setimage} img={image} />
                                             </div>
                                             <div className="pl-4 sm:pl-10">
                                                 <h1 className="text-xl font-bold text-white mb-4">Licence</h1>
-                                                <Card id={2} imagen={imageLic} setimage={setimageLic} />
+                                                <Card id={2} imagen={InforPerfil?.Licence} setimage={setimageLic} img={imageLic} />
                                             </div>
                                             <div className="pl-4 sm:pl-10">
                                                 <h1 className="text-xl font-bold text-white mb-4">Medical Certificate</h1>
-                                                <Card id={3} imagen={imageMedical} setimage={setimageMedical} />
+                                                <Card id={3} imagen={InforPerfil?.MedicalCertificate} setimage={setimageMedical} img={imageMedical} />
                                             </div>
                                         </div>
                                     </div>
@@ -276,7 +302,7 @@ function ProfileSettings() {
                                         <div className='my-8'>
                                             <button
                                                 type='submit'
-                                                onClick={(e) => UpdatePassword(e)}
+                                                onClick={(e) => Updatepassword(e)}
                                                 className=' bg-white py-3 px-6 font-sans text-xs font-bold uppercase text-black rounded-lg shadow-md transition-all hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
                                             >
                                                 Update password
@@ -297,7 +323,7 @@ function ProfileSettings() {
     );
 }
 
-const Card = ({ id, imagen, setimage }) => {
+const Card = ({ id, imagen, setimage, img }) => {
 
     const handlechangeImg = (e) => {
         const selectedImage = e.target.files[0];
@@ -314,7 +340,7 @@ const Card = ({ id, imagen, setimage }) => {
     return (
         <div className="m-2 p-4 bg-black rounded-lg border border-orange-500 max-w-md">
             <div className='flex items-center justify-center'>
-                <div className='flex items-center justify-center w-full max-w-md h-48 rounded-lg' style={{ backgroundImage: imagen ? `url(${imagen})` : 'none', backgroundColor: imagen ? 'transparent' : 'black', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <div className='flex items-center justify-center w-full max-w-md h-48 rounded-lg' style={{ backgroundImage: imagen ? `url(${img !== null ? img : imagen})` : 'none', backgroundColor: imagen ? 'transparent' : 'black', backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <label htmlFor={`file-upload-${id}`} className="px-3 py-2 text-right text-xs leading-4">
                         <div className="bg-white text-black px-4 py-2 rounded-full mb-6 max-w-md text-center cursor-pointer">
                             <input id={`file-upload-${id}`} type="file" onChange={handlechangeImg} className="hidden" />

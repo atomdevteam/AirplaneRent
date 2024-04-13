@@ -1,11 +1,8 @@
-// import React from 'react'
-// import SidebarItem from '../../components/SidebarItem/SidebarItem';
-// import { IoMdHome, IoMdSearch, IoMdAdd, IoMdNotifications, IoMdPerson, IoMdSettings } from "react-icons/io";
+import React from 'react'
 import { useContextAir } from '../../../../Context';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaWallet } from "react-icons/fa6";
-// import { FaShield } from "react-icons/fa6";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import { IoPersonSharp } from "react-icons/io5";
 import { BiLogOut } from "react-icons/bi"
@@ -53,15 +50,6 @@ const generalRoutes = [
     }
 ]
 
-// const personalRoutes = [
-//     {
-//         name: 'Log out',
-//         icon: <BiLogOut size={20}/>,
-//         route: '/'
-//     },
-
-// ]
-
 const Sidebar = () => {
     const { logout } = useContextAir();
     const history = useNavigate();
@@ -92,13 +80,11 @@ const Sidebar = () => {
                 </div>
 
                 <div className="mt-5 flex flex-col h-[85%] overflow-y-auto">
-                    {/* General Routes */}
                     <p className="text-white pl-7 font-bold text-lg mb-3">Dashboard</p>
                     <div className="flex-none">
                         {generalRoutes.map((route) => (
                             <Link to={route.route} key={route.name} 
                             
-                            // className="w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none"
                             className={`w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none ${
                                 location.pathname === route.route ? 'text-orange-400' : ''
                             }`}
@@ -116,16 +102,6 @@ const Sidebar = () => {
                             <span className="mx-4 font-medium">Log out</span>
                         </button>
                     </div>
-
-                    {/* Personal Routes */}
-                    {/* <div className="flex-grow mt-8">
-                        {personalRoutes.map((route) => (
-                            <Link to={route.route} key={route.name} className="w-full flex items-center py-3 px-6 text-gray-100 hover:bg-gray-700 hover:text-gray-100 focus:outline-none">
-                                {route.icon}
-                                <span className="mx-4 font-medium">{route.name}</span>
-                            </Link>
-                        ))}
-                    </div> */}
                 </div>
             </div>
         </div>

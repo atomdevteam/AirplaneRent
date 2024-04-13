@@ -64,57 +64,7 @@ function Navbar({ toggleSidebar }) {
                                     </div>
                                 )}
                             </div>
-
-                            {/* <div className="sm:hidden ml-4">
-                                <div className="flex items-center justify-end sm:justify-start ml-6">
-                                    <div className="flex">
-                                        <div className="relative">
-                                            <input
-                                                type="text"
-                                                placeholder="Search aircraft"
-                                                className="border border-black text-white bg-[#2C2C2C] px-6 py-2 rounded-full focus:outline-none w-auto"
-                                            />
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> */}
                         </div>
-
-
-                        {/* <div className="absolute flex items-center justify-end sm:justify-start">
-
-
-                            <button type="button" className="relative rounded-full bg-white-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                                <span className="absolute -inset-1.5"></span>
-                                <div className='relative'>
-                                    <IoAirplaneSharp color='white' className="h-6 w-6" />
-                                    <div className="absolute bg-red-500 w-3 h-3 top-0 transform -translate-y-1/2 right-0 rounded-full"></div>
-                                </div>
-                            </button>
-
-                            <button
-                                type="button"
-                                className="relative rounded-full bg-white-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                            >
-                                <span className="absolute -inset-1.5"></span>
-                                <div className='relative'>
-                                    <IoMdNotifications color='white' className="h-6 w-6" />
-                                    <div className="absolute bg-red-500 w-3 h-3 top-0 transform -translate-y-1/2 right-0 rounded-full"></div>
-                                </div>
-                            </button>
-
-
-                            <div className="ml-3">
-                                <button type="button" className="relative  rounded-full bg-white-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                    <div className='relative'>
-                                        <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
-
-                                    </div>
-                                </button>
-                            </div>
-                        </div> */}
 
                         <div className="absolute inset-y-0 right-0 flex items-center pr-6 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                             <button type="button" className="relative rounded-full mx-4 bg-white-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -153,7 +103,6 @@ function Navbar({ toggleSidebar }) {
                     </div>
                 </div>
             </nav>
-
 
         </>
     )
