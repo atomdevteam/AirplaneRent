@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import { FaPlane } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
 import { HiMagnifyingGlass } from 'react-icons/hi2';
+import { FaUserCircle } from 'react-icons/fa';
 import { useContextAir } from '../../../../Context';
 
 function Navbar() {
-    const {InforPerfil} = useContextAir()
+    const { InforPerfil } = useContextAir()
 
     return (
         <div>
@@ -47,7 +48,12 @@ function Navbar() {
                                     <button type="button" className="relative flex rounded-full bg-white-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                         <span className="absolute -inset-1.5"></span>
                                         <span className="sr-only">Open user menu</span>
-                                        <img className="h-12 w-12 rounded-full" src={InforPerfil?.Photo} alt="" />
+                                        {InforPerfil?.Photo === null ? (
+                                            <img className="h-12 w-12 rounded-full" src={InforPerfil?.Photo} alt="" />
+                                        ) : (
+                                            <FaUserCircle color='gray' className='h-12 w-12 rounded-full' />
+                                        )}
+
                                     </button>
                                 </div>
                             </div>

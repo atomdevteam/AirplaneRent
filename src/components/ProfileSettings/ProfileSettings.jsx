@@ -5,6 +5,8 @@ import { IoMdNotifications } from "react-icons/io"
 import { FaUserCircle } from "react-icons/fa";
 import { useContextAir } from '../../Context';
 import { toast } from "react-toastify"
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function ProfileSettings() {
     const { user, InforPerfil, UploadImagePerfil, updatePerfil, UpdatePassword } = useContextAir()
@@ -13,6 +15,7 @@ function ProfileSettings() {
     const [imageMedical, setimageMedical] = useState(InforPerfil?.MedicalCertificate)
 
     const [Picture, setPicture] = useState(InforPerfil?.Photo)
+    const [PictureChange, setPictureChange] = useState(null)
     const [Perfil, setPerfil] = useState({
         Name: InforPerfil?.name,
         Email: InforPerfil?.email,
@@ -52,14 +55,15 @@ function ProfileSettings() {
     const handlechangeImg = (e) => {
         const selectedImage = e.target.files[0];
         if (selectedImage) {
-            UploadImagePerfil(selectedImage, InforPerfil.userId, setPicture)
+            const reader = new FileReader()
+            reader.onload = function (e) {
+                const imageUrl = e.target.result
+                setPictureChange(imageUrl)
+                UploadImagePerfil(selectedImage, InforPerfil.userId, setPicture)
+            }
+            reader.readAsDataURL(selectedImage)
 
-            // const reader = new FileReader()
-            // reader.onload = function (e) {
-            //     const imageUrl = e.target.result
-            //     setPicture(imageUrl)
-            // }
-            // reader.readAsDataURL(selectedImage)
+
         }
     }
 
@@ -119,18 +123,18 @@ function ProfileSettings() {
         ) {
             toast.warn("All fields are required!")
         } else {
-         
-                if (LoginSetting.Newpassword !== LoginSetting.Confirmpassword) {
-                    toast.warn("Password does not match!");
-                } else {
-                    UpdatePassword(user.email, LoginSetting.Oldpassword, LoginSetting.Newpassword)
-                }
-            
+
+            if (LoginSetting.Newpassword !== LoginSetting.Confirmpassword) {
+                toast.warn("Password does not match!");
+            } else {
+                UpdatePassword(user.email, LoginSetting.Oldpassword, LoginSetting.Newpassword)
+            }
+
 
         }
     }
 
-  
+
 
     return (
         <>
@@ -141,13 +145,22 @@ function ProfileSettings() {
                             <h1 className='text-white mt-4'>Profile information</h1>
                             <div className='flex items-center mt-4 pl-6 '>
                                 {Picture === null ? (
-                                    <FaUserCircle color='gray' className='rounded-full h-28 w-28 mr-4' />
-                                ) : (
                                     <img
                                         src={Picture}
                                         alt='Profile'
                                         className='rounded-full h-28 w-28 mr-4 text-white'
                                     />
+                                ) : (
+                                    PictureChange === null ?
+                                        <FaUserCircle color='gray' className='rounded-full h-28 w-28 mr-4' />
+                                        :
+
+                                        <img
+                                            src={PictureChange}
+                                            alt='Profile'
+                                            className='rounded-full h-28 w-28 mr-4 text-white'
+                                        />
+
                                 )}
 
                                 <div className='flex justify-start pl-2'>
@@ -215,16 +228,16 @@ function ProfileSettings() {
                                     <div>
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Date Of Birth</label>
                                         <div className='relative'>
-                                            <input
-                                                type='date'
-                                                name='Birthday'
-                                                value={Perfil.Birthday}
+                                            <DatePicker
+                                                selected={Perfil.Birthday}
                                                 onChange={handleChangePerfil}
-                                                placeholder='01/01/1990'
+                                                placeholderText='dd/mm/yyyy'
+                                                dateFormat='dd/MM/yyyy'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
                                         </div>
                                     </div>
+
                                     <div>
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Bio</label>
                                         <div className='relative'>

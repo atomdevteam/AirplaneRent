@@ -5,8 +5,8 @@ import userAvatar from '../../assets/userAvatar.svg'
 import { FaUserCircle } from "react-icons/fa";
 function PersonalDetails() {
     const { user, InforPerfil } = useContextAir()
-    console.log("Personal")
-    console.log(user)
+    const [Picture, setPicture] = useState(InforPerfil?.Photo)
+
     return (
         <div className="w-1/2 mr-4 bg-[#2C2C2C] rounded-xl overflow-hidden shadow-md">
             <div className="m-4">
@@ -14,14 +14,14 @@ function PersonalDetails() {
             </div>
             <div className=' flex flex-col sm:flex-row items-center ml-4'>
                 <div className="aspect-w-16 sm:aspect-w-9  aspect-h-9 ">
-                    {InforPerfil?.Photo === null ? (
-                        <FaUserCircle color='gray' className='object-cover object-center w-full h-48 sm:w-48 sm:h-48 rounded-full' />
-                    ) : (
+                    {Picture === null ? (
                         <img
-                            src={InforPerfil?.Photo}
+                            src={Picture}
                             alt='Profile'
                             className='object-cover object-center w-full h-48 sm:w-48 sm:h-48 rounded-full'
                         />
+                    ) : (<FaUserCircle color='gray' className='object-cover object-center w-full h-48 sm:w-48 sm:h-48 rounded-full' />
+
                     )}
                     <p className=" font-semibold text-center mt-2 text-white">{InforPerfil?.name}</p>
                 </div>
