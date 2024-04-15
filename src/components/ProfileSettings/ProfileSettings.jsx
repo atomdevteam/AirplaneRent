@@ -228,16 +228,16 @@ function ProfileSettings() {
                                     <div>
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Date Of Birth</label>
                                         <div className='relative'>
-                                            <DatePicker
-                                                selected={Perfil.Birthday}
+                                            <input
+                                                type='date'
+                                                name='Birthday'
+                                                value={Perfil.Birthday}
                                                 onChange={handleChangePerfil}
-                                                placeholderText='dd/mm/yyyy'
-                                                dateFormat='dd/MM/yyyy'
+                                                placeholder='dd/mm/yyyy'
                                                 className='py-3 px-4 block w-full text-white text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm bg-transparent border-b border-black rounded-full'
                                             />
                                         </div>
                                     </div>
-
                                     <div>
                                         <label className='block text-sm font-bold ml-1 mb-2 text-white'>Bio</label>
                                         <div className='relative'>
@@ -353,7 +353,7 @@ const Card = ({ id, imagen, setimage, img }) => {
     return (
         <div className="m-2 p-4 bg-black rounded-lg border border-orange-500 max-w-md">
             <div className='flex items-center justify-center'>
-                <div className='flex items-center justify-center w-full max-w-md h-48 rounded-lg' style={{ backgroundImage: imagen ? `url(${img !== null ? img : imagen})` : 'none', backgroundColor: imagen ? 'transparent' : 'black', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <div className='flex items-center justify-center w-full max-w-md h-48 rounded-lg' style={{ backgroundImage: imagen ? `url(${imagen})` : `url(${img})`, backgroundColor: imagen ? 'transparent' : 'black', backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <label htmlFor={`file-upload-${id}`} className="px-3 py-2 text-right text-xs leading-4">
                         <div className="bg-white text-black px-4 py-2 rounded-full mb-6 max-w-md text-center cursor-pointer">
                             <input id={`file-upload-${id}`} type="file" onChange={handlechangeImg} className="hidden" />
