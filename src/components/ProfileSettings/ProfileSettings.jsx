@@ -17,13 +17,13 @@ function ProfileSettings() {
     const [Picture, setPicture] = useState(InforPerfil?.Photo)
     const [PictureChange, setPictureChange] = useState(null)
     const [Perfil, setPerfil] = useState({
-        Name: InforPerfil?.name,
+        Name: InforPerfil?.name === null ? InforPerfil?.name : user.displayName,
         Email: InforPerfil?.email,
         Photo: Picture,
-        Location: InforPerfil?.location,
-        Nationality: InforPerfil?.nationality,
-        Birthday: InforPerfil?.birthday,
-        Bio: InforPerfil?.bio,
+        Location: InforPerfil?.location === null ? InforPerfil?.location : '',
+        Nationality: InforPerfil?.nationality === null ? InforPerfil?.nationality : '',
+        Birthday: InforPerfil?.birthday === null ? InforPerfil?.birthday :  new Date(),
+        Bio: InforPerfil?.bio === null ? InforPerfil?.bio : '',
         Logbook: image,
         Licence: imageLic,
         MedicalCertificate: imageMedical
