@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useContextAir } from '../../Context'
 const UserProfile = () => {
+    const {WhichRole} = useContextAir()
     return (
         <div className='bg-black  mt-[4rem]'>
             <div className='flex flex-col text-white'>
-                <h1 className='text-3xl font-bold text-white mb-2'>Good morning, Aircraft Owner</h1>
+                <h1 className='text-3xl font-bold text-white mb-2'>Good morning, Aircraft {WhichRole}</h1>
                 <span className='text-gray-500 mt-[0.5rem] text-sm'>view you aircraft list and manager reserves</span>
                 <div className="mt-[2rem]">
                     {/* <button className="w-[150px] h-[50px] p-[16px, 0px] rounded-full bg-white hover:bg-gray-400 text-black">
